@@ -17,55 +17,23 @@ In general, this means that the module imitates the behavior of the EAS schedule
 - Pinning of threads that handle scrolling on small cores, maximizing energy savings when scrolling and avoiding using big cores for tasks that small cores can handle efficiently.
 - Follow a scheduling strategy that fully respects the scheduler. Following a flow like this: Input boost (starts the CPU at a frequency that serves as a "feed" for subsequent tasks) > scheduler (reorders tasks among cores) > governor/schedutil (decides whether to increase or maintain the frequency). Based on this ramping flow, the system responds to almost most tasks with transition latency close to 0.
 
-## Profiles
+## Compatible SOCs and profiles
 
+- powersave+: based on powersave, but with additional power saving settings to save as much battery power as possible
 - powersave: based on balance mode, but with lower max frequency
 - balance: smoother than the stock config with lower power consumption
 - performance: dynamic stune boost = 30 with no frequency limitation
 - fast: providing stable performance capacity considering the TDP limitation of device chassis
 
 ```plain
-sdm865
-- powersave:    1.8+1.6+2.4g, boost 1.8+2.0+2.6g, min 0.3+0.7+1.1
-- balance:      1.8+2.0+2.6g, boost 1.8+2.4+2.7g, min 0.7+0.7+1.1
-- performance:  1.8+2.4+2.8g, boost 1.8+2.4+2.8g, min 0.7+0.7+1.1
-- fast:         1.8+2.0+2.7g, boost 1.8+2.4+2.8g, min 0.7+1.2+1.2
-
-sdm855/sdm855+
-- powersave:    1.7+1.6+2.4g, boost 1.7+2.0+2.6g, min 0.3+0.7+0.8
-- balance:      1.7+2.0+2.6g, boost 1.7+2.4+2.7g, min 0.5+0.7+0.8
-- performance:  1.7+2.4+2.8g, boost 1.7+2.4+2.8/2.9g, min 0.5+0.7+0.8
-- fast:         1.7+2.0+2.7g, boost 1.7+2.4+2.8/2.9g, min 0.5+1.2+1.2
-
-sdm845
-- powersave:    1.7+2.0g, boost 1.7+2.4g, min 0.3+0.3
-- balance:      1.7+2.4g, boost 1.7+2.7g, min 0.5+0.8
-- performance:  1.7+2.8g, boost 1.7+2.8g, min 0.5+0.8
-- fast:         1.7+2.4g, boost 1.7+2.8g, min 0.5+1.6
-
-sdm765/sdm765g
-- powersave:    1.8+1.7+2.0g, boost 1.8+2.0+2.2g, min 0.3+0.6+0.8
-- balance:      1.8+2.0+2.2g, boost 1.8+2.2+2.3/2.4g, min 0.5+0.6+0.6
-- performance:  1.8+2.2+2.3g, boost 1.8+2.2+2.3/2.4g, min 0.5+0.6+0.8
-- fast:         1.8+2.0+2.2g, boost 1.8+2.2+2.3/2.4g, min 0.5+1.1+1.4
-
-sdm730/sdm730g
-- powersave:    1.7+1.5g, boost 1.7+1.9g, min 0.3+0.3
-- balance:      1.7+1.9g, boost 1.7+2.1g, min 0.5+0.6
-- performance:  1.8+2.2g, boost 1.8+2.2g, min 0.5+0.6
-- fast:         1.8+1.9g, boost 1.8+2.2g, min 0.5+1.2
-
-sdm675
-- powersave:    1.7+1.5g, boost 1.7+1.7g, min 0.3+0.3
-- balance:      1.7+1.7g, boost 1.7+1.9g, min 0.5+0.6
-- performance:  1.8+2.0g, boost 1.8+2.0g, min 0.5+0.6
-- fast:         1.8+1.7g, boost 1.8+2.0g, min 0.5+1.2
-
-sdm710/sdm712
-- powersave:    1.7+1.8g, boost 1.7+2.0g, min 0.3+0.3
-- balance:      1.7+2.0g, boost 1.7+2.2/2.3g, min 0.5+0.6
-- performance:  1.7+2.2g, boost 1.7+2.2/2.3g, min 0.5+0.6
-- fast:         1.7+2.0g, boost 1.7+2.2/2.3g, min 0.5+1.5
+sdm865 (schedutil)
+sdm855/sdm855+ (schedutil)
+sdm845 (schedutil)
+sdm765/sdm765g (schedutil)
+sdm730/sdm730g (schedutil)
+sdm680 (schedutil)
+sdm675 (schedutil)
+sdm710/sdm712 (schedutil)
 ```
 
 ## Requirements
