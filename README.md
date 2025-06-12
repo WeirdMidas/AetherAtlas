@@ -1,10 +1,6 @@
 # Perfd opt
 
-The old Project WIPE automatically adjusted interactive parameters based on system load. However, with the arrival of CFS and EAS scheduler, interactive was abandoned by the devs to give full access to schedutil. And as a way to try to optimize these devices even more, Matt Yang created Perfd opt, which focused on saving energy and maintaining fluidity at the same time.
-
-However, perfd ​​opt was full of flaws and inconsistencies with the task management of current devices, such as aggressive ramping and the need for immediate performance that was terrible in profiles like powersave, for example.
-
-However, with current needs arising, with more devices needing more energy efficiency instead of power, like old devices. Perfd opt returned, with a fork made by Weird Midas.
+The old Project WIPE automatically adjusted interactive parameters based on system load. However, with the arrival of CFS and EAS scheduler, interactive was abandoned by the devs to give full access to schedutil. And as a way to try to optimize these devices even more, Matt Yang created Perfd opt, which focused on saving energy and maintaining fluidity at the same time. However, perfd ​​opt was full of flaws and inconsistencies with the task management of current devices, such as aggressive ramping and the need for immediate performance that was terrible in profiles like powersave, for example. However, with current needs arising, with more devices needing more energy efficiency instead of power, like old devices. Perfd opt returned, with a fork made by Weird Midas.
 
 The proposal of this fork is to expand the central idea of ​​Matt Yang's perfd ​​opt, but with very subtle changes. Instead of focusing on responding to demand aggressively and being conservative in idle, Perfd opt is now more efficient in both situations. It now focuses on adjusting the CFS, EAS and even WALT schedulers to be more energy efficient, which instead of being aggressive in terms of performance needs: It focuses on finishing the task quickly and then resting. With this, the module does not favor the underutilization of small cores, etc. In fact, it favors the behavior of a scheduler that takes aspects of EAS and implements them in the CFS and WALT architectures. This means that the scheduler itself is optimized for on-demand, favoring the correct allocation of cores. The module uses everything the device has to finish tasks quickly and with the lowest possible expenditure so that it can rest and spend less.
 
@@ -39,7 +35,7 @@ sdm710/sdm712 (schedutil)
 ## Requirements
 
 1. Android 8-15
-2. Rooted with Magisk or KSU
+2. Rooted with the latest version of Magisk or KSU
 
 ## Installation
 
