@@ -6,6 +6,11 @@ The previous [Project WIPE](https://github.com/yc9559/cpufreq-interactive-opt), 
 
 Details see [the lead project](https://github.com/yc9559/sdm855-tune/commits/master) & [perfd-opt commits](https://github.com/yc9559/perfd-opt/commits/master)    
 
+## Features
+- Optimize the scheduler behavior to be more efficient with each SOC architecture. Reserve one or two cores for foreground and top-app (depending on whether the device is a 4x4 or 6x2, etc.), distribute tasks correctly between cores and allow more efficient utilization between CPUs. Favoring more efficient multithreading for energy savings.
+- Schedutil optimized with a focus on resolving tasks quickly before resting, which generally favors energy savings by allowing the strategy of responding aggressively to user demand and using a conservative configuration if the user stops.
+- Pinning of threads that handle scrolling on small cores, maximizing energy savings when scrolling and avoiding using big cores for tasks that small cores can handle efficiently.
+
 ## Profiles
 
 - powersave: based on balance mode, but with lower max frequency
