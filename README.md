@@ -39,7 +39,7 @@ sdm710/sdm712 (schedutil)
 ## Requirements
 
 1. Android 8-15
-2. Rooted with the latest version of Magisk or KSU
+2. Rooted with Magisk or KSU
 
 ## Installation
 
