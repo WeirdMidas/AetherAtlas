@@ -1,7 +1,4 @@
 # Perfd opt
-![1000005827](https://github.com/user-attachments/assets/f7e66822-7c2e-4923-a11a-211dd50d7467)
-
-## On-demand optimization for Scheduler
 
 The old Project WIPE automatically adjusted interactive parameters based on system load. However, with the arrival of CFS and EAS scheduler, interactive was abandoned by the devs to give full access to schedutil. And as a way to try to optimize these devices even more, Matt Yang created Perfd opt, which focused on saving energy and maintaining fluidity at the same time.
 
