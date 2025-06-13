@@ -1,4 +1,7 @@
 # Perfd opt
+![1000006461](https://github.com/user-attachments/assets/bd9a1384-dde5-4654-a80d-6687fc9e714a)
+
+# Modern Scheduler Optimization with a Focus on Energy Efficiency
 
 The old Project WIPE automatically adjusted interactive parameters based on system load. However, with the arrival of CFS and EAS scheduler, interactive was abandoned by the devs to give full access to schedutil. And as a way to try to optimize these devices even more, Matt Yang created Perfd opt, which focused on saving energy and maintaining fluidity at the same time. However, perfd ​​opt was full of flaws and inconsistencies with the task management of current devices, such as aggressive ramping and the need for immediate performance that was terrible in profiles like powersave, for example. However, with current needs arising, with more devices needing more energy efficiency instead of power, like old devices. Perfd opt returned, with a fork made by Weird Midas.
 
@@ -12,6 +15,9 @@ In general, this means that the module imitates the behavior of the EAS schedule
 - Optimize the scheduler behavior to be more efficient with each SOC architecture. Reserve one or two cores for foreground and top-app (depending on whether the device is a 4x4 or 6x2, etc.), distribute tasks correctly between cores and allow more efficient utilization between CPUs. Favoring more efficient multithreading for energy savings.
 - Pinning of threads that handle scrolling on small cores, maximizing energy savings when scrolling and avoiding using big cores for tasks that small cores can handle efficiently.
 - Follow a scheduling strategy that fully respects the scheduler. Following a flow like this: Input boost (starts the CPU at a frequency that serves as a "feed" for subsequent tasks) > scheduler (reorders tasks among cores) > governor/schedutil (decides whether to increase or maintain the frequency). Based on this ramping flow, the system responds to almost most tasks with transition latency close to 0.
+- Prioritize really light or constant tasks on small cores. But don't underuse big cores! Also those for tasks that only they can execute, such as games and others. Both with the goal of improving the multi-core performance of each cluster in their respective specialty.
+- Have an intermediate frequency that schedutil/interactive can use if a high load arrives. If this high load can be satisfied with this frequency, this slightly reduces cold start latency and energy consumption.
+- Even though the module is not purely for performance, with notable FPS drops in games. The module was optimized for maximum stability, this means that even with frame drops, the module favors the maximum possible stability, being a worthy trade-off for the user, exchanging raw performance (FPS in games) for FPS stability, UI responsiveness and battery savings.
 
 ## Compatible SOCs and profiles
 
