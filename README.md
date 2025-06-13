@@ -30,7 +30,7 @@ In general, this means that the module imitates the behavior of the EAS schedule
 
 ```plain
 How it works:
-Compatible SOC (Governor who will use it)
+Compatible SOC (Governor that it will use)
 
 List of compatible SOCs:
 sdm865 (schedutil)
