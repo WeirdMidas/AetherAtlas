@@ -11,13 +11,14 @@ In general, this means that the module imitates the behavior of the EAS schedule
 
 ## Features
 - Pure CPU optimization and scheduler module, does not contain any placebo and is exclusive to Snapdragon platforms, see if your processor is on the list of compatible SOCs.
-- For recent SOCs (from sdm665 onwards) the governor used will be schedutil. For older SOCs (from sdm660 onwards) interactive will be used. Both are optimized for fast and stable response while consuming the least possible power.
-- Optimize the scheduler behavior to be more efficient with each SOC architecture. Reserve one or two cores for foreground and top-app (depending on whether the device is a 4x4 or 6x2, etc.), distribute tasks correctly between cores and allow more efficient utilization between CPUs. Favoring more efficient multithreading for energy savings.
+- For recent SOCs (like sdm665 and similar) schedutil is used. For older SOCs (like sdm660 and similar) interactive is used. Both are optimized to improve performance with energy costs reduced as much as possible.
+- Optimize the scheduler behavior to be more efficient with each SOC architecture. Reserve one or two cores for foreground and top-app (depending on whether the device is a 4x4 or 6x2, etc.), distribute tasks correctly between cores and allow more efficient utilization between CPUs. Favoring more efficient multithreading for energy savings. But we don't forget to allow the launcher to run on all cores, for the purpose of keeping the UX performance up to date.
 - Pinning of threads that handle scrolling on small cores, maximizing energy savings when scrolling and avoiding using big cores for tasks that small cores can handle efficiently.
 - Follow a scheduling strategy that fully respects the scheduler. Following a flow like this: Input boost (starts the CPU at a frequency that serves as a "feed" for subsequent tasks) > scheduler (reorders tasks among cores) > governor/schedutil (decides whether to increase or maintain the frequency). Based on this ramping flow, the system responds to almost most tasks with transition latency close to 0.
 - Prioritize really light or constant tasks on small cores. But don't underuse big cores! Also those for tasks that only they can execute, such as games and others. Both with the goal of improving the multi-core performance of each cluster in their respective specialty.
 - Have an intermediate frequency that schedutil/interactive can use if a high load arrives. If this high load can be satisfied with this frequency, this slightly reduces cold start latency and energy consumption.
 - Optimizations are also applied to the minimum and maximum frequencies of the device. With the focus of reducing energy consumption proportionally based on the chosen profile.
+- Implement the boost idea, which is a frequency that the processor can go above normal to improve the performance of critical tasks, such as opening apps, while maintaining normal power consumption outside of these tasks.
 - Even though the module is not purely for performance, with less total FPS. The module was optimized for maximum stability, this means that even with less FPS in games, the module favors the maximum possible stability, being a worthy trade-off for the user, exchanging raw performance (FPS in games) for FPS stability, UI responsiveness and battery savings.
 
 ## Compatible SOCs and profiles
@@ -30,17 +31,57 @@ In general, this means that the module imitates the behavior of the EAS schedule
 
 ```plain
 How it works:
-Compatible SOC (Governor that it will use)
+Compatible SOC (Governor that it will use + if it has the boost mechanics available)
 
 List of compatible SOCs:
-sdm865 (schedutil)
-sdm855/sdm855+ (schedutil)
-sdm845 (schedutil)
-sdm765/sdm765g (schedutil)
-sdm730/sdm730g (schedutil)
+
+sdm865 (schedutil + boost available)
+- powersave:    1.8+1.6+2.4g, boost 1.8+2.0+2.6g, min 0.3+0.7+1.1
+- balance:      1.8+2.0+2.6g, boost 1.8+2.4+2.7g, min 0.7+0.7+1.1
+- performance:  1.8+2.4+2.8g, boost 1.8+2.4+2.8g, min 0.7+0.7+1.1
+- fast:         1.8+2.0+2.7g, boost 1.8+2.4+2.8g, min 0.7+1.2+1.2
+
+sdm855/sdm855+ (schedutil + boost available)
+- powersave:    1.7+1.6+2.4g, boost 1.7+2.0+2.6g, min 0.3+0.7+0.8
+- balance:      1.7+2.0+2.6g, boost 1.7+2.4+2.7g, min 0.5+0.7+0.8
+- performance:  1.7+2.4+2.8g, boost 1.7+2.4+2.8/2.9g, min 0.5+0.7+0.8
+- fast:         1.7+2.0+2.7g, boost 1.7+2.4+2.8/2.9g, min 0.5+1.2+1.2
+
+sdm845 (schedutil + boost available)
+- powersave:    1.7+2.0g, boost 1.7+2.4g, min 0.3+0.3
+- balance:      1.7+2.4g, boost 1.7+2.7g, min 0.5+0.8
+- performance:  1.7+2.8g, boost 1.7+2.8g, min 0.5+0.8
+- fast:         1.7+2.4g, boost 1.7+2.8g, min 0.5+1.6
+
+sdm765/sdm765g (schedutil + boost available)
+- powersave:    1.8+1.7+2.0g, boost 1.8+2.0+2.2g, min 0.3+0.6+0.8
+- balance:      1.8+2.0+2.2g, boost 1.8+2.2+2.3/2.4g, min 0.5+0.6+0.6
+- performance:  1.8+2.2+2.3g, boost 1.8+2.2+2.3/2.4g, min 0.5+0.6+0.8
+- fast:         1.8+2.0+2.2g, boost 1.8+2.2+2.3/2.4g, min 0.5+1.1+1.4
+
+sdm730/sdm730g (schedutil + boost available)
+- powersave:    1.7+1.5g, boost 1.7+1.9g, min 0.3+0.3
+- balance:      1.7+1.9g, boost 1.7+2.1g, min 0.5+0.6
+- performance:  1.8+2.2g, boost 1.8+2.2g, min 0.5+0.6
+- fast:         1.8+1.9g, boost 1.8+2.2g, min 0.5+1.2
+
 sdm680 (schedutil)
-sdm675 (schedutil)
-sdm710/sdm712 (schedutil)
+- powersave:    2.2+1.8g, min 0.3+0.3
+- balance:      2.2+1.8g, min 0.6+0.8
+- performance:  2.4+1.9g, min 0.6+0.8
+- fast:         2.2+1.8g, min 0.6+1.3
+
+sdm675 (schedutil + boost available)
+- powersave:    1.7+1.5g, boost 1.7+1.7g, min 0.3+0.3
+- balance:      1.7+1.7g, boost 1.7+1.9g, min 0.5+0.6
+- performance:  1.8+2.0g, boost 1.8+2.0g, min 0.5+0.6
+- fast:         1.8+1.7g, boost 1.8+2.0g, min 0.5+1.2
+
+sdm710/sdm712 (schedutil + boost available)
+- powersave:    1.7+1.8g, boost 1.7+2.0g, min 0.3+0.3
+- balance:      1.7+2.0g, boost 1.7+2.2/2.3g, min 0.5+0.6
+- performance:  1.7+2.2g, boost 1.7+2.2/2.3g, min 0.5+0.6
+- fast:         1.7+2.0g, boost 1.7+2.2/2.3g, min 0.5+1.5
 ```
 
 ## Requirements
