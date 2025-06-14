@@ -17,12 +17,14 @@ In general, this means that the module imitates the behavior of the EAS schedule
 - Follow a scheduling strategy that fully respects the scheduler. Following a flow like this: Input boost (starts the CPU at a frequency that serves as a "feed" for subsequent tasks) > scheduler (reorders tasks among cores) > governor/schedutil (decides whether to increase or maintain the frequency). Based on this ramping flow, the system responds to almost most tasks with transition latency close to 0.
 - Prioritize really light or constant tasks on small cores. But don't underuse big cores! Also those for tasks that only they can execute, such as games and others. Both with the goal of improving the multi-core performance of each cluster in their respective specialty.
 - Have an intermediate frequency that schedutil/interactive can use if a high load arrives. If this high load can be satisfied with this frequency, this slightly reduces cold start latency and energy consumption.
+- Separate optimization between Uclamp and Schedtune. Favor more efficient and organic scheduling by using both for each kernel they are compatible with.
 - Optimizations are also applied to the minimum and maximum frequencies of the device. With the focus of reducing energy consumption proportionally based on the chosen profile.
 - Implement the boost idea, which is a frequency that the processor can go above normal to improve the performance of critical tasks, such as opening apps, while maintaining normal power consumption outside of these tasks.
 - Even though the module is not purely for performance, with less total FPS. The module was optimized for maximum stability, this means that even with less FPS in games, the module favors the maximum possible stability, being a worthy trade-off for the user, exchanging raw performance (FPS in games) for FPS stability, UI responsiveness and battery savings.
 
 ## Compatible SOCs and profiles
 
+- powersave+: based on powersave, but with additional power saving settings to save as much battery power as possible
 - powersave: based on balance mode, but with lower max frequency
 - balance: smoother than the stock config with lower power consumption
 - performance: without frequency limitation and with frequency sustainability optimizations
