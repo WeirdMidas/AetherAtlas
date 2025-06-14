@@ -23,7 +23,6 @@ In general, this means that the module imitates the behavior of the EAS schedule
 
 ## Compatible SOCs and profiles
 
-- powersave+: based on powersave, but with additional power saving settings to save as much battery power as possible
 - powersave: based on balance mode, but with lower max frequency
 - balance: smoother than the stock config with lower power consumption
 - performance: without frequency limitation and with frequency sustainability optimizations
