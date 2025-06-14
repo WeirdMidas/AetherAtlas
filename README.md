@@ -38,7 +38,7 @@ Intel Freq = Intermediate frequency below the two maximum frequency steps, favor
 LB = Launch Boost, used to start apps by giving them an initial boost when opening
 DP = Disable packing, spreads threads when starting apps, further reducing startup time
 LBS = Maintains the performance gained by previous launches to maintain fixed frequencies
-LBR = Resumes an app that is in RAM (such as in the recents tab), reducing possible errors such as the app flashing after returning from the recents tab.
+LBR = Resumes an app that is in RAM (such as in the recents tab), reducing possible errors such as the app flashing after returning from the recents tab
 
 List of compatible SOCs:
 
