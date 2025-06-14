@@ -11,7 +11,7 @@ In general, this means that the module imitates the behavior of the EAS schedule
 
 ## Features
 - Pure CPU optimization and scheduler module, does not contain any placebo and is exclusive to Snapdragon platforms, see if your processor is on the list of compatible SOCs.
-- For recent SOCs (like sdm665 and similar) schedutil is used. For older SOCs (like sdm660 and similar) interactive is used. Both are optimized to improve performance with energy costs reduced as much as possible.
+- For recent SOCs (like sdm665) schedutil is used. For older SOCs (like sdm660) interactive is used. Both are optimized to improve performance with energy costs reduced as much as possible.
 - Optimize the scheduler behavior to be more efficient with each SOC architecture. Reserve one or two cores for foreground and top-app (depending on whether the device is a 4x4 or 6x2, etc.), distribute tasks correctly between cores and allow more efficient utilization between CPUs. Favoring more efficient multithreading for energy savings. But we don't forget to allow the launcher to run on all cores, for the purpose of keeping the UX performance up to date.
 - Pinning of threads that handle scrolling on small cores, maximizing energy savings when scrolling and avoiding using big cores for tasks that small cores can handle efficiently.
 - Follow a scheduling strategy that fully respects the scheduler. Following a flow like this: Input boost (starts the CPU at a frequency that serves as a "feed" for subsequent tasks) > scheduler (reorders tasks among cores) > governor/schedutil (decides whether to increase or maintain the frequency). Based on this ramping flow, the system responds to almost most tasks with transition latency close to 0.
