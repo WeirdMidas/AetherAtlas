@@ -10,6 +10,7 @@ The proposal of this fork is to expand the central idea of ​​Matt Yang's per
 In general, this means that the module imitates the behavior of the EAS scheduler, favoring a scheduler that can be implemented in all devices, be it CFS, HMP and WALT.
 
 ## Features
+
 - Pure CPU optimization and scheduler module, does not contain any placebo and is exclusive to Snapdragon platforms, see if your processor is on the list of compatible SOCs.
 - For recent SOCs (like sdm665) schedutil is used. For older SOCs (like sdm660) interactive is used. Both are optimized to improve performance with energy costs reduced as much as possible.
 - Optimize the scheduler behavior to be more efficient with each SOC architecture. Reserve one or two cores for foreground and top-app (depending on whether the device is a 4x4 or 6x2, etc.), distribute tasks correctly between cores and allow more efficient utilization between CPUs. Favoring more efficient multithreading for energy savings. But we don't forget to allow the launcher to run on all cores, for the purpose of keeping the UX performance up to date.
@@ -24,7 +25,6 @@ In general, this means that the module imitates the behavior of the EAS schedule
 
 ## Compatible SOCs and profiles
 
-- powersave+: based on powersave, but with additional power saving settings to save as much battery power as possible
 - powersave: based on balance mode, but with lower max frequency
 - balance: smoother than the stock config with lower power consumption
 - performance: without frequency limitation and with frequency sustainability optimizations
@@ -34,6 +34,9 @@ In general, this means that the module imitates the behavior of the EAS schedule
 How it works:
 Compatible SOC (Governor that it will use + if it has the boost mechanics available)
 
+Run Freq = Frequency at which the CPU will immediately jump to the input, being a quick run to allow the processor to follow the flow of input > scheduler > governor
+Intel Freq = Intermediate frequency below the two maximum frequency steps, favors energy consumption by allowing the system to satisfy the performance needs in high load situations with a slightly lower frequency
+
 List of compatible SOCs:
 
 sdm865 (schedutil + boost available)
@@ -41,48 +44,64 @@ sdm865 (schedutil + boost available)
 - balance:      1.8+2.0+2.6g, boost 1.8+2.4+2.7g, min 0.7+0.7+1.1
 - performance:  1.8+2.4+2.8g, boost 1.8+2.4+2.8g, min 0.7+0.7+1.1
 - fast:         1.8+2.0+2.7g, boost 1.8+2.4+2.8g, min 0.7+1.2+1.2
+- run freq: 0.0+0.0g
+- intel freq: 0.0+0.0g
 
 sdm855/sdm855+ (schedutil + boost available)
 - powersave:    1.7+1.6+2.4g, boost 1.7+2.0+2.6g, min 0.3+0.7+0.8
 - balance:      1.7+2.0+2.6g, boost 1.7+2.4+2.7g, min 0.5+0.7+0.8
 - performance:  1.7+2.4+2.8g, boost 1.7+2.4+2.8/2.9g, min 0.5+0.7+0.8
 - fast:         1.7+2.0+2.7g, boost 1.7+2.4+2.8/2.9g, min 0.5+1.2+1.2
+- run freq: 0.0+0.0g
+- intel freq: 0.0+0.0g
 
 sdm845 (schedutil + boost available)
 - powersave:    1.7+2.0g, boost 1.7+2.4g, min 0.3+0.3
 - balance:      1.7+2.4g, boost 1.7+2.7g, min 0.5+0.8
 - performance:  1.7+2.8g, boost 1.7+2.8g, min 0.5+0.8
 - fast:         1.7+2.4g, boost 1.7+2.8g, min 0.5+1.6
+- run freq: 0.0+0.0g
+- intel freq: 0.0+0.0g
 
 sdm765/sdm765g (schedutil + boost available)
 - powersave:    1.8+1.7+2.0g, boost 1.8+2.0+2.2g, min 0.3+0.6+0.8
 - balance:      1.8+2.0+2.2g, boost 1.8+2.2+2.3/2.4g, min 0.5+0.6+0.6
 - performance:  1.8+2.2+2.3g, boost 1.8+2.2+2.3/2.4g, min 0.5+0.6+0.8
 - fast:         1.8+2.0+2.2g, boost 1.8+2.2+2.3/2.4g, min 0.5+1.1+1.4
+- run freq: 0.0+0.0g
+- intel freq: 0.0+0.0g
 
 sdm730/sdm730g (schedutil + boost available)
 - powersave:    1.7+1.5g, boost 1.7+1.9g, min 0.3+0.3
 - balance:      1.7+1.9g, boost 1.7+2.1g, min 0.5+0.6
 - performance:  1.8+2.2g, boost 1.8+2.2g, min 0.5+0.6
 - fast:         1.8+1.9g, boost 1.8+2.2g, min 0.5+1.2
+- run freq: 0.0+0.0g
+- intel freq: 0.0+0.0g
 
-sdm680 (schedutil)
-- powersave:    2.2+1.8g, min 0.3+0.3
-- balance:      2.2+1.8g, min 0.6+0.8
-- performance:  2.4+1.9g, min 0.6+0.8
-- fast:         2.2+1.8g, min 0.6+1.3
+sdm680 (schedutil + boost available)
+- powersave:    2.2+1.8g, boost 2.4+1.9g, min 0.3+0.3
+- balance:      2.2+1.8g, boost 2.4+1.9g, min 0.6+0.8
+- performance:  2.4+1.9g, boost 2.4+1.9g, min 0.6+0.8
+- fast:         2.2+1.8g, boost 2.4+1.9g, min 0.6+1.3
+- run freq: 1.4+1.6g
+- intel freq: 1.6g+2.0g
 
 sdm675 (schedutil + boost available)
 - powersave:    1.7+1.5g, boost 1.7+1.7g, min 0.3+0.3
 - balance:      1.7+1.7g, boost 1.7+1.9g, min 0.5+0.6
 - performance:  1.8+2.0g, boost 1.8+2.0g, min 0.5+0.6
 - fast:         1.8+1.7g, boost 1.8+2.0g, min 0.5+1.2
+- run freq: 0.0+0.0g
+- intel freq: 0.0+0.0g
 
 sdm710/sdm712 (schedutil + boost available)
 - powersave:    1.7+1.8g, boost 1.7+2.0g, min 0.3+0.3
 - balance:      1.7+2.0g, boost 1.7+2.2/2.3g, min 0.5+0.6
 - performance:  1.7+2.2g, boost 1.7+2.2/2.3g, min 0.5+0.6
 - fast:         1.7+2.0g, boost 1.7+2.2/2.3g, min 0.5+1.5
+- run freq: 0.0+0.0g
+- intel freq: 0.0+0.0g
 ```
 
 ## Requirements
