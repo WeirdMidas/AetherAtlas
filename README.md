@@ -16,11 +16,10 @@ In general, this means that the module imitates the behavior of the EAS schedule
 - Optimize the scheduler behavior to be more efficient with each SOC architecture. Reserve one or two cores for foreground and top-app (depending on whether the device is a 4x4 or 6x2, etc.), distribute tasks correctly between cores and allow more efficient utilization between CPUs. Favoring more efficient multithreading for energy savings. But we don't forget to allow the launcher to run on all cores, for the purpose of keeping the UX performance up to date.
 - Pinning of threads that handle scrolling on small cores, maximizing energy savings when scrolling and avoiding using big cores for tasks that small cores can handle efficiently.
 - Follow a scheduling strategy that fully respects the scheduler. Following a flow like this: Input boost (starts the CPU at a frequency that serves as a "feed" for subsequent tasks) > scheduler (reorders tasks among cores) > governor/schedutil (decides whether to increase or maintain the frequency). Based on this ramping flow, the system responds to almost most tasks with transition latency close to 0.
-- Prioritize really light or constant tasks on small cores. But don't underuse big cores! Also those for tasks that only they can execute, such as games and others. Both with the goal of improving the multi-core performance of each cluster in their respective specialty.
 - Have an intermediate frequency that schedutil/interactive can use if a high load arrives. If this high load can be satisfied with this frequency, this slightly reduces cold start latency and energy consumption.
 - Separate optimization between Uclamp and Schedtune. Favor more efficient and organic scheduling by using both for each kernel they are compatible with.
-- Optimizations are also applied to the minimum and maximum frequencies of the device. With the focus of reducing energy consumption proportionally based on the chosen profile.
 - Implement the boost idea, which is a frequency that the processor can go above normal to improve the performance of critical tasks, such as opening apps, while maintaining normal power consumption outside of these tasks.
+- For tested devices, follow this launch boost style: do a quick boost using the boost mechanism > spread threads across cores > maintain performance for a while, long enough for app launches to finish completely. This boost style is fully optimized to minimize the impact on power consumption while exponentially improving and significantly reducing stuttering when launching apps even on more aggressive power saving profiles.
 - Even though the module is not purely for performance, with less total FPS. The module was optimized for maximum stability, this means that even with less FPS in games, the module favors the maximum possible stability, being a worthy trade-off for the user, exchanging raw performance (FPS in games) for FPS stability, UI responsiveness and battery savings.
 
 ## Compatible SOCs and profiles
@@ -36,6 +35,10 @@ Compatible SOC (Governor that it will use + if it has the boost mechanics availa
 
 Run Freq = Frequency at which the CPU will immediately jump to the input, being a quick run to allow the processor to follow the flow of input > scheduler > governor
 Intel Freq = Intermediate frequency below the two maximum frequency steps, favors energy consumption by allowing the system to satisfy the performance needs in high load situations with a slightly lower frequency
+LB = Launch Boost, used to start apps by giving them an initial boost when opening
+DP = Disable packing, spreads threads when starting apps, further reducing startup time
+LBS = Maintains the performance gained by previous launches to maintain fixed frequencies
+LBR = Resumes an app that is in RAM (such as in the recents tab), reducing possible errors such as the app flashing after returning from the recents tab.
 
 List of compatible SOCs:
 
@@ -46,6 +49,7 @@ sdm865 (schedutil + boost available)
 - fast:         1.8+2.0+2.7g, boost 1.8+2.4+2.8g, min 0.7+1.2+1.2
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
+- Equipped with LB, LBS and LBR
 
 sdm855/sdm855+ (schedutil + boost available)
 - powersave:    1.7+1.6+2.4g, boost 1.7+2.0+2.6g, min 0.3+0.7+0.8
@@ -54,6 +58,7 @@ sdm855/sdm855+ (schedutil + boost available)
 - fast:         1.7+2.0+2.7g, boost 1.7+2.4+2.8/2.9g, min 0.5+1.2+1.2
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
+- Equipped with LB, LBS and LBR
 
 sdm845 (schedutil + boost available)
 - powersave:    1.7+2.0g, boost 1.7+2.4g, min 0.3+0.3
@@ -62,6 +67,7 @@ sdm845 (schedutil + boost available)
 - fast:         1.7+2.4g, boost 1.7+2.8g, min 0.5+1.6
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
+- Equipped with LB, LBS and LBR
 
 sdm765/sdm765g (schedutil + boost available)
 - powersave:    1.8+1.7+2.0g, boost 1.8+2.0+2.2g, min 0.3+0.6+0.8
@@ -70,6 +76,7 @@ sdm765/sdm765g (schedutil + boost available)
 - fast:         1.8+2.0+2.2g, boost 1.8+2.2+2.3/2.4g, min 0.5+1.1+1.4
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
+- Equipped with LB, LBS and LBR
 
 sdm730/sdm730g (schedutil + boost available)
 - powersave:    1.7+1.5g, boost 1.7+1.9g, min 0.3+0.3
@@ -78,6 +85,7 @@ sdm730/sdm730g (schedutil + boost available)
 - fast:         1.8+1.9g, boost 1.8+2.2g, min 0.5+1.2
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
+- Equipped with LB, LBS and LBR
 
 sdm680 (schedutil + boost available)
 - powersave:    2.2+1.8g, boost 2.4+1.9g, min 0.3+0.3
@@ -86,6 +94,7 @@ sdm680 (schedutil + boost available)
 - fast:         2.2+1.8g, boost 2.4+1.9g, min 0.6+1.3
 - run freq: 1.4+1.6g
 - intel freq: 1.6g+2.0g
+- Equipped with LB, DP, LBS and LBR
 
 sdm675 (schedutil + boost available)
 - powersave:    1.7+1.5g, boost 1.7+1.7g, min 0.3+0.3
@@ -94,6 +103,7 @@ sdm675 (schedutil + boost available)
 - fast:         1.8+1.7g, boost 1.8+2.0g, min 0.5+1.2
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
+- Equipped with LB, LBS and LBR
 
 sdm710/sdm712 (schedutil + boost available)
 - powersave:    1.7+1.8g, boost 1.7+2.0g, min 0.3+0.3
@@ -102,6 +112,7 @@ sdm710/sdm712 (schedutil + boost available)
 - fast:         1.7+2.0g, boost 1.7+2.2/2.3g, min 0.5+1.5
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
+- Equipped with LB, LBS and LBR
 ```
 
 ## Requirements
