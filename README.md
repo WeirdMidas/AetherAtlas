@@ -32,7 +32,7 @@ In general, this means that the module imitates the behavior of the EAS schedule
 ```plain
 How it works:
 Compatible SOC (Governor that it will use + if it has the boost mechanics available)
-
+Profiles = Profiles such as powersave, balance, performance and fast will have their respective minimum and maximum frequencies, in addition to, of course, the frequency of the "boost" value if supported
 Run Freq = Frequency at which the CPU will immediately jump to the input, being a quick run to allow the processor to follow the flow of input > scheduler > governor
 Intel Freq = Intermediate frequency below the two maximum frequency steps, favors energy consumption by allowing the system to satisfy the performance needs in high load situations with a slightly lower frequency
 LB = Launch Boost, used to start apps by giving them an initial boost when opening
