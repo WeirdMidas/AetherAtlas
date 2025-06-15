@@ -13,10 +13,14 @@ In general, this means that the module imitates the behavior of the EAS schedule
 
 - Pure CPU optimization and scheduler module, does not contain any placebo and is exclusive to Snapdragon platforms, see if your processor is on the list of compatible SOCs.
 - Choose the governor that best suits the architecture and era of the device. Schedutil for the newer ones and Interactive for the older ones, and of course, optimize them for less throttling and energy consumption with the same or better performance, allowing you to significantly increase battery life.
+- Implemented the Project WIPE! For devices with interactive. A font created by Matt Yang that proves to be extremely competent in terms of optimizing Interactive from start to finish.
 - Prioritize a scheduling method that respects the way Android works. Having the style of: input (feed subsequent tasks) > scheduler (with the energy that the input designed it for, organizes and reorganizes tasks quickly) > governor (maintains or increases the frequency). In addition, there are some extras in this scheduling that are explained below:
   - If the user has uclamp or schedtune. A scalable style is favored for foreground and top-app tasks, allowing top-app and foreground tasks to take maximum advantage of the cores, improving multithreading performance. And still without distractions like background, for example.
   - Have an intermediate frequency, which will be used as a frequency that will try to satisfy the performance needs of the system if it is sufficient.
+  - Have an initial frequency that will be used to feed the scheduler initially via input boost. Allowing the cold start latency to be reduced abruptly and making the scheduler more agile in reorganizing tasks.
+  - Know the limits of the small cores of each SOC. Use the small cores differently for each SOC. Favoring a better balance instead of a standardization that may not exploit the device architecture.
 - Use the CPUset more intelligently and respectfully with Android's dynamic workload. Reserve one (or two if the device is a 6x2) big cores for top-app and foreground tasks, along with reserving two small cores for background and top-app tasks. Based on this, fix the launcher&home on all cores and make the foreground use the small cores when the user is scrolling and only in these situations, in addition to allowing the foreground to use the big cores if the user is doing other tasks. Allowing multithreading focused more on efficiency than raw performance, saving energy when using messenger or social media apps and maintaining foreground performance in apps that need it.
+- Equip different SOCs with different boosts. Favoring compatibility between different devices with different performance needs, if necessary more performance in certain situations (such as opening apps, frame stability, etc.).
 - Even though the module is not purely for performance, with less total FPS. The module was optimized for maximum stability, this means that even with less FPS in games, the module favors the maximum possible stability, being a worthy trade-off for the user, exchanging raw performance (FPS in games) for FPS stability, UI responsiveness and battery savings.
 
 ## Compatible SOCs and profiles
@@ -32,10 +36,13 @@ Compatible SOC (Governor that it will use + if it has the boost mechanics availa
 Profiles = Profiles such as powersave, balance, performance and fast will have their respective minimum and maximum frequencies, in addition to, of course, the frequency of the "boost" value if supported
 Run Freq = Frequency at which the CPU will immediately jump to the input, being a quick run to allow the processor to follow the flow of input > scheduler > governor
 Intel Freq = Intermediate frequency below the two maximum frequency steps, favors energy consumption by allowing the system to satisfy the performance needs in high load situations with a slightly lower frequency
-LB = Launch Boost, used to start apps by giving them an initial boost when opening
-DP = Disable packing, spreads threads when starting apps, further reducing startup time
-LBS = Maintains the performance gained by previous launches to maintain fixed frequencies
-LBR = Resumes an app that is in RAM (such as in the recents tab), reducing possible errors such as the app flashing after returning from the recents tab
+Equipped = Means which additional boosts it comes with, which are the following:
+- LB (Launch Boost): Launch Boost, used to start apps by giving them an initial boost when opening
+- DP (Disable Packing): Disable packing, spreads threads when starting apps, further reducing startup time
+- LBS (Launch Boost Sustained): Maintains the performance gained by previous launches to maintain fixed frequencies
+- LBR (Launch Boost Resume): Resumes an app that is in RAM (such as in the recents tab), reducing possible errors such as the app flashing after returning from the recents tab
+- ALB (Activity Lauch Boost): Boost in the startup of apps that are "cold". Favoring cold start.
+- FS (FPS Stability): A boost that improves frame rate stability in games that use multiple frame rates. Only used on processors capable of handling multiple refresh rates (such as 60 and 90).
 
 List of compatible SOCs:
 
@@ -91,7 +98,7 @@ sdm680 (schedutil + boost available)
 - fast:         2.2+1.8g, boost 2.4+1.9g, min 0.6+1.3
 - run freq: 1.4+1.6g
 - intel freq: 1.6g+2.0g
-- Equipped with LB, DP, LBS and LBR
+- Equipped with LB, DP, LBS, LBR and FS
 
 sdm675 (schedutil + boost available)
 - powersave:    1.7+1.5g, boost 1.7+1.7g, min 0.3+0.3
@@ -115,7 +122,7 @@ sdm710/sdm712 (schedutil + boost available)
 ## Requirements
 
 1. Android 8-15
-2. Rooted with the latest version of Magisk or KSU
+2. Rooted with Magisk or KSU
 
 ## Installation
 
@@ -160,4 +167,7 @@ provide information about dynamic stune
 
 @rfigo
 provide information about dynamic stune
+
+@yinwanxi
+libcgroup script as a tool to optimize threads separately
 ```
