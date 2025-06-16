@@ -3,6 +3,8 @@
 
 # Modern Scheduler Optimization with a Focus on Energy Efficiency
 
+Modern Scheduler and CPU Optimization. Focused on delivering better CPU ramping, Touch response, app opening, energy savings and reducing moments that occur performance loss, of course, always respecting the TDP and architecture of the device for maximum respect for the user and use of its SOC.
+
 The old WIPE project created by Matt Yang was initially known for its ability to adapt the Interactive + HMP + Input Boost parameters dynamically based on system load and device specifications. Later, he also created the perfd ​​opt project, known for pushing the boundaries between power saving and fluidity. However, the project has proven to be somewhat flawed. With its abrupt focus on aggressive responsiveness and power saving, perfd ​​opt had a lot of potential if optimized correctly.
 
 The perfd ​​opt fork created by Weird Midas revives this old module created by Matt Yang, and adapts it to work in a way that follows the flow of the Android scheduler: Dynamic. The Android device works dynamically, with fast inputs and outputs between high, light and moderate loads, the Android device always adapts accordingly because it is a mobile device, so an adaptive approach is necessary. Based on this, the current perfd ​​opt uses the parameters and optimizations made by Matt Yang, but adapts, rebuilds and adjusts them to adapt to the Android platform with more coherence. Still focused on saving energy as much as possible, Perfd opt currently focuses on delivering a vastly improved dynamic behavior of Android with reduced energy costs.
