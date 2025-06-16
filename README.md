@@ -11,7 +11,7 @@ In general, this means that the module imitates the behavior of the EAS schedule
 
 ## Features
 
-- Pure CPU optimization and scheduler module, does not contain any placebo and is exclusive to Snapdragon platforms, see if your processor is on the list of compatible SOCs.
+- Pure CPU optimization and scheduler module, does not contain any placebo and is exclusive to Snapdragon platforms, see if your processor is on the list of compatible SOCs. The objective of the module is to make the behavior of the device scheduler used closer to the dynamic workload of Android, adapting to the system's performance needs with reduced energy costs as the system's demand is satisfied.
 - Choose the governor that best suits the architecture and era of the device. Schedutil for the newer ones and Interactive for the older ones, and of course, optimize them for less throttling and energy consumption with the same or better performance, allowing you to significantly increase battery life.
 - Implemented the Project WIPE! For devices with interactive. A font created by Matt Yang that proves to be extremely competent in terms of optimizing Interactive from start to finish.
 - Prioritize a scheduling method that respects the way Android works. Having the style of: input (feed subsequent tasks) > scheduler (with the energy that the input designed it for, organizes and reorganizes tasks quickly) > governor (maintains or increases the frequency), reducing the task start power noticeably. In addition, there are some extras in this scheduling that are explained below:
@@ -90,6 +90,18 @@ sdm730/sdm730g (schedutil + boost available)
 - intel freq: 0.0+0.0g
 - Equipped with LB, LBS and LBR
 
+sdm710/sdm712 (schedutil + boost available)
+- powersave:    1.7+1.8g, boost 1.7+2.0g, min 0.3+0.3
+- balance:      1.7+2.0g, boost 1.7+2.2/2.3g, min 0.5+0.6
+- performance:  1.7+2.2g, boost 1.7+2.2/2.3g, min 0.5+0.6
+- fast:         1.7+2.0g, boost 1.7+2.2/2.3g, min 0.5+1.5
+- run freq: 0.0+0.0g
+- intel freq: 0.0+0.0g
+- Equipped with LB, LBS and LBR
+
+sdm695 (schedutil)
+- It is still being ported and compatibility is being planned.
+
 sdm680 (schedutil + boost available)
 - powersave:    2.2+1.8g, boost 2.4+1.9g, min 0.3+0.3
 - balance:      2.2+1.8g, boost 2.4+1.9g, min 0.6+0.8
@@ -108,14 +120,11 @@ sdm675 (schedutil + boost available)
 - intel freq: 0.0+0.0g
 - Equipped with LB, LBS and LBR
 
-sdm710/sdm712 (schedutil + boost available)
-- powersave:    1.7+1.8g, boost 1.7+2.0g, min 0.3+0.3
-- balance:      1.7+2.0g, boost 1.7+2.2/2.3g, min 0.5+0.6
-- performance:  1.7+2.2g, boost 1.7+2.2/2.3g, min 0.5+0.6
-- fast:         1.7+2.0g, boost 1.7+2.2/2.3g, min 0.5+1.5
-- run freq: 0.0+0.0g
-- intel freq: 0.0+0.0g
-- Equipped with LB, LBS and LBR
+sdm665 (schedutil)
+- It is still being ported and compatibility is being planned.
+
+sdm660 (interactive)
+- It is still being ported and compatibility is being planned.
 ```
 
 ## Requirements
