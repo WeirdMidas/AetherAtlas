@@ -46,7 +46,6 @@ Equipped = Means which additional boosts it comes with, which are the following:
 - LBS (Launch Boost Sustained): Maintains the performance gained by previous launches to maintain fixed frequencies
 - LBR (Launch Boost Resume): Resumes an app that is in RAM (such as in the recents tab), reducing possible errors such as the app flashing after returning from the recents tab
 - ALB (Activity Lauch Boost): Boost in the startup of apps that are "cold". Favoring cold start.
-- FS (FPS Stability): A boost that improves frame rate stability in games that use multiple frame rates. Only used on processors capable of handling multiple refresh rates (such as 60 and 90).
 
 List of compatible SOCs:
 
@@ -114,7 +113,7 @@ sdm680 (schedutil + boost available)
 - fast:         2.2+1.8g, boost 2.4+1.9g, min 0.6+1.3
 - run freq: 1.4+1.6g
 - intel freq: 1.6g+2.0g
-- Equipped with LB, DP, LBS, LBR and FS
+- Equipped with LB, DP, LBS and LBR
 
 sdm675 (schedutil + boost available)
 - powersave:    1.7+1.5g, boost 1.7+1.7g, min 0.3+0.3
