@@ -47,8 +47,8 @@ Equipped = It means what "additional" optimizations it comes equipped with besid
 - DP (Disable Packing): Disable packing, spreads threads when starting apps, further reducing startup time
 - LBS (Launch Boost Sustained): Maintains the performance gained by previous launches to maintain fixed frequencies
 - LBR (Launch Boost Resume): Resumes an app that is in RAM (such as in the recents tab), reducing possible errors such as the app flashing after returning from the recents tab
-- ALB (Activity Lauch Boost): Boost in the startup of apps that are "cold". Favoring cold start.
-- DDR: Comes equipped with bandwidth frequency control for the purpose of reducing power consumption.
+- ALB (Activity Lauch Boost): Boost in the startup of apps that are "cold". Favoring cold start
+- DDR: Comes equipped with bandwidth frequency control for the purpose of reducing power consumption
 
 List of compatible SOCs:
 
