@@ -3,7 +3,7 @@
 
 # Modern Scheduler Optimization with a Focus on Energy Efficiency
 
-Modern Scheduler and CPU Optimization. Focused on delivering better CPU ramping, Touch response, App opening, Energy savings and reducing moments that occur performance loss, of course, always respecting the TDP and architecture of the device for maximum respect for the user and use of its SOC.
+Modern Scheduler and CPU Optimization. Focused on delivering better CPU ramping, touch response, app opening, energy savings and reducing moments that occur performance loss, of course, always respecting the TDP and architecture of the device for maximum respect for the user and use of its SOC.
 
 The old WIPE project created by Matt Yang was initially known for its ability to adapt the Interactive + HMP + Input Boost parameters dynamically based on system load and device specifications. Later, he also created the perfd ​​opt project, known for pushing the boundaries between power saving and fluidity. However, the project has proven to be somewhat flawed. With its abrupt focus on aggressive responsiveness and power saving, perfd ​​opt had a lot of potential if optimized correctly.
 
