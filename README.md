@@ -20,7 +20,7 @@ The module integrates optimizations for most schedulers in its base, optimizing 
   - If the user has uclamp or schedtune. A scalable style is favored for foreground and top-app tasks, allowing top-app and foreground tasks to take maximum advantage of the cores, improving multithreading performance. And still without distractions like background, for example.
   - Have an intermediate frequency, which will be used as a frequency that will try to satisfy the performance needs of the system if it is sufficient.
   - Know the limits of the small cores of each SOC. Use the small cores differently for each SOC. Favoring a better balance instead of a standardization that may not exploit the device architecture.
-- Use the CPUset more intelligently and respectfully with Android's dynamic workload. Reserve one (or two if the device is a 6x2) big cores for top-app and foreground tasks, along with reserving two small cores for background and top-app tasks. Based on this, fix the launcher&home on all cores and make the foreground use the small cores when the user is scrolling and only in these situations, in addition to allowing the foreground to use the big cores if the user is doing other tasks. Allowing multithreading focused more on efficiency than raw performance, saving energy when using messenger or social media apps and maintaining foreground performance in apps that need it.
+- Use the CPUset more intelligently and respectfully with Android's dynamic workload. Reserve one (or two if the device is a 6x2) big cores for top-app and foreground tasks, along with reserving two small cores for background and top-app tasks. Based on this, fix the launcher&home on all cores and make the foreground use the small cores when the user is scrolling and make it use cores 0-5 when an app is opened to increase app startup speed by up to 4%, but only in these situations, in addition to allowing the foreground to use the big cores if the user is doing other tasks. Allowing multithreading focused more on efficiency than raw performance, saving energy when using messenger or social media apps and maintaining foreground performance in apps that need it.
 - Equip different SOCs with different boosts. Favoring compatibility between different devices with different performance needs, if necessary more performance in certain situations (such as opening apps, frame stability, etc.).
 - Fixed possible moments where the device lost performance. Where now the module will try to keep the device performing stably in **almost** 90% of the moments. It is not a guarantee, but it is just a quote of what I will try to do.
 - Make the touch more responsive by allowing the CPU to act faster on touches, favoring the responsiveness of the UX, after all we already know that the task will finish faster and will allow the CPU to rest after simple touches. However, it is not a complete guarantee after all very light touches can go unnoticed, but I will try to minimize as much as possible this poor responsiveness with the touch, to favor a more aggressive ramping in the input to avoid losing CPU cycles that could be reused.
@@ -42,12 +42,13 @@ Profiles = Profiles such as powersave, balance, performance and fast will have t
 - If the SOC is unable to have its frequency reduced due to limitations that could have a major impact on responsiveness, it will be marked as "No Jump". However, it will still have profile optimizations. Typically, SOCs with this marking are very old or have very low clocks
 Run Freq = Frequency at which the CPU will immediately jump to the input, being a quick run to allow the processor to follow the flow of input > scheduler > governor
 Intel Freq = Intermediate frequency below the two maximum frequency steps, favors energy consumption by allowing the system to satisfy the performance needs in high load situations with a slightly lower frequency
-Equipped = Means which additional boosts it comes with, which are the following:
+Equipped = It means what "additional" optimizations it comes equipped with besides the traditional scheduler and other ones:
 - LB (Launch Boost): Launch Boost, used to start apps by giving them an initial boost when opening
 - DP (Disable Packing): Disable packing, spreads threads when starting apps, further reducing startup time
 - LBS (Launch Boost Sustained): Maintains the performance gained by previous launches to maintain fixed frequencies
 - LBR (Launch Boost Resume): Resumes an app that is in RAM (such as in the recents tab), reducing possible errors such as the app flashing after returning from the recents tab
 - ALB (Activity Lauch Boost): Boost in the startup of apps that are "cold". Favoring cold start.
+- DDR: Comes equipped with bandwidth frequency control for the purpose of reducing power consumption.
 
 List of compatible SOCs:
 
@@ -58,7 +59,7 @@ sdm865 (schedutil + boost available)
 - fast:         1.8+2.0+2.7g, boost 1.8+2.4+2.8g, min 0.7+1.2+1.2
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
-- Equipped with LB, LBS and LBR
+- Equipped with LB, LBS, LBR & DDR
 
 sdm855/sdm855+ (schedutil + boost available)
 - powersave:    1.7+1.6+2.4g, boost 1.7+2.0+2.6g, min 0.3+0.7+0.8
@@ -67,7 +68,7 @@ sdm855/sdm855+ (schedutil + boost available)
 - fast:         1.7+2.0+2.7g, boost 1.7+2.4+2.8/2.9g, min 0.5+1.2+1.2
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
-- Equipped with LB, LBS and LBR
+- Equipped with LB, LBS, LBR & DDR
 
 sdm845 (schedutil + boost available)
 - powersave:    1.7+2.0g, boost 1.7+2.4g, min 0.3+0.3
@@ -76,7 +77,7 @@ sdm845 (schedutil + boost available)
 - fast:         1.7+2.4g, boost 1.7+2.8g, min 0.5+1.6
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
-- Equipped with LB, LBS and LBR
+- Equipped with LB, LBS, LBR & DDR
 
 sdm765/sdm765g (schedutil + boost available)
 - powersave:    1.8+1.7+2.0g, boost 1.8+2.0+2.2g, min 0.3+0.6+0.8
@@ -85,7 +86,7 @@ sdm765/sdm765g (schedutil + boost available)
 - fast:         1.8+2.0+2.2g, boost 1.8+2.2+2.3/2.4g, min 0.5+1.1+1.4
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
-- Equipped with LB, LBS and LBR
+- Equipped with LB, LBS, LBR & DDR
 
 sdm730/sdm730g (schedutil + boost available)
 - powersave:    1.7+1.5g, boost 1.7+1.9g, min 0.3+0.3
@@ -94,7 +95,7 @@ sdm730/sdm730g (schedutil + boost available)
 - fast:         1.8+1.9g, boost 1.8+2.2g, min 0.5+1.2
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
-- Equipped with LB, LBS and LBR
+- Equipped with LB, LBS, LBR & DDR
 
 sdm710/sdm712 (schedutil + boost available)
 - powersave:    1.7+1.8g, boost 1.7+2.0g, min 0.3+0.3
@@ -103,7 +104,7 @@ sdm710/sdm712 (schedutil + boost available)
 - fast:         1.7+2.0g, boost 1.7+2.2/2.3g, min 0.5+1.5
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
-- Equipped with LB, LBS and LBR
+- Equipped with LB, LBS, LBR & DDR
 
 sdm695 (schedutil)
 - It is still being ported and compatibility is being planned.
@@ -115,7 +116,7 @@ sdm680 (schedutil + boost available)
 - fast:         2.2+1.8g, boost 2.4+1.9g, min 0.6+1.3
 - run freq: 1.4+1.6g
 - intel freq: 1.6g+2.0g
-- Equipped with LB, DP, LBS and LBR
+- Equipped with LB, DP, LBS, LBR & DDR
 
 sdm675 (schedutil + boost available)
 - powersave:    1.7+1.5g, boost 1.7+1.7g, min 0.3+0.3
@@ -124,7 +125,7 @@ sdm675 (schedutil + boost available)
 - fast:         1.8+1.7g, boost 1.8+2.0g, min 0.5+1.2
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
-- Equipped with LB, LBS and LBR
+- Equipped with LB, LBS, LBR & DDR
 
 sdm665 (schedutil)
 - It is still being ported and compatibility is being planned.
