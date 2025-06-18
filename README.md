@@ -44,11 +44,6 @@ Profiles = Profiles such as powersave, balance, performance and fast will have t
 Run Freq = Frequency at which the CPU will immediately jump to the input, being a quick run to allow the processor to follow the flow of input > scheduler > governor
 Intel Freq = Intermediate frequency below the two maximum frequency steps, favors energy consumption by allowing the system to satisfy the performance needs in high load situations with a slightly lower frequency
 Equipped = It means what "additional" optimizations it comes equipped with besides the traditional scheduler and other ones:
-- LB (Launch Boost): Launch Boost, used to start apps by giving them an initial boost when opening
-- DP (Disable Packing): Disable packing, spreads threads when starting apps, further reducing startup time
-- LBS (Launch Boost Sustained): Maintains the performance gained by previous launches to maintain fixed frequencies
-- LBR (Launch Boost Resume): Resumes an app that is in RAM (such as in the recents tab), reducing possible errors such as the app flashing after returning from the recents tab
-- ALB (Activity Lauch Boost): Boost in the startup of apps that are "cold". Favoring cold start.
 - DDR: Comes equipped with bandwidth frequency control for the purpose of reducing power consumption
 
 List of compatible SOCs:
@@ -60,7 +55,7 @@ sdm865 (schedutil + boost available)
 - fast:         1.8+2.0+2.7g, boost 1.8+2.4+2.8g, min 0.7+1.2+1.2
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
-- Equipped with LB, LBS, LBR & DDR
+- Equipped with DDR
 
 sdm855/sdm855+ (schedutil + boost available)
 - powersave:    1.7+1.6+2.4g, boost 1.7+2.0+2.6g, min 0.3+0.7+0.8
@@ -69,7 +64,7 @@ sdm855/sdm855+ (schedutil + boost available)
 - fast:         1.7+2.0+2.7g, boost 1.7+2.4+2.8/2.9g, min 0.5+1.2+1.2
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
-- Equipped with LB, LBS, LBR & DDR
+- Equipped with DDR
 
 sdm845 (schedutil + boost available)
 - powersave:    1.7+2.0g, boost 1.7+2.4g, min 0.3+0.3
@@ -78,7 +73,7 @@ sdm845 (schedutil + boost available)
 - fast:         1.7+2.4g, boost 1.7+2.8g, min 0.5+1.6
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
-- Equipped with LB, LBS, LBR & DDR
+- Equipped with DDR
 
 sdm765/sdm765g (schedutil + boost available)
 - powersave:    1.8+1.7+2.0g, boost 1.8+2.0+2.2g, min 0.3+0.6+0.8
@@ -87,7 +82,7 @@ sdm765/sdm765g (schedutil + boost available)
 - fast:         1.8+2.0+2.2g, boost 1.8+2.2+2.3/2.4g, min 0.5+1.1+1.4
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
-- Equipped with LB, LBS, LBR & DDR
+- Equipped with DDR
 
 sdm730/sdm730g (schedutil + boost available)
 - powersave:    1.7+1.5g, boost 1.7+1.9g, min 0.3+0.3
@@ -96,7 +91,7 @@ sdm730/sdm730g (schedutil + boost available)
 - fast:         1.8+1.9g, boost 1.8+2.2g, min 0.5+1.2
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
-- Equipped with LB, LBS, LBR & DDR
+- Equipped with DDR
 
 sdm710/sdm712 (schedutil + boost available)
 - powersave:    1.7+1.8g, boost 1.7+2.0g, min 0.3+0.3
@@ -105,7 +100,7 @@ sdm710/sdm712 (schedutil + boost available)
 - fast:         1.7+2.0g, boost 1.7+2.2/2.3g, min 0.5+1.5
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
-- Equipped with LB, LBS, LBR & DDR
+- Equipped with DDR
 
 sdm695 (schedutil)
 - It is still being ported and compatibility is being planned.
@@ -117,7 +112,7 @@ sdm680 (schedutil + boost available)
 - fast:         2.2+1.8g, boost 2.4+1.9g, min 0.6+1.3
 - run freq: 1.4+1.6g
 - intel freq: 1.6g+2.0g
-- Equipped with LB, DP, LBS, LBR & DDR
+- Equipped with DDR
 
 sdm675 (schedutil + boost available)
 - powersave:    1.7+1.5g, boost 1.7+1.7g, min 0.3+0.3
@@ -126,7 +121,7 @@ sdm675 (schedutil + boost available)
 - fast:         1.8+1.7g, boost 1.8+2.0g, min 0.5+1.2
 - run freq: 0.0+0.0g
 - intel freq: 0.0+0.0g
-- Equipped with LB, LBS, LBR & DDR
+- Equipped with DDR
 
 sdm665 (schedutil)
 - It is still being ported and compatibility is being planned.
