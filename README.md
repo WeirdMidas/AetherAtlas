@@ -1,134 +1,43 @@
 # Perfd opt
-![1000006461](https://github.com/user-attachments/assets/bd9a1384-dde5-4654-a80d-6687fc9e714a)
 
-# Modern Scheduler Optimization with a Focus on Energy Efficiency
+The previous [Project WIPE](https://github.com/yc9559/cpufreq-interactive-opt), automatically adjust the `interactive` parameters via simulation and heuristic optimization algorithms, and working on all mainstream devices which use `interactive` as default governor. The recent [WIPE v2](https://github.com/yc9559/wipe-v2), improved simulation supports more features of the kernel and focuses on rendering performance requirements, automatically adjusting the `interactive`+`HMP`+`input boost` parameters. However, after the EAS is merged into the mainline, the simulation difficulty of auto-tuning depends on raise. It is difficult to simulate the logic of the EAS scheduler. In addition, EAS is designed to avoid parameterization at the beginning of design, so for example, the adjustment of schedutil has no obvious effect.  
 
-Modern Scheduler and CPU Optimization. Focused on delivering better CPU ramping, Touch response, app opening, energy savings and reducing moments that occur performance loss, of course, always respecting the TDP and architecture of the device for maximum respect for the user and use of its SOC.
+[WIPE v2](https://github.com/yc9559/wipe-v2) focuses on meeting performance requirements when interacting with APP, while reducing non-interactive lag weights, pushing the trade-off between fluency and power saving even further. `QTI Boost Framework`, which must be disabled before applying optimization, is able to dynamically override parameters based on perf hint. This project utilizes `QTI Boost Framework` and extends the ability of override custom parameters. When launching APPs or scrolling the screen, applying more aggressive parameters to improve response at an acceptable power penalty. When there is no interaction, use conservative parameters, use small core clusters as much as possible, and run at a higher energy efficiency OPP under heavy load.  
 
-The old WIPE project created by Matt Yang was initially known for its ability to adapt the Interactive + HMP + Input Boost parameters dynamically based on system load and device specifications. Later, he also created the perfd ​​opt project, known for pushing the boundaries between power saving and fluidity. However, the project has proven to be somewhat flawed. With its abrupt focus on aggressive responsiveness and power saving, perfd ​​opt had a lot of potential if optimized correctly.
+However... The Weird!Midas fork tends to go one step further than these simple optimizations, now knowing how the architectures work, at least the basics of them. perfd ​​opt can now use the QTI Boost Framework with better coherence with the scheduler and the device's TDP. This means that the way the module interacts with the device has been expanded to provide raw performance and energy efficiency above what perfd ​​can normally offer.
 
-The perfd ​​opt fork created by Weird Midas revives this old module created by Matt Yang, and adapts it to work in a way that follows the flow of the Android scheduler: Dynamic. The Android device works dynamically, with fast inputs and outputs between high, light and moderate loads, the Android device always adapts accordingly because it is a mobile device, so an adaptive approach is necessary. Based on this, the current perfd ​​opt uses the parameters and optimizations made by Matt Yang, but adapts, rebuilds and adjusts them to adapt to the Android platform with more coherence. Still focused on saving energy as much as possible, Perfd opt currently focuses on delivering a vastly improved dynamic behavior of Android with reduced energy costs.
+Details see [the lead project](https://github.com/yc9559/sdm855-tune/commits/master) & [perfd-opt commits](https://github.com/yc9559/perfd-opt/commits/master)    
 
-The module integrates optimizations for most schedulers in its base, optimizing the behavior of generic CFS, WALT, EAS and even the old HMP. All focused on improving the dynamic behavior and energy efficiency of each one, favoring the best use of each feature of the device.
-
-## Features
-
-- Pure CPU and Scheduler optimization, without placebo when the goal is to improve the user experience in several aspects that impact the UX and system efficiency in terms of CPU & GPU usage. With the aim of reducing energy consumption.
-- Choosing the best CPU governor for the specific processor, depending on its generation/era, allowing the adjustments to fit better with the architecture in question.
-- Using a CPUset allocation that is more beneficial to the device architecture, favoring a more specialized multithreading in energy savings and increasing the speed of opening apps by up to 4-10% even in profiles with lower frequencies.
-- Inserted a cheap imitation of the "WALT adaptive frequency" made by xiaomi in the Schedutil governor. A hack that uses the hispeed freq parameters of sysfs and perfhint to generate two "adaptive" frequencies, a low one, for low performance needs, and a higher one triggered via perfhint, allowing the frequency behavior that schedutil scales in a larger load to be able to scale according to the immediate performance need. Making schedutil close to the "WALT" governor but more efficient and integrated with the scheduler.
-- Override sysfs performance adjustments and use QTI Boost Framework perfhints instead. Allowing you to have the same (or better) performance that you would have with these adjustments with reduced energy savings in idle. 
-- Optimize gaming performance using the perfhal, allowing the QTI Boost Framework to adapt system resources and improve game stability. This depends on the fps set in the game, allowing boosts to 30, 45, 60, 90, 120 and 144fps, which scales the aggressiveness/power requirement of the game according to the energy profiles used at the time. Of course, such "boosts" depend specifically on whether the device supports these fps, limiting the processor to use boosts that go up to its maximum screen refresh rate that it can handle.
-- Additional and miscellaneous improvements to things that impact the user experience in the background. Such as reducing the energy consumption of media such as video and audio, in addition to allowing the camera to be better used, improving the experience of users who do not want to lose performance in media.
-
-## Compatible SOCs and profiles
+## Profiles
 
 - powersave: based on balance mode, but with lower max frequency
 - balance: smoother than the stock config with lower power consumption
-- performance: without frequency limitation and with frequency sustainability optimizations
+- performance: without frequency limitation with the addition of frequency stabilization
 - fast: providing stable performance capacity considering the TDP limitation of device chassis
 
 ```plain
-How it works:
-Compatible SOC (Governor that it will use + if it has the boost mechanics available)
-Profiles = Profiles such as powersave, balance, performance and fast will have their respective minimum and maximum frequencies, in addition to, of course, the frequency of the "boost" value if supported
-- If the SOC is unable to have its frequency reduced due to limitations that could have a major impact on responsiveness, it will be marked as "No Jump". However, it will still have profile optimizations. Typically, SOCs with this marking are very old or have very low clocks
-Run Freq = Frequency at which the CPU will immediately jump to the input, being a quick run to allow the processor to follow the flow of input > scheduler > governor
-LowPower intel freq = Adaptive "low" frequency that is used by schedutil for performance needs that can be satisfied with it.
-HighPerf intel freq = Adaptive "high" frequency that is used by schedutil for immediate performance needs.
-Equipped = It means what "additional" optimizations it comes equipped with besides the traditional scheduler and other ones:
-- DDR: Comes equipped with bandwidth frequency control for the purpose of reducing power consumption
+For the sake of work efficiency, the compatibility between the SOCs 
+was reset, that is, I removed the SOCs that were compatible with
+Matt Yang's profile. I hope you understand my decision, I had to 
+align my work and make everything easier.
 
-List of compatible SOCs:
+sdm680
+- powersave:    0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
+- balance:      0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
+- performance:  0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
+- fast:         0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
 
-sdm865 (schedutil + boost available)
-- powersave:    1.8+1.6+2.4g, boost 1.8+2.0+2.6g, min 0.3+0.7+1.1
-- balance:      1.8+2.0+2.6g, boost 1.8+2.4+2.7g, min 0.7+0.7+1.1
-- performance:  1.8+2.4+2.8g, boost 1.8+2.4+2.8g, min 0.7+0.7+1.1
-- fast:         1.8+2.0+2.7g, boost 1.8+2.4+2.8g, min 0.7+1.2+1.2
-- run freq: 0.0+0.0g
-- LowPower intel freq:
-- HighPerf intel freq:
-- Equipped with DDR
+sdm665
+- powersave:    0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
+- balance:      0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
+- performance:  0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
+- fast:         0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
 
-sdm855/sdm855+ (schedutil + boost available)
-- powersave:    1.7+1.6+2.4g, boost 1.7+2.0+2.6g, min 0.3+0.7+0.8
-- balance:      1.7+2.0+2.6g, boost 1.7+2.4+2.7g, min 0.5+0.7+0.8
-- performance:  1.7+2.4+2.8g, boost 1.7+2.4+2.8/2.9g, min 0.5+0.7+0.8
-- fast:         1.7+2.0+2.7g, boost 1.7+2.4+2.8/2.9g, min 0.5+1.2+1.2
-- run freq: 0.0+0.0g
-- LowPower intel freq:
-- HighPerf intel freq:
-- Equipped with DDR
-
-sdm845 (schedutil + boost available)
-- powersave:    1.7+2.0g, boost 1.7+2.4g, min 0.3+0.3
-- balance:      1.7+2.4g, boost 1.7+2.7g, min 0.5+0.8
-- performance:  1.7+2.8g, boost 1.7+2.8g, min 0.5+0.8
-- fast:         1.7+2.4g, boost 1.7+2.8g, min 0.5+1.6
-- run freq: 0.0+0.0g
-- LowPower intel freq:
-- HighPerf intel freq:
-- Equipped with DDR
-
-sdm765/sdm765g (schedutil + boost available)
-- powersave:    1.8+1.7+2.0g, boost 1.8+2.0+2.2g, min 0.3+0.6+0.8
-- balance:      1.8+2.0+2.2g, boost 1.8+2.2+2.3/2.4g, min 0.5+0.6+0.6
-- performance:  1.8+2.2+2.3g, boost 1.8+2.2+2.3/2.4g, min 0.5+0.6+0.8
-- fast:         1.8+2.0+2.2g, boost 1.8+2.2+2.3/2.4g, min 0.5+1.1+1.4
-- run freq: 0.0+0.0g
-- LowPower intel freq:
-- HighPerf intel freq:
-- Equipped with DDR
-
-sdm730/sdm730g (schedutil + boost available)
-- powersave:    1.7+1.5g, boost 1.7+1.9g, min 0.3+0.3
-- balance:      1.7+1.9g, boost 1.7+2.1g, min 0.5+0.6
-- performance:  1.8+2.2g, boost 1.8+2.2g, min 0.5+0.6
-- fast:         1.8+1.9g, boost 1.8+2.2g, min 0.5+1.2
-- run freq: 0.0+0.0g
-- LowPower intel freq:
-- HighPerf intel freq:
-- Equipped with DDR
-
-sdm710/sdm712 (schedutil + boost available)
-- powersave:    1.7+1.8g, boost 1.7+2.0g, min 0.3+0.3
-- balance:      1.7+2.0g, boost 1.7+2.2/2.3g, min 0.5+0.6
-- performance:  1.7+2.2g, boost 1.7+2.2/2.3g, min 0.5+0.6
-- fast:         1.7+2.0g, boost 1.7+2.2/2.3g, min 0.5+1.5
-- run freq: 0.0+0.0g
-- LowPower intel freq:
-- HighPerf intel freq:
-- Equipped with DDR
-
-sdm695 (schedutil)
-- It is still being ported and compatibility is being planned.
-
-sdm680 (schedutil + boost available)
-- powersave:    2.2+1.8g, boost 2.4+1.8g, min 0.3+0.3
-- balance:      2.2+1.8g, boost 2.4+1.8g, min 0.6+0.8
-- performance:  2.4+1.9g, boost 2.4+1.9g, min 0.6+0.8
-- fast:         2.2+1.8g, boost 2.4+1.8g, min 0.6+1.3
-- run freq: 1.4+1.6g
-- LowPower intel freq:
-- HighPerf intel freq:
-- Equipped with DDR
-
-sdm675 (schedutil + boost available)
-- powersave:    1.7+1.5g, boost 1.7+1.7g, min 0.3+0.3
-- balance:      1.7+1.7g, boost 1.7+1.9g, min 0.5+0.6
-- performance:  1.8+2.0g, boost 1.8+2.0g, min 0.5+0.6
-- fast:         1.8+1.7g, boost 1.8+2.0g, min 0.5+1.2
-- run freq: 0.0+0.0g
-- LowPower intel freq:
-- HighPerf intel freq:
-- Equipped with DDR
-
-sdm665 (schedutil)
-- It is still being ported and compatibility is being planned.
-
-sdm660 (interactive)
-- It is still being ported and compatibility is being planned.
+sdm660
+- powersave:    0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
+- balance:      0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
+- performance:  0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
+- fast:         0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
 ```
 
 ## Requirements
@@ -139,7 +48,7 @@ sdm660 (interactive)
 ## Installation
 
 1. Download zip in [Release Page](https://github.com/yc9559/perfd-opt/releases)
-2. Flash in Magisk manager
+2. Flash in Magisk or KSU manager
 3. Reboot
 4. Check whether `/sdcard/Android/panel_powercfg.txt` exists
 
