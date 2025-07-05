@@ -10,7 +10,7 @@ Details see [the lead project](https://github.com/yc9559/sdm855-tune/commits/mas
 
 ## Features
 - Follow a predictable and dynamic scheduler behavior, following a style like this:
-- The scheduler latency must be respected, aligning the governor with it to allow the task, when triggered, to allow the governor (like schedutil) to respond immediately when it starts, not before or after. Make at least four tasks take advantage of this ramp and finish them more quickly before resting. As an additional: avoid activating high frequencies on all cores, allow two or three big cores (depending on the profile used) to remain "inactive" until they are demanded, but do this respecting concurrency and multithreading, allowing tasks to migrate to the big cores if they require more immediate performance, such as games and other high-performance applications.
+  - The scheduler latency must be respected, aligning the governor with it to allow the task, when triggered, to allow the governor (like schedutil) to respond immediately when it starts, not before or after. Make at least four tasks take advantage of this ramp and finish them more quickly before resting. As an additional: avoid activating high frequencies on all cores, allow two or three big cores (depending on the profile used) to remain "inactive" until they are demanded, but do this respecting concurrency and multithreading, allowing tasks to migrate to the big cores if they require more immediate performance, such as games and other high-performance applications.
 
 ## Profiles
 
