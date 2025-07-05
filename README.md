@@ -9,8 +9,11 @@ However... The Weird!Midas fork tends to go one step further than these simple o
 Details see [the lead project](https://github.com/yc9559/sdm855-tune/commits/master) & [perfd-opt commits](https://github.com/yc9559/perfd-opt/commits/master)    
 
 ## Features
-- Follow a predictable and dynamic scheduler behavior, following a style like this:
-  - The scheduler latency must be respected, aligning the governor with it to allow the task, when triggered, to respond immediately when it starts, not before or after. Make at least four tasks take advantage of this ramp and finish them more quickly before resting. As an additional: avoid activating high frequencies on all cores, allow two or three big cores (depending on the profile used) to remain "inactive" until they are demanded, but do this respecting concurrency and multithreading, allowing tasks to migrate to the big cores if they require more immediate performance, such as games and other high-performance applications.
+
+- Pure CPU and Scheduler optimization, without placebo and with total focus on efficiency and predictability.
+- Follow a predictable and dynamic scheduler behavior, following a style like this: The scheduler latency must be respected, aligning the governor with it to allow the task, when triggered, to respond immediately when it starts, not before or after. Make at least four tasks take advantage of this ramp and finish them more quickly before resting. As an additional: avoid activating high frequencies on all cores, allow two or three big cores (depending on the profile used) to remain "inactive" until they are demanded, but do this respecting concurrency and multithreading, allowing tasks to migrate to the big cores if they require more immediate performance, such as games and other high-performance applications.
+- Focus on things that allow the CPU to scale naturally following our dynamic strategies. Therefore, disable input boost and other forms of boost that hinder scaling due to their staticity.
+- Reduce the power consumption of audio and video, and of the encoder in general. Allow the media in general to be more efficient and co-located, allowing users to spend more time watching and on social networks, of course, without negative impacts such as stuttering, flicker, etc.
 
 ## Profiles
 
@@ -26,18 +29,6 @@ Matt Yang's profile. I hope you understand my decision, I had to
 align my work and make everything easier.
 
 sdm680
-- powersave:    0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
-- balance:      0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
-- performance:  0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
-- fast:         0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
-
-sdm665
-- powersave:    0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
-- balance:      0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
-- performance:  0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
-- fast:         0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
-
-sdm660
 - powersave:    0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
 - balance:      0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
 - performance:  0.0+0.0g, boost 0.0+0.0g, min 0.0+0.0
