@@ -15,8 +15,8 @@ Details see [the lead project](https://github.com/yc9559/sdm855-tune/commits/mas
 
 ## Profiles
 
-- powersave: based on balance mode, but with more restrictions on "rice-to-idle"
-- balance: smoother than stock configuration and with reduced power consumption
+- powersave: based on balance mode, but with more restrictions on "rice-to-idle". Which makes it the profile that saves the most energy and has UX performance equal to stock
+- balance: smoother than stock configuration and with reduced power consumption. The selected default is also the ideal one for most tasks, with the most efficient and non-aggressive "rice-to-idle" strategy
 - performance: fully integrated with the "rice-to-idle" strategy, it favors more aggressive frequency ramping to be able to rest more quickly. It is the profile that consumes the most energy of all
 - fast: provide stable performance while respecting the TDP of the device chassis. It is a lower profile than performance, but with better FPS variation for example
 
@@ -26,8 +26,8 @@ was reset, that is, I removed the SOCs that were compatible with
 Matt Yang's profile. I hope you understand my decision, I had to 
 align my work and make everything easier.
 
-sdm680 (4x4)
-- powersave:   min 0.6+0.8, idle 0.3+0.3
+sdm680 (Schedutil)
+- powersave:    min 0.6+0.8, idle 0.3+0.3
 - balance:      min 0.6+1.0, idle 0.3+0.8
 - performance:  min 0.6+1.0, idle 0.3+0.8
 - fast:         min 0.6+1.7, idle 0.3+1.3
