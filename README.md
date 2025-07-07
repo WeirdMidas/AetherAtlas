@@ -10,6 +10,7 @@ Details see [the lead project](https://github.com/yc9559/sdm855-tune/commits/mas
 
 - Pure CPU and Scheduler optimization. With a full focus on integrating the "Rice-To-Idle" strategy that Snapdragon devices typically prefer, due to their sensitivity to latency. Initially, only Snapdragon devices are compatible. If the module is successful, we will integrate other SOCs into the set, such as Mediatek, Exynos, etc.
 - Follow the "rice-to-idle" strategy, which means that the device in idle has frequencies much lower than the standard. However, when interaction occurs, the device returns to standard performance, allowing it to scale and satisfy the task so it can rest quickly.
+- Introduce "roll-to-idle", a scheduling strategy similar to rice-to-idle but more focused on using "efficient frequencies" rather than responding to demand quickly. It will be used in certain SOCs that perform better with efficient frequencies.
 - Secondary improvements that favor our scheduler optimization, such as improvements to the CPUset, which isolates tasks that can be executed on small cores, and allows the CPU to correctly allocate tasks between their respective cgroups. We will not touch cgroups that require high performance, such as foreground and others, only those that can have their demand satisfied with the small ones.
 - Include the dynamics of "Screen off", "preferred cluster" and "assistance cluster". These favor the scheduling strategy that perfd ​​opt will focus on for tasks in SOCs with variable cores. Screen off is when the screen turns off, which cores will handle tasks during the screen off duration. Preferred clusters are for SOCs that, for example, have six small cores, where these cores will be the favorites for user tasks, leaving the big/prime cores exclusively for heavy tasks. Assistance cluster means whether the device will have its prime cores assisting the big cores, this is to provide small improvements in load balancing in high-load situations where the delay in sending to the prime core cannot occur.
 - Improvements and optimizations for the overall user experience. Such as reducing energy consumption in media (video, audio and photo) without negative impact, in fact even improving their quality due to improved efficiency. In addition, optimizations in scrolling, reducing the latency of short and long scrolling for better viewing. In addition to other optimizations that improve the user experience.
@@ -27,6 +28,7 @@ was reset, that is, I removed the SOCs that were compatible with
 Matt Yang's profile. I hope you understand my decision, I had to 
 align my work and make everything easier.
 
+SOC compatibility and technical specifications:
 sdm680 (Schedutil)
 - powersave:    min 0.6+0.8, idle 0.3+0.3
 - balance:      min 0.6+1.0, idle 0.3+0.8
@@ -35,6 +37,23 @@ sdm680 (Schedutil)
 - Screen off: Uses cores 0-3 for tasks running during this period
 - Preferred Cluster: None, load balancing is balanced
 - Cluster Assistance: None, lack of prime cores to support
+
+Specific Optimizations for Each Scheduler:
+Generic CFS:
+- Balanced. Focus on following the balanced and fair structure that generic CFS proposes to provide
+- It will have a balance between the efficient side of roll-to-idle and the aggressive side of rice-to-idle
+
+WALT
+- Allow cores 2-7 to enter low-power mode under light loads, but wake up immediately under moderate and high loads
+- Prefer schedutil over walt governor
+- It will receive the most optimizations to integrate the aggressiveness of rice-to-idle that we follow
+
+HMP
+- Prefer interactive over schedutil. Use the WIPE project as a base here
+- It will receive the most optimizations to follow a roll-to-idle, but not abandoning rice-to-idle
+
+PELT
+- Instead of following the rice-to-idle strategy, it will use roll-to-idle entirely, which means that the PELT scheduler will prefer predictability and efficiency over aggressive rice-to-idle ramping
 ```
 
 ## Requirements
