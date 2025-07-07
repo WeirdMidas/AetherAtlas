@@ -85,4 +85,10 @@ provide information about dynamic stune
 
 @rfigo
 provide information about dynamic stune
+
+@Matt Yang
+the creator of perfd ​​opt, original credits to him for being the king of modules in 2019-2020
+
+@AxionOS Devs
+imported some optimizations to integrate the user experience improvement that perfd ​​offers
 ```
