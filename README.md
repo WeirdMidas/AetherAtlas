@@ -14,7 +14,7 @@ Details see [the lead project](https://github.com/yc9559/sdm855-tune/commits/mas
 - Secondary improvements that favor our scheduler optimization, such as improvements to the CPUset, which isolates tasks that can be executed on small cores, and allows the CPU to correctly allocate tasks between their respective cgroups. We will not touch cgroups that require high performance, such as foreground and others, only those that can have their demand satisfied with the small ones.
 - Include the dynamics of "Screen off", "preferred cluster" and "assistance cluster". These favor the scheduling strategy that perfd ​​opt will focus on for tasks in SOCs with variable cores. Screen off is when the screen turns off, which cores will handle tasks during the screen off duration. Preferred clusters are for SOCs that, for example, have six small cores, where these cores will be the favorites for user tasks, leaving the big/prime cores exclusively for heavy tasks. Assistance cluster means whether the device will have its prime cores assisting the big cores, this is to provide small improvements in load balancing in high-load situations where the delay in sending to the prime core cannot occur.
 - Improvements and optimizations for the overall user experience. Such as reducing energy consumption in media (video, audio and photo) without negative impact, in fact even improving their quality due to improved efficiency. In addition, optimizations in scrolling, reducing the latency of short and long scrolling for better viewing. In addition to other optimizations that improve the user experience.
-- Included the "DevFreq boost" dynamic in the specific SOC boost framework. This means that the form of devfreq boost created by suitan will be able to be "imitated" by the boost framework that the SOC has. However, it is limited, containing only this dynamic in SOCs compatible with DDR BW v2 and with boost framework that work with paths. Which means that older SOCs will not be able to benefit from this optimization. Currently this optimization only contains for input, still being discovered ways to imitate other forms of devfreq boost such as new frames.
+- Included the "DevFreq boost" dynamic in the specific SOC boost framework. This means that the form of devfreq boost created by suitan will be able to be "imitated" by the boost framework that the SOC has. However, it is limited, containing only this dynamic in SOCs compatible with DDR BW v2 and with boost framework that work with paths. Which means that older SOCs will not be able to benefit from this optimization. Currently this dynamic covers the suitan commits mentioned above: devfreq boost for input, devfreq boost when a frame is committed and devfreq boost when a zygote-forked process becomes top-app.
 
 ## Profiles
 
@@ -51,8 +51,9 @@ sdm680 (Schedutil)
 
 1. Download zip in [Release Page](https://github.com/yc9559/perfd-opt/releases)
 2. Flash in Magisk or KSU manager
-3. Reboot
-4. Check whether `/sdcard/Android/panel_powercfg.txt` exists
+3. If your SOC comes with the ability to choose the form of Devfreq boost, only choose via Boost Framework if you don't have suitan's devfreq boost or other in your kernel, it is to avoid overboosting purposes
+4. Reboot
+5. Check whether `/sdcard/Android/panel_powercfg.txt` exists
 
 ## Switch modes
 
