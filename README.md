@@ -37,23 +37,7 @@ sdm680 (Schedutil)
 - Screen off: Uses cores 0-3 for tasks running during this period
 - Preferred Cluster: None, load balancing is balanced
 - Cluster Assistance: None, lack of prime cores to support
-
-Specific Optimizations for Each Scheduler:
-Generic CFS:
-- Balanced. Focus on following the balanced and fair structure that generic CFS proposes to provide
-- It will have a balance between the efficient side of roll-to-idle and the aggressive side of rice-to-idle
-
-WALT
-- Allow cores 2-7 to enter low-power mode under light loads, but wake up immediately under moderate and high loads
-- Prefer schedutil over walt governor
-- It will receive the most optimizations to integrate the aggressiveness of rice-to-idle that we follow
-
-HMP
-- Prefer interactive over schedutil. Use the WIPE project as a base here
-- It will receive the most optimizations to follow a roll-to-idle, but not abandoning rice-to-idle
-
-PELT
-- Instead of following the rice-to-idle strategy, it will use roll-to-idle entirely, which means that the PELT scheduler will prefer predictability and efficiency over aggressive rice-to-idle ramping
+- Scheduling Used: Rice-to-idle, favors fluidity over battery
 ```
 
 ## Requirements
