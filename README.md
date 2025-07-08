@@ -34,10 +34,10 @@ sdm680 (Schedutil)
 - balance:      min 0.6+1.0, idle 0.3+0.8
 - performance:  min 0.6+1.0, idle 0.3+0.8
 - fast:         min 0.6+1.7, idle 0.3+1.3
+- Scheduling Used: Rice-to-idle, favors fluidity over battery
 - Screen off: Uses cores 0-3 for tasks running during this period
 - Preferred Cluster: None, load balancing is balanced
 - Cluster Assistance: None, lack of prime cores to support
-- Scheduling Used: Rice-to-idle, favors fluidity over battery
 ```
 
 ## Requirements
