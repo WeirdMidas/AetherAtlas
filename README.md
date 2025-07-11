@@ -1,4 +1,3 @@
-
 # Perfd opt
 
 The previous [Project WIPE](https://github.com/yc9559/cpufreq-interactive-opt), automatically adjust the `interactive` parameters via simulation and heuristic optimization algorithms, and working on all mainstream devices which use `interactive` as default governor. The recent [WIPE v2](https://github.com/yc9559/wipe-v2), improved simulation supports more features of the kernel and focuses on rendering performance requirements, automatically adjusting the `interactive`+`HMP`+`input boost` parameters. However, when the HMP scheduler was removed from mainline and in sequence the interactive was also removed. New schedulers made by Google and central Linux such as WALT, EAS, generic CFS and PELT came into play. The way to manage the task of each scheduler became complicated, causing many users to have to specialize in each scheduler to know when and where to optimize to reduce energy consumption, without penalty of performance losses or latency. Causing information to be lost and everything to be obfuscated, making it difficult for users who would like to do this to optimize. This caused even schedutil to be affected, reducing the accuracy of tests because schedutil often works differently in each scheduler.
@@ -21,10 +20,10 @@ Details see [the lead project](https://github.com/yc9559/sdm855-tune/commits/mas
 
 ## Profiles
 
-- powersave: based on balance mode, but with more restrictions on "rice-to-idle". Which makes it the profile that saves the most energy and has UX performance equal to stock
-- balance: smoother than stock configuration and with reduced power consumption. The selected default is also the ideal one for most tasks, with the most efficient and non-aggressive "rice-to-idle" strategy
-- performance: fully integrated with the "rice-to-idle" strategy, it favors more aggressive frequency ramping to be able to rest more quickly. It is the profile that consumes the most energy of all
-- fast: provide stable performance while respecting the TDP of the device chassis. It is a lower profile than performance, but with better FPS variation for example
+- powersave: Based on "Balance" mode, but with a more aggressive "to-idle" mode, which may impact the UX for some users.
+- balance: Smoother and consumes less power than the stock setting. It tends to be more prone to idle.
+- performance: More aggressive and consumes the most power, it tends to have the most aggressive "rice" compared to the others.
+- fast: More stable as it meets the power needs of the device's chassis, allowing for fewer frequency variations and a more aggressive "rice-to-idle" on both sides.
 
 ```plain
 For the sake of work efficiency, the compatibility between the SOCs 
