@@ -20,10 +20,10 @@ Details see [the lead project](https://github.com/yc9559/sdm855-tune/commits/mas
 
 ## Profiles
 
-- powersave: Based on "Balance" mode, but with a more aggressive "to-idle" mode, which may impact the UX for some users.
-- balance: Smoother and consumes less power than the stock setting. It tends to be more prone to idle.
-- performance: More aggressive and consumes the most power, it tends to have the most aggressive "rice" compared to the others.
-- fast: More stable as it meets the power needs of the device's chassis, allowing for fewer frequency variations and a more aggressive "rice-to-idle" on both sides.
+- powersave: based on "Balance" mode, but with a more aggressive "to-idle" mode, which may impact the UX for some users.
+- balance: smoother and consumes less power than the stock setting. It tends to be more prone to idle.
+- performance: more aggressive and consumes the most power, it tends to have the most aggressive "rice" compared to the others.
+- fast: more stable as it meets the power needs of the device's chassis, allowing for fewer frequency variations and a more aggressive "rice-to-idle" on both sides.
 
 ```plain
 For the sake of work efficiency, the compatibility between the SOCs 
