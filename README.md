@@ -39,6 +39,7 @@ sdm680 (Schedutil)
 - fast:         min 0.6+1.7, idle 0.3+1.3
 - Inclusion of devfreq boost: yes
 - Inclusion of opportunistic screen refresh rate: yes
+- Inclusion of improvements in task_profiles: yes
 - Screen off: Uses cores 0-3 for tasks running during this period
 - Preferred Cluster: None, load balancing is balanced
 - Cluster Assistance: None, lack of prime cores to support
