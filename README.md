@@ -32,7 +32,7 @@ Matt Yang's profile. I hope you understand my decision, I had to
 align my work and make everything easier.
 
 SOC compatibility and technical specifications:
-sdm680 (Schedutil)
+sdm680/sdm685 (Schedutil)
 - powersave:    min 0.6+0.8, idle 0.3+0.3
 - balance:      min 0.6+1.0, idle 0.3+0.8
 - performance:  min 0.6+1.0, idle 0.3+0.8
