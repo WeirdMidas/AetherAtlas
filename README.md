@@ -19,8 +19,8 @@ Details see [the lead project](https://github.com/yc9559/sdm855-tune/commits/mas
 
 - powersave: based on "balance" mode, which, unlike "balance," has lower idle frequencies and a higher bias toward small cores.
 - balance: smoother and more efficient than the stock configuration. It's biased toward the small cluster.
-- performance: More aggressive during ramping, it's biased toward big cores, favoring maximum performance demand.
-- fast: Aggressive during "Rice" and "To-Idle," it always tries to save energy while maintaining performance. Even without bias toward small cores, it always prioritizes respecting the device's chassis TDP.
+- performance: more aggressive during ramping, it's biased toward big cores, favoring maximum performance demand.
+- fast: aggressive during "Rice" and "To-Idle," it always tries to save energy while maintaining performance. even without bias toward small cores, it always prioritizes respecting the device's chassis TDP.
 
 ```plain
 For the sake of work efficiency, the compatibility between the SOCs 
