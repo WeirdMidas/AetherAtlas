@@ -1,22 +1,10 @@
-# Energy-Efficient CPU Scheduler via Rice to the Idle 
-![1000003736](https://github.com/user-attachments/assets/1c32c51a-2ce8-4a87-87d4-fd0929c42a5d)
-
-## Introduction
+# Perfd-opt
 
 The previous [Project WIPE](https://github.com/yc9559/cpufreq-interactive-opt), automatically adjust the `interactive` parameters via simulation and heuristic optimization algorithms, and working on all mainstream devices which use `interactive` as default governor. The recent [WIPE v2](https://github.com/yc9559/wipe-v2), improved simulation supports more features of the kernel and focuses on rendering performance requirements, automatically adjusting the `interactive`+`HMP`+`input boost` parameters. However, when the HMP scheduler was removed from mainline and in sequence the interactive was also removed. New schedulers made by Google and central Linux such as WALT, EAS, generic CFS and PELT came into play. The way to manage the task of each scheduler became complicated, causing many users to have to specialize in each scheduler to know when and where to optimize to reduce energy consumption, without penalty of performance losses or latency. Causing information to be lost and everything to be obfuscated, making it difficult for users who would like to do this to optimize. This caused even schedutil to be affected, reducing the accuracy of tests because schedutil often works differently in each scheduler.
 
 [WIPE v2](https://github.com/yc9559/wipe-v2) focuses on meeting performance requirements when interacting with APP, while reducing non-interactive lag weights, pushing the trade-off between fluency and power saving even further. And this is where the changes compared to the original perfd ​​opt come in. Using the device's boosting mechanism, it is disabled to allow the rewriting of values, and then enabled, allowing mechanisms such as powerhint, perfboostconfig and others to use the rewritten values, improving integration. Based on this, the module's strategy begins: each compatible SOC has its own profile containing optimizations specific to it, where these optimizations will serve one thing: They will follow the "**opportunistic** rice-to-idle" strategy. All of this is done within a 1-second window. With this immediate performance window, users can satisfy their perception of immediate fluidity. When the interaction ends, the device immediately goes to idle. This is the essence of rate-to-idle! But, a hint of opportunism also enters this form of immediate performance. Depending on the profile the user is using at the time, opportunism is how the scheduler considers energy savings. In more efficient energy profiles, it is always preferred to use the small cores first, with a bias towards them, so if the demand is not met, it is skipped directly to the powerful cores. For higher-performance profiles, this skip is preferred, allowing the user's demand to be satisfied as quickly as possible, even if it costs extra energy. This allows the rice-to-idle strategy to be more "power-aware," reducing its penalties and allowing the strategy to become even more dynamic, respecting the Android workload at higher levels. And then, when resting, use lower frequencies, allowing small cores to be more preferred for low-consumption tasks, but not trivialized! Favoring a much more balanced scaling and close to what EAS once was.
 
 Details see [the lead project](https://github.com/yc9559/sdm855-tune/commits/master) & [perfd-opt commits](https://github.com/yc9559/perfd-opt/commits/master)    
-
-## Features
-
-- Pure CPU and Scheduler optimization. With a full focus on integrating the "**Opportunistic** Rice-To-Idle" strategy that Snapdragon devices typically prefer, due to their sensitivity to latency. Initially, only Snapdragon devices are compatible. If the module is successful, we will integrate other SOCs into the set, such as Mediatek, Exynos, etc.
-- Bias toward small cores in certain performance demands, where in these situations, if satisfied with small cores, they will be biased toward them. This allows work to be separated between more efficient and powerful cores, allowing small cores to have their biases respected. This also improves the sustainability and "rice" of certain power profiles, allowing certain performance situations to be better than with aggressive boosting, with power consumption being almost ~50% lower in these situations.
-- Follow a list of "inclusions", which are for "general but specific" optimizations for each SOC, such as the opportunistic refresh rate, which allows the device to use higher or lower rates depending on the interaction, favoring the "opportunistic rice-to-idle", inclusion of the "devfreq boost" which Currently this dynamic covers the suitan commits mentioned above: devfreq boost for input, devfreq boost when a frame is committed, devfreq boost when a zygote-forked process becomes top-app and run devfreq boost on big cores and also the inclusion of "task_profiles moderm", which means that the task_profiles of that specific SOC has been updated to the latest one (usually given to devices with cgroupv2).
-- Include the dynamics of "Screen off", "preferred cluster" and "assistance cluster". These favor the scheduling strategy that perfd ​​opt will focus on for tasks in SOCs with variable cores. Screen off is when the screen turns off, which cores will handle tasks during the screen off duration. Preferred clusters are for SOCs that, for example, have six small cores, where these cores will be the favorites for user tasks, leaving the big/prime cores exclusively for heavy tasks. Assistance cluster means whether the device will have its prime cores assisting the big cores, this is to provide small improvements in load balancing in high-load situations where the delay in sending to the prime core cannot occur.
-- Different processor architectures have different optimizations, both to respect their frequency scaling and to improve the overall system response to performance demands with minimal impact on power consumption. Furthermore, if two processors have the same architecture, profile settings are applied to both, allowing older processors to benefit from recent optimizations, maximizing efficiency and compatibility.
-- Secondary and additional optimizations are also included! These are designed to improve the network, radio, Wi-Fi, and other subsystems for maximum efficiency and modernization, allowing the device to spend fewer resources managing them. This results in more CPU free for user tasks, as these secondary subsystems are much more efficient and consume less power overall.
 
 ## Profiles
 
@@ -33,10 +21,10 @@ align my work and make everything easier.
 
 SOC compatibility and technical specifications:
 sdm680/sdm685 (Schedutil)
-- powersave:    min 0.6/0.9+0.8/1.0, idle 0.3+0.3
-- balance:      min 0.6/0.9+1.0/1.3, idle 0.3+0.8
-- performance:  min 0.6/0.9+1.0/1.3, idle 0.3+0.8
-- fast:         min 0.6/0.9+1.7,     idle 0.3+1.3
+- powersave:    min 0.6+0.8, idle 0.3+0.3
+- balance:      min 0.6+1.0, idle 0.3+0.8
+- performance:  min 0.6+1.0, idle 0.3+0.8
+- fast:         min 0.6+1.7  idle 0.3+1.3
 ```
 
 ## Requirements
