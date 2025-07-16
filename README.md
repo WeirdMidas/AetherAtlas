@@ -46,9 +46,7 @@ sdm680/sdm685 (Schedutil)
 
 1. Download zip in [Release Page](https://github.com/yc9559/perfd-opt/releases)
 2. Flash in Magisk or KSU manager
-3. If your SOC comes with the ability to choose the form of Devfreq boost, only choose via Boost Framework if you don't have suitan's devfreq boost or other in your kernel, it is to avoid overboosting purposes
-4. Reboot
-5. Check whether `/sdcard/Android/panel_powercfg.txt` exists
+3. Reboot and Check whether `/sdcard/Android/panel_powercfg.txt` exists
 
 ## Switch modes
 
