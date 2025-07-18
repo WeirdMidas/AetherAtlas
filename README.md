@@ -9,8 +9,9 @@ Details see [the lead project](https://github.com/yc9559/sdm855-tune/commits/mas
 
 ## Features
 
-- Integrate the "**opportunistic** Rice-to-idle" tracker strategy as the module's default optimization. This allows the user to perceive smoother activity and significantly greater and smoother idle power savings during the transition compared to the stock configuration.
+- Integrate the "**Opportunistic** Rice-to-idle" tracker strategy as the module's default optimization. This allows the user to perceive smoother activity and significantly greater and smoother idle power savings during the transition compared to the stock configuration.
 - Improve EAS behavior across devices. This allows EAS to better recognize and efficiently recognize loads and tasks that can be maintained on small cores, with the probability of keeping big cores idle 80% of the time when the device is performing light and moderate tasks, improving scheduler task placement.
+- Stability improvements and frequency selection optimizations. Allow the device's EAS Scheduler to choose efficient but stable frequencies, allowing less power to be used for light tasks (such as scrolling, etc.), avoiding short-term fluctuations.
 - Allow top-app tasks to scale between idle cores, so if the small cores become saturated, they can scale to the big cores. When the screen is off, prevent this scaling, allowing tasks to remain stuck on their respective cores, saving energy. 
 - Pack lightweight, unimportant tasks onto smaller cores. Allow the idle capacity of smaller cores to be used for efficient scheduling, recognized by the scheduler. This improves the selection of idle cores, thus enhancing the above strategy.
 - Optimize gaming performance through the SoC's Boost Framework, if compatible, such as those on Snapdragon systems with the QTI Boost Framework. This allows each frame rate selected by the user for the game to receive a different boost. As the frame rate increases or decreases, the boost becomes more or less aggressive for the game's immediate performance demands, and it scales according to the user's selection of high-performance profiles.
@@ -18,10 +19,11 @@ Details see [the lead project](https://github.com/yc9559/sdm855-tune/commits/mas
 
 ## Profiles
 
-- powersave: based on "balance" mode, which, unlike "balance," has lower idle frequencies and a higher bias toward small cores.
-- balance: smoother and more efficient than the stock configuration. it's biased toward the small cluster.
-- performance: more aggressive during ramping, it's biased toward big cores, favoring maximum performance demand.
-- fast: aggressive during "Rice" and "To-Idle," it always tries to save energy while maintaining performance. even without bias toward small cores, it always prioritizes respecting the device's chassis TDP.
+- extreme powersave: based on standard powersave, but with additional optimizations that favor efficiency over immediate rice.
+- powersave: based on balance mode, but with a lower idle frequency and a faster to-idle entry.
+- balance: smooth and balanced, better and more economical than the stock configuration. it's a balance between rice and to-idle.
+- performance: without frequency limitation, prefer a more aggressive rice over an efficient to-idle.
+- fast: has both rice and aggressive to-idle, always seeking maximum performance and energy savings simultaneously, always respecting the device chassis TDP limit.
 
 ```plain
 For the sake of work efficiency, the compatibility between the SOCs 
