@@ -9,17 +9,11 @@ Details see [the lead project](https://github.com/yc9559/sdm855-tune/commits/mas
 
 ## Features
 
-- Integrate the "**Opportunistic** Rice-to-idle" tracker strategy as the module's default optimization. This allows the user to perceive smoother activity and significantly greater and smoother idle power savings during the transition compared to the stock configuration.
-- Improve EAS behavior across devices. This allows EAS to better recognize and efficiently recognize loads and tasks that can be maintained on small cores, with the probability of keeping big cores idle 80% of the time when the device is performing light and moderate tasks, improving scheduler task placement.
-- Stability improvements and frequency selection optimizations. Allow the device's EAS Scheduler to choose efficient but stable frequencies, allowing less power to be used for light tasks (such as scrolling, etc.), avoiding short-term fluctuations.
-- Allow top-app tasks to scale between idle cores, so if the small cores become saturated, they can scale to the big cores. When the screen is off, prevent this scaling, allowing tasks to remain stuck on their respective cores, saving energy. 
-- Pack lightweight, unimportant tasks onto smaller cores. Allow the idle capacity of smaller cores to be used for efficient scheduling, recognized by the scheduler. This improves the selection of idle cores, thus enhancing the above strategy.
-- Optimize gaming performance through the SoC's Boost Framework, if compatible, such as those on Snapdragon systems with the QTI Boost Framework. This allows each frame rate selected by the user for the game to receive a different boost. As the frame rate increases or decreases, the boost becomes more or less aggressive for the game's immediate performance demands, and it scales according to the user's selection of high-performance profiles.
-- Secondary improvements and optimizations for compatible devices, such as efficiency optimizations for various subsystems, such as audio, Bluetooth, network/radio, Surface Flinger/rendering, and others. This allows the CPU and even the GPU to manage these subsystems more efficiently, making everything smoother.
+- Integrate a tracker optimization method called "Rice-to-idle." This type of tracker seeks rapid response, and not only that, but also responds quickly to demand and uses the device's IPC as a baseline. This method resolves as many tasks as possible in a short period of time before idling as quickly as possible, allowing for energy savings that border on the line between fluidity and energy savings.
+- Integrate the "Scheduler of Opportunism" (SOP) behavior. This type of EAS scheduler optimization optimizes parameters such as the CAF Boost Framework and other subsystems that integrate deeply with the scheduler. With this EAS optimization method, the "rice-to-idle" tracker ultimately benefits. Because the scheduler makes much more efficient resource allocation decisions, it always prioritizes energy savings even under the most demanding performance profiles.
 
 ## Profiles
 
-- extreme powersave: based on standard powersave, but with additional optimizations that favor efficiency over immediate rice.
 - powersave: based on balance mode, but with a lower idle frequency and a faster to-idle entry.
 - balance: smooth and balanced, better and more economical than the stock configuration. it's a balance between rice and to-idle.
 - performance: without frequency limitation, prefer a more aggressive rice over an efficient to-idle.
