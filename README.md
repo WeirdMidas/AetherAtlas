@@ -50,7 +50,7 @@ sdm710/sdm712 (Schedutil)
 - powersave:    min 0.9+1.1, idle 0.3+0.3 
 - balance:      min 0.9+1.1, idle 0.3+0.6 
 - performance:  min 0.9+1.5, idle 0.3+0.6 
-- fast:         min 0.9+1.5, idle 0.3+1.5 l
+- fast:         min 0.9+1.5, idle 0.3+1.5
 - Contains Boost Framework Optimizations: No
 
 sdm680/sdm685 (Schedutil)
