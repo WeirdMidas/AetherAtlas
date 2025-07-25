@@ -99,7 +99,6 @@ A. Name your GPU, and if possible, show me the parameters and their values.
 Q. If possible, show me any parameters you think are special about your SOC.   
 A. The more information you give me about your SOC, the better the optimizations will be. And you don't need to try too hard; I can get some others from GitHub.
 
-
 ## Requirements
 
 1. Android 8-15
