@@ -20,9 +20,17 @@ Details see [the lead project](https://github.com/yc9559/sdm855-tune/commits/mas
 ## Profiles
 
 - powersave: based on balance mode, but with a lower idle frequency and a faster to-idle entry.
+  - Quickly goes to idle after interaction;
+  - Top-app does not receive aggressive boosting, preferring justice over processes;
 - balance: smooth and balanced, better and more economical than the stock configuration. it's a balance between rice and to-idle.
+  - Quickly goes to idle after interaction;
+  - Top-app does not receive aggressive boosting, preferring justice over processes;
 - performance: without frequency limitation, prefer a more aggressive rice over an efficient to-idle.
+  - Does not quickly go into idle after interaction;
+  - Top-app receives more aggressive boosting. With the boost being 10 min uclamp and schedtune.boost respectively;
 - fast: has both rice and aggressive to-idle, always seeking maximum performance and energy savings simultaneously, always respecting the device chassis TDP limit.
+  - Quickly goes to idle after interaction;
+  - Top-app receives more aggressive boosting. With the boost being 30 min uclamp and schedtune.boost respectively;
 
 ```plain
 For the sake of work efficiency, the compatibility between the SOCs 
@@ -31,11 +39,47 @@ Matt Yang's profile. I hope you understand my decision, I had to
 align my work and make everything easier.
 
 SOC compatibility and technical specifications:
+sdm730/sdm730g (Schedutil)
+- powersave:    min 0.5+0.6, idle 0.3+0.3 
+- balance:      min 0.5+1.0, idle 0.3+0.6 
+- performance:  min 0.5+1.2, idle 0.3+0.6 
+- fast:         min 0.5+1.4, idle 0.3+1.2 
+- Contains Boost Framework Optimizations: No
+
+sdm710/sdm712 (Schedutil)
+- powersave:    min 0.9+1.1, idle 0.3+0.3 
+- balance:      min 0.9+1.1, idle 0.3+0.6 
+- performance:  min 0.9+1.5, idle 0.3+0.6 
+- fast:         min 0.9+1.5, idle 0.3+1.5 l
+- Contains Boost Framework Optimizations: No
+
 sdm680/sdm685 (Schedutil)
-- powersave:    min 0.6+0.8, idle 0.3+0.3
-- balance:      min 0.6+1.0, idle 0.3+0.8
-- performance:  min 0.6+1.0, idle 0.3+0.8
-- fast:         min 0.6+1.7, idle 0.3+1.3
+- powersave:    min 0.6+0.8, idle 0.3+0.3 
+- balance:      min 0.6+1.0, idle 0.3+0.8 
+- performance:  min 0.6+1.0, idle 0.3+0.8 
+- fast:         min 0.6+1.7, idle 0.3+1.3 
+- Contains Boost Framework Optimizations: Yes
+
+sdm675 (Schedutil)
+- powersave:    min 0.5+0.6, idle 0.3+0.3 
+- balance:      min 0.5+1.0, idle 0.3+0.6 
+- performance:  min 0.5+1.2, idle 0.3+0.6  
+- fast:         min 0.5+1.4, idle 0.3+1.2 
+- Contains Boost Framework Optimizations: No
+
+sdm660 (Interactive + Project WIPE!)
+- powersave:    min 0.8+1.3, idle 0.3+0.3 
+- balance:      min 0.8+1.3, idle 0.3+0.3 
+- performance:  min 0.8+1.3, idle 0.3+0.3 
+- fast:         min 0.8+1.3, idle 0.3+0.3 
+- Contains Boost Framework Optimizations: No
+
+sdm636 (Interactive + Project WIPE!)
+- powersave:    min 0.8+1.3, idle 0.3+0.3 
+- balance:      min 0.8+1.3, idle 0.3+0.3
+- performance:  min 0.8+1.3, idle 0.3+0.3
+- fast:         min 0.8+1.3, idle 0.3+0.3 
+- Contains Boost Framework Optimizations: No
 ```
 
 ## Requirements
