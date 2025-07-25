@@ -39,7 +39,7 @@ Matt Yang's profile. I hope you understand my decision, I had to
 align my work and make everything easier.
 
 SOC compatibility and technical specifications:
-sdm765/sdm765g
+sdm765/sdm765g (Schedutil)
 - powersave:    min 0.6+1.0+0.8, idle 0.3+0.6+0.8
 - balance:      min 0.6+1.0+0.8, idle 0.3+0.6+0.6
 - performance:  min 0.6+1.2+0.8, idle 0.3+0.6+0.8
