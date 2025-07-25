@@ -12,7 +12,7 @@ Details see [the lead project](https://github.com/yc9559/sdm855-tune/commits/mas
 - A Scheduler and CPU/GPU only optimization module, without placebo and with total focus on proposing an improved user experience in both efficiency and raw performance. With maximum priority in integrating the dynamic Android workload completely into each compatible SOC.
 - Integrate a tracker optimization method called "Rice-to-idle." This type of tracker seeks rapid response, and not only that, but also responds quickly to demand and uses the device's IPC as a baseline. This method resolves as many tasks as possible in a short period of time before idling as quickly as possible, allowing for energy savings that border on the line between fluidity and energy savings.
 - Integrate the "Scheduler of Opportunism" (SOP) behavior. This type of EAS scheduler optimization optimizes parameters such as the SOC boost framework and other subsystems that integrate deeply with the scheduler. With this EAS optimization method, the "rice-to-idle" tracker ultimately benefits. Because the scheduler makes much more efficient resource allocation decisions, it always prioritizes energy savings even under the most demanding performance profiles.
-- Optimize Boost Framework. Eliminate unnecessary boosting and focus only on those that can improve the device's fluidity while minimizing the impact on power savings. The SOC's Boost Framework will be used to provide immediate performance in these situations, focusing on efficiency (quickly completing the task and resting immediately).
+- Optimize the way CPU sets operate as a whole. Improve the way tasks are allocated between cores and enable more efficiency and decision-making across the entire EAS scheduler.
 - Respect the way each SOC architecture works. dynamlQ and big.LITTLE architectures differ in their task handling, which in turn: different optimizations are applied to each, with the two seeking different ways of handling tasks.
   - big.LITTLE will pursue simple but classic efficiency, prioritizing the use of small cores for light and moderate tasks. Whereas big cores will be reserved exclusively for heavy or critical display tasks, prioritizing fluidity in this regard.
   - DynamLQ will pursue intelligent and advanced efficiency, prioritizing a scheduling method that, unlike big.LITTLE, seeks to push the limits of efficiency and performance simultaneously.
@@ -39,47 +39,47 @@ Matt Yang's profile. I hope you understand my decision, I had to
 align my work and make everything easier.
 
 SOC compatibility and technical specifications:
+sdm765/sdm765g
+- powersave:    min 0.6+1.0+0.8, idle 0.3+0.6+0.8
+- balance:      min 0.6+1.0+0.8, idle 0.3+0.6+0.6
+- performance:  min 0.6+1.2+0.8, idle 0.3+0.6+0.8
+- fast:         min 0.6+1.4+1.7, idle 0.3+1.1+1.4
+
 sdm730/sdm730g (Schedutil)
 - powersave:    min 0.5+0.6, idle 0.3+0.3 
 - balance:      min 0.5+1.0, idle 0.3+0.6 
 - performance:  min 0.5+1.2, idle 0.3+0.6 
 - fast:         min 0.5+1.4, idle 0.3+1.2 
-- Contains Boost Framework Optimizations: No
 
 sdm710/sdm712 (Schedutil)
 - powersave:    min 0.9+1.1, idle 0.3+0.3 
 - balance:      min 0.9+1.1, idle 0.3+0.6 
 - performance:  min 0.9+1.5, idle 0.3+0.6 
-- fast:         min 0.9+1.5, idle 0.3+1.5
-- Contains Boost Framework Optimizations: No
+- fast:         min 0.9+1.5, idle 0.3+1.5 
 
 sdm680/sdm685 (Schedutil)
 - powersave:    min 0.6+0.8, idle 0.3+0.3 
 - balance:      min 0.6+1.0, idle 0.3+0.8 
 - performance:  min 0.6+1.0, idle 0.3+0.8 
 - fast:         min 0.6+1.7, idle 0.3+1.3 
-- Contains Boost Framework Optimizations: Yes
 
 sdm675 (Schedutil)
 - powersave:    min 0.5+0.6, idle 0.3+0.3 
 - balance:      min 0.5+1.0, idle 0.3+0.6 
 - performance:  min 0.5+1.2, idle 0.3+0.6  
 - fast:         min 0.5+1.4, idle 0.3+1.2 
-- Contains Boost Framework Optimizations: No
 
 sdm660 (Interactive + Project WIPE!)
 - powersave:    min 0.8+1.3, idle 0.3+0.3 
 - balance:      min 0.8+1.3, idle 0.3+0.3 
 - performance:  min 0.8+1.3, idle 0.3+0.3 
 - fast:         min 0.8+1.3, idle 0.3+0.3 
-- Contains Boost Framework Optimizations: No
 
 sdm636 (Interactive + Project WIPE!)
 - powersave:    min 0.8+1.3, idle 0.3+0.3 
 - balance:      min 0.8+1.3, idle 0.3+0.3
 - performance:  min 0.8+1.3, idle 0.3+0.3
 - fast:         min 0.8+1.3, idle 0.3+0.3 
-- Contains Boost Framework Optimizations: No
 ```
 
 ## Requirements
