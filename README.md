@@ -68,17 +68,11 @@ sdm675 (Schedutil)
 - performance:  min 0.5+1.2, idle 0.3+0.6  
 - fast:         min 0.5+1.4, idle 0.3+1.2 
 
-sdm660 (Interactive + Project WIPE!)
+sdm660/sdm636 (Interactive + Project WIPE!)
 - powersave:    min 0.4+0.8, idle 0.3+0.3 
 - balance:      min 0.4+1.3, idle 0.3+0.8
 - performance:  min 0.4+1.3, idle 0.3+0.8
 - fast:         min 0.4+1.5, idle 0.3+1.3 
-
-sdm636 (Interactive + Project WIPE!)
-- powersave:    min 0.4+0.8, idle 0.3+0.3 
-- balance:      min 0.4+1.3, idle 0.3+0.8
-- performance:  min 0.4+1.3, idle 0.3+0.8
-- fast:         min 0.4+1.5, idle 0.3+1.3
 ```
 
 ### Does your SOC not have support? And want to help with development? Read below
