@@ -10,7 +10,7 @@ See details of the original project created by Matt Yang [the lead project](http
 
 - A Scheduler and CPU/GPU only optimization module, without placebo and with total focus on proposing an improved user experience in both efficiency and raw performance. With maximum priority in integrating the dynamic Android workload completely into each compatible SOC.
 - Integrate a tracker optimization method called "Rice-to-idle." This type of tracker seeks rapid response, and not only that, but also responds quickly to demand and uses the device's IPC as a baseline. This method resolves as many tasks as possible in a short period of time before idling as quickly as possible, allowing for energy savings that border on the line between fluidity and energy savings.
-- Integrate the "Scheduler of Opportunism" (SOP) behavior. This type of EAS scheduler optimization optimizes parameters such as the SOC boost framework and other subsystems that integrate deeply with the scheduler. With this EAS optimization method, the "rice-to-idle" tracker ultimately benefits. Because the scheduler makes much more efficient resource allocation decisions, it always prioritizes energy savings even under the most demanding performance profiles.
+- Integrate the "Scheduler of Opportunism" (SOP) behavior. This type of EAS scheduler optimization optimizes parameters such as subsystems that integrate deeply with the scheduler. With this EAS optimization method, the "rice-to-idle" tracker ultimately benefits. Because the scheduler makes much more efficient resource allocation decisions, it always prioritizes energy savings even under the most demanding performance profiles.
 - Optimize the way CPU sets operate as a whole. Improve the way tasks are allocated between cores and enable more efficiency and decision-making across the entire EAS scheduler.
 - Respect the way each SOC architecture works. dynamlQ and big.LITTLE architectures differ in their task handling, which in turn: different optimizations are applied to each, with the two seeking different ways of handling tasks.
   - big.LITTLE has a separate cache between cores, which makes it quite limited in context switching situations. Therefore, its optimizations are more focused on improving task dispatch across cores and keeping tasks on optimal cores.
@@ -97,6 +97,10 @@ A. The more information you give me about your SOC, the better the optimizations
 
 1. Android 8-15
 2. Rooted with Magisk or KSU
+
+## Warning
+
+1. It is recommended to use the module only on kernels without extreme optimization, such as changes to the frequency table for better efficiency, etc. Generic, optimized but not ultra-optimized kernels can benefit from the module with pleasure.
 
 ## Installation
 
