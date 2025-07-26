@@ -13,8 +13,8 @@ See details of the original project created by Matt Yang [the lead project](http
 - Integrate the "Scheduler of Opportunism" (SOP) behavior. This type of EAS scheduler optimization optimizes parameters such as the SOC boost framework and other subsystems that integrate deeply with the scheduler. With this EAS optimization method, the "rice-to-idle" tracker ultimately benefits. Because the scheduler makes much more efficient resource allocation decisions, it always prioritizes energy savings even under the most demanding performance profiles.
 - Optimize the way CPU sets operate as a whole. Improve the way tasks are allocated between cores and enable more efficiency and decision-making across the entire EAS scheduler.
 - Respect the way each SOC architecture works. dynamlQ and big.LITTLE architectures differ in their task handling, which in turn: different optimizations are applied to each, with the two seeking different ways of handling tasks.
-  - big.LITTLE will pursue simple but classic efficiency, prioritizing the use of small cores for light and moderate tasks. Whereas big cores will be reserved exclusively for heavy or critical display tasks, prioritizing fluidity in this regard.
-  - DynamLQ will pursue intelligent and advanced efficiency, prioritizing a scheduling method that, unlike big.LITTLE, seeks to push the limits of efficiency and performance simultaneously.
+  - big.LITTLE has a separate cache between cores, which makes it quite limited in context switching situations. Therefore, its optimizations are more focused on improving task dispatch across cores and keeping tasks on optimal cores.
+  - DynamLQ has a shared L3 cache, so it doesn't require additional optimizations that favor cache locality or task dispatch, allowing the DynamLQ scheduler to deliver on demand more efficiently.
 
 ## Profiles
 
@@ -53,8 +53,8 @@ sdm730/sdm730g (Schedutil)
 sdm710/sdm712 (Schedutil)
 - powersave:    min 0.9+1.1, idle 0.3+0.3 
 - balance:      min 0.9+1.1, idle 0.3+0.6 
-- performance:  min 0.9+1.5, idle 0.3+0.6 
-- fast:         min 0.9+1.5, idle 0.3+1.5 
+- performance:  min 0.9+1.1, idle 0.3+0.6 
+- fast:         min 0.9+1.5, idle 0.3+1.1
 
 sdm680/sdm685 (Schedutil)
 - powersave:    min 0.6+0.8, idle 0.3+0.3 
@@ -69,16 +69,16 @@ sdm675 (Schedutil)
 - fast:         min 0.5+1.4, idle 0.3+1.2 
 
 sdm660 (Interactive + Project WIPE!)
-- powersave:    min 0.8+1.3, idle 0.3+0.3 
-- balance:      min 0.8+1.3, idle 0.3+0.3 
-- performance:  min 0.8+1.3, idle 0.3+0.3 
-- fast:         min 0.8+1.3, idle 0.3+0.3 
+- powersave:    min 0.4+0.8, idle 0.3+0.3 
+- balance:      min 0.4+1.3, idle 0.3+0.8
+- performance:  min 0.4+1.3, idle 0.3+0.8
+- fast:         min 0.4+1.5, idle 0.3+1.3 
 
 sdm636 (Interactive + Project WIPE!)
-- powersave:    min 0.8+1.3, idle 0.3+0.3 
-- balance:      min 0.8+1.3, idle 0.3+0.3
-- performance:  min 0.8+1.3, idle 0.3+0.3
-- fast:         min 0.8+1.3, idle 0.3+0.3 
+- powersave:    min 0.4+0.8, idle 0.3+0.3 
+- balance:      min 0.4+1.3, idle 0.3+0.8
+- performance:  min 0.4+1.3, idle 0.3+0.8
+- fast:         min 0.4+1.5, idle 0.3+1.3
 ```
 
 ### Does your SOC not have support? And want to help with development? Read below
