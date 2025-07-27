@@ -53,7 +53,7 @@ sdm765/sdm765g (Schedutil)
 - balance:      min 0.6+1.0+0.8, idle 0.3+0.6+0.6
 - performance:  min 0.6+1.2+0.8, idle 0.3+0.6+0.8
 - fast:         min 0.6+1.4+1.7, idle 0.3+1.1+1.4
-- high speed: 1.0+1.1+1.4, 90+90+80 load
+- high speed: 1.0+1.4+1.7, 90+90+80 load
 
 sdm730/sdm730g (Schedutil)
 - powersave:    min 0.5+0.6, idle 0.3+0.3 
