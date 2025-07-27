@@ -11,31 +11,41 @@ See details of the original project created by Matt Yang [the lead project](http
 - A Scheduler and CPU/GPU only optimization module, without placebo and with total focus on proposing an improved user experience in both efficiency and raw performance. With maximum priority in integrating the dynamic Android workload completely into each compatible SOC.
 - Integrate a tracker optimization method called "Rice-to-idle." This type of tracker seeks rapid response, and not only that, but also responds quickly to demand and uses the device's IPC as a baseline. This method resolves as many tasks as possible in a short period of time before idling as quickly as possible, allowing for energy savings that border on the line between fluidity and energy savings.
 - Integrate the "Scheduler of Opportunism" (SOP) behavior. This type of EAS scheduler optimization optimizes parameters such as subsystems that integrate deeply with the scheduler. With this EAS optimization method, the "rice-to-idle" tracker ultimately benefits. Because the scheduler makes much more efficient resource allocation decisions, it always prioritizes energy savings even under the most demanding performance profiles.
+- Optimize the GPU and display to reduce power consumption of these two components, which are the biggest power consumers. The focus isn't on reducing GPU performance or refresh rate, but rather on making them more efficient and more opportunistic, allowing them to enter deeper idle states with zero impact on user-perceived fluidity.
 - Optimize the way CPU sets operate as a whole. Improve the way tasks are allocated between cores and enable more efficiency and decision-making across the entire EAS scheduler.
 - Respect the way each SOC architecture works. dynamlQ and big.LITTLE architectures differ in their task handling, which in turn: different optimizations are applied to each, with the two seeking different ways of handling tasks.
   - big.LITTLE has a separate cache between cores, which makes it quite limited in context switching situations. Therefore, its optimizations are more focused on improving task dispatch across cores and keeping tasks on optimal cores.
   - DynamLQ has a shared L3 cache, so it doesn't require additional optimizations that favor cache locality or task dispatch, allowing the DynamLQ scheduler to deliver on demand more efficiently.
+- Additional optimizations and improvements to the rest of the Android subsystems that also interact with the scheduler, such as improvements to the encoder to reduce energy consumption in videos, audio and music to improve user UX.
 
 ## Profiles
 
 - powersave: based on balance mode, but with a lower idle frequency and a faster to-idle entry.
-  - Quickly goes to idle after interaction;
-  - Top-app does not receive aggressive boosting, preferring justice over processes;
+  - Quickly goes to idle after interaction.
+  - Top-app does not receive aggressive boosting, preferring justice over processes.
+  - Adrenoboost in 1, preferring to improve GPU performance for a smooth UI and slightly better gaming.
 - balance: smooth and balanced, better and more economical than the stock configuration. it's a balance between rice and to-idle.
-  - Quickly goes to idle after interaction;
-  - Top-app does not receive aggressive boosting, preferring justice over processes;
+  - Quickly goes to idle after interaction.
+  - Top-app does not receive aggressive boosting, preferring justice over processes.
+  - Adrenoboost in 1, preferring to improve GPU performance for a smooth UI and slightly better gaming.
 - performance: without frequency limitation, prefer a more aggressive rice over an efficient to-idle.
-  - Does not quickly go into idle after interaction;
-  - Top-app receives more aggressive boosting. With the boost being 10 min uclamp and schedtune.boost respectively;
+  - Does not quickly go into idle after interaction.
+  - Top-app receives more aggressive boosting. With the boost being 10 min uclamp or schedtune.boost respectively.
+  - Adrenoboost in 2, preferring performance over battery life, prioritizing immediate GPU response but not at its maximum to avoid overload.
 - fast: has both rice and aggressive to-idle, always seeking maximum performance and energy savings simultaneously, always respecting the device chassis TDP limit.
-  - Quickly goes to idle after interaction;
-  - Top-app receives more aggressive boosting. With the boost being 30 min uclamp and schedtune.boost respectively;
+  - Quickly goes to idle after interaction.
+  - Top-app receives more aggressive boosting. With the boost being 30 min uclamp or schedtune.boost respectively.
+  - Adrenoboost in 1, preferring to improve GPU performance for a smooth UI and slightly better gaming.
 
 ```plain
 For the sake of work efficiency, the compatibility between the SOCs 
 was reset, that is, I removed the SOCs that were compatible with
 Matt Yang's profile. I hope you understand my decision, I had to 
 align my work and make everything easier.
+
+idle = frequency that the SOC clusters will be at after the interaction ends
+min = floor frequency that occurs during the interaction, which prevents the CPU from dropping to idle frequencies during the interaction
+high speed + load = floor frequency and load for moments of high performance. If these demands occur, the CPU will be prohibited from dropping below these frequencies, avoiding frequency fluctuations during moments of extreme load
 
 SOC compatibility and technical specifications:
 sdm765/sdm765g (Schedutil)
