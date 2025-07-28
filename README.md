@@ -20,7 +20,7 @@ See details of the original project created by Matt Yang [the lead project](http
 
 ## Profiles
 
-- powersave: based on balance mode, but with a lower idle frequency and a faster to-idle entry.
+- powersave: based on balance mode, but faster to enter idle and has more bias towards small cores, preferring absolute energy savings even in immediate performance situations.
   - Quickly goes to idle after interaction.
   - Top-app does not receive aggressive boosting, preferring justice over processes.
   - Adrenoboost in 1, preferring to improve GPU performance for a smooth UI and slightly better gaming.
