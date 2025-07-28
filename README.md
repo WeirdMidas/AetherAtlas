@@ -85,7 +85,7 @@ sdm675 (Schedutil)
 
 sdm660/sdm636 (Interactive + Project WIPE!)
 - powersave:    high speed 1.0+1.3, 98+98 load, min 0.9+1.3, idle 0.3+0.8
-- balance:      high speed 1.4+1.3, 98+83 load, min 0.9+1.3, idle 0.3+0.8
+- balance:      high speed 1.0+1.3, 98+83 load, min 0.9+1.3, idle 0.3+0.8
 - performance:  high speed 1.0+1.3, 89+98 load, min 0.9+1.3, idle 0.3+0.8
 - fast:         high speed 1.0+1.5, 98+81 load, min 0.9+1.5, idle 0.3+1.3 
 ```
