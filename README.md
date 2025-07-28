@@ -49,45 +49,45 @@ high speed + load = floor frequency and load for moments of high performance. If
 
 SOC compatibility and technical specifications:
 sdm765/sdm765g (Schedutil)
-- powersave:    min 0.6+1.0+0.8, idle 0.3+0.6+0.8
-- balance:      min 0.6+1.0+0.8, idle 0.3+0.6+0.6
-- performance:  min 0.6+1.2+0.8, idle 0.3+0.6+0.8
-- fast:         min 0.6+1.4+1.7, idle 0.3+1.1+1.4
+- powersave:    min 0.9+1.2+0.8, idle 0.3+0.6+0.8
+- balance:      min 0.9+1.2+0.8, idle 0.3+0.6+0.6
+- performance:  min 0.9+1.2+0.8, idle 0.3+0.6+0.8
+- fast:         min 0.9+1.4+1.7, idle 0.3+1.1+1.4
 - high speed: 1.0+1.4+1.7, 90+90+80 load
 
 sdm730/sdm730g (Schedutil)
-- powersave:    min 0.5+0.6, idle 0.3+0.3 
-- balance:      min 0.5+1.0, idle 0.3+0.6 
-- performance:  min 0.5+1.2, idle 0.3+0.6 
-- fast:         min 0.5+1.4, idle 0.3+1.2 
+- powersave:    min 0.9+0.6, idle 0.3+0.6
+- balance:      min 0.9+1.0, idle 0.3+0.6 
+- performance:  min 0.9+1.2, idle 0.3+0.6  
+- fast:         min 0.9+1.4, idle 0.3+1.2 
 - high speed: 1.0+1.4, 90+90 load
 
 sdm710/sdm712 (Schedutil)
-- powersave:    min 0.9+1.1, idle 0.3+0.3 
+- powersave:    min 0.9+1.1, idle 0.3+0.6
 - balance:      min 0.9+1.1, idle 0.3+0.6 
 - performance:  min 0.9+1.1, idle 0.3+0.6 
 - fast:         min 0.9+1.5, idle 0.3+1.1
 - high speed: 0.9+1.5, 90+90 load
 
 sdm680/sdm685 (Schedutil)
-- powersave:    min 0.6+0.8, idle 0.3+0.3 
-- balance:      min 0.6+1.0, idle 0.3+0.8 
-- performance:  min 0.6+1.0, idle 0.3+0.8 
-- fast:         min 0.6+1.7, idle 0.3+1.3 
+- powersave:    min 0.9+1.3, idle 0.3+0.8
+- balance:      min 0.9+1.3, idle 0.3+0.8 
+- performance:  min 0.9+1.3, idle 0.3+0.8 
+- fast:         min 0.9+1.7, idle 0.3+1.3 
 - high speed: 1.1+1.7, 90+90 load
 
 sdm675 (Schedutil)
-- powersave:    min 0.5+0.6, idle 0.3+0.3 
-- balance:      min 0.5+1.0, idle 0.3+0.6 
-- performance:  min 0.5+1.2, idle 0.3+0.6  
-- fast:         min 0.5+1.4, idle 0.3+1.2 
+- powersave:    min 0.9+0.6, idle 0.3+0.6
+- balance:      min 0.9+1.0, idle 0.3+0.6 
+- performance:  min 0.9+1.2, idle 0.3+0.6  
+- fast:         min 0.9+1.4, idle 0.3+1.2 
 - high speed: 1.0+1.4, 90+90 load
 
 sdm660/sdm636 (Interactive + Project WIPE!)
-- powersave:    high speed 1.0+1.0, 98+98 load, min 0.4+0.8, idle 0.3+0.3 
-- balance:      high speed 1.4+1.0, 98+83 load, min 0.4+1.3, idle 0.3+0.8
-- performance:  high speed 0.8+1.0, 89+98 load, min 0.4+1.3, idle 0.3+0.8
-- fast:         high speed 1.0+1.3, 98+81 load, min 0.4+1.5, idle 0.3+1.3 
+- powersave:    high speed 1.0+1.3, 98+98 load, min 0.9+1.3, idle 0.3+0.8
+- balance:      high speed 1.4+1.3, 98+83 load, min 0.9+1.3, idle 0.3+0.8
+- performance:  high speed 1.0+1.3, 89+98 load, min 0.9+1.3, idle 0.3+0.8
+- fast:         high speed 1.0+1.5, 98+81 load, min 0.9+1.5, idle 0.3+1.3 
 ```
 
 ### Does your SOC not have support? And want to help with development? Read below
