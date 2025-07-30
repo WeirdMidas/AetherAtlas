@@ -36,40 +36,34 @@ min = floor frequency that occurs during the interaction, which prevents the CPU
 
 SOC compatibility and technical specifications:
 sdm765/sdm765g (Schedutil)
-- powersave:    min 0.9+1.2+0.8, idle 0.3+0.6+0.8
-- balance:      min 0.9+1.2+0.8, idle 0.3+0.6+0.6
-- performance:  min 0.9+1.2+0.8, idle 0.3+0.6+0.8
-- fast:         min 0.9+1.4+1.7, idle 0.3+1.1+1.4
+- powersave:    min 0.6+1.0+0.8, idle 0.3+0.6+0.8
+- balance:      min 0.6+1.0+0.8, idle 0.3+0.6+0.6
+- performance:  min 0.6+1.2+0.8, idle 0.3+0.6+0.8
+- fast:         min 0.6+1.4+1.7, idle 0.3+1.1+1.4
 
 sdm730/sdm730g (Schedutil)
-- powersave:    min 0.9+1.2, idle 0.3+0.6
-- balance:      min 0.9+1.2, idle 0.3+0.6 
-- performance:  min 0.9+1.2, idle 0.3+0.6  
-- fast:         min 0.9+1.4, idle 0.3+1.2 
+- powersave:    min 0.5+1.0, idle 0.3+0.6
+- balance:      min 0.5+1.0, idle 0.3+0.6 
+- performance:  min 0.5+1.2, idle 0.3+0.6  
+- fast:         min 0.5+1.4, idle 0.3+1.2 
 
 sdm710/sdm712 (Schedutil)
-- powersave:    min 0.9+1.2, idle 0.3+0.6
-- balance:      min 0.9+1.2, idle 0.3+0.6 
-- performance:  min 0.9+1.2, idle 0.3+0.6 
-- fast:         min 0.9+1.5, idle 0.3+1.1
+- powersave:    min 0.5+1.1, idle 0.3+0.6
+- balance:      min 0.5+1.1, idle 0.3+0.6
+- performance:  min 0.5+1.1, idle 0.3+0.6
+- fast:         min 0.5+1.5, idle 0.3+1.5
 
 sdm680/sdm685 (Schedutil)
-- powersave:    min 0.9+1.3, idle 0.3+0.8
-- balance:      min 0.9+1.3, idle 0.3+0.8 
-- performance:  min 0.9+1.3, idle 0.3+0.8 
-- fast:         min 0.9+1.7, idle 0.3+1.3 
+- powersave:    min 0.6+1.0, idle 0.3+0.8
+- balance:      min 0.6+1.0, idle 0.3+0.8 
+- performance:  min 0.6+1.0, idle 0.3+0.8 
+- fast:         min 0.6+1.7, idle 0.3+1.3 
 
 sdm675 (Schedutil)
-- powersave:    min 0.9+1.2, idle 0.3+0.6
-- balance:      min 0.9+1.2, idle 0.3+0.6 
-- performance:  min 0.9+1.2, idle 0.3+0.6  
-- fast:         min 0.9+1.4, idle 0.3+1.2 
-
-sdm660/sdm636 (Interactive + Project WIPE!)
-- powersave:    min 0.9+1.3, idle 0.3+0.8
-- balance:      min 0.9+1.3, idle 0.3+0.8
-- performance:  min 0.9+1.3, idle 0.3+0.8
-- fast:         min 0.9+1.5, idle 0.3+1.3 
+- powersave:    min 0.5+1.0, idle 0.3+0.6
+- balance:      min 0.5+1.0, idle 0.3+0.6 
+- performance:  min 0.5+1.2, idle 0.3+0.6  
+- fast:         min 0.5+1.4, idle 0.3+1.2  
 ```
 
 ### Does your SOC not have support? And want to help with development? Read below
