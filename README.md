@@ -8,11 +8,11 @@ See details of the original project created by Matt Yang [the lead project](http
 
 ## Features
 
-- A Scheduler and CPU/GPU only optimization module, without placebo and with total focus on proposing an improved user experience in both efficiency and raw performance. With maximum priority in integrating the dynamic Android workload completely into each compatible SOC.
-- Integrate a tracker optimization method called "Rice-to-idle." This type of tracker seeks rapid response, and not only that, but also responds quickly to demand and uses the device's IPC as a baseline. This method resolves as many tasks as possible in a short period of time before idling as quickly as possible, allowing for energy savings that border on the line between fluidity and energy savings.
-- Integrate the "Opportunistic Energy Conscious" (OEC) behavior. This type of EAS scheduler optimization optimizes parameters such as subsystems that integrate deeply with the scheduler. With this EAS optimization method, the "rice-to-idle" tracker ultimately benefits. Because the scheduler makes much more efficient resource allocation decisions, it always prioritizes energy savings even under the most demanding performance profiles.
-- Optimize the GPU and display to reduce power consumption of these two components, which are the biggest power consumers. The focus isn't on reducing GPU performance or refresh rate, but rather on making them more efficient and more opportunistic, allowing them to enter deeper idle states with zero impact on user-perceived fluidity.
-- Optimize the way CPU sets operate as a whole. Improve the way tasks are allocated between cores and enable more efficiency and decision-making across the entire EAS scheduler.
+- A module that purely optimizes the scheduler and the CPU/GPU. It's placebo-free and focuses on energy efficiency.
+- Contains Tytydraco's Ktweak-based optimizations for scheduler latency.
+- Integrates the "Rice-to-idle" strategy, a CPU optimization approach that seeks fast response and immediate idle time when the load decreases, pushing the limits of fluidity and energy savings one step further.
+- Integrates the "Opportunistic Energy Conscious" (OEC) strategy, an EAS scheduler optimization approach that seeks to improve rice-to-idle, which in this case seeks to improve decision-making based on SOC limitations, prioritizing efficiency as demand warrants. 
+- Optimize the GPU and Display for greater efficiency, after all, both are the biggest energy consumers, so there's nothing better than making them more efficient with a more accurate dynamic refresh rate, etc.
 - Respect the way each SOC architecture works. dynamlQ and big.LITTLE architectures differ in their task handling, which in turn: different optimizations are applied to each, with the two seeking different ways of handling tasks.
   - big.LITTLE has a separate cache between cores, which makes it quite limited in context switching situations. Therefore, its optimizations are more focused on improving task dispatch across cores and keeping tasks on optimal cores.
   - DynamLQ has a shared L3 cache, so it doesn't require additional optimizations that favor cache locality or task dispatch, allowing the DynamLQ scheduler to deliver on demand more efficiently.
@@ -22,7 +22,7 @@ See details of the original project created by Matt Yang [the lead project](http
 
 - powersave: based on balance mode, but with lower idle frequency
 - balance: smoother than the stock config with lower power consumption
-- performance: dynamic stune boost = 30 with no frequency limitation
+- performance: without limitations, seeks maximum performance to the detriment of an efficient "to-idle"
 - fast: providing stable performance capacity considering the TDP limitation of device chassis
 
 ```plain
