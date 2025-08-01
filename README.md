@@ -17,6 +17,7 @@ See details of the original project created by Matt Yang [the lead project](http
   - big.LITTLE has a separate cache between cores, which makes it quite limited in context switching situations. Therefore, its optimizations are more focused on improving task dispatch across cores and keeping tasks on optimal cores.
   - DynamLQ has a shared L3 cache, so it doesn't require additional optimizations that favor cache locality or task dispatch, allowing the DynamLQ scheduler to deliver on demand more efficiently.
 - Additional optimizations and improvements to the rest of the Android subsystems that also interact with the scheduler, such as improvements to the encoder to reduce energy consumption in videos, audio and music to improve user UX.
+- Improved touch response, allowing for above-average UX responsiveness for users who prefer smooth touch. It's not a huge UX improvement, but it's a worthwhile one.
 
 ## Profiles
 
