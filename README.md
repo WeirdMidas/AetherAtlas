@@ -6,19 +6,6 @@ The previous [Project WIPE](https://github.com/yc9559/cpufreq-interactive-opt), 
 
 See details of the original project created by Matt Yang [the lead project](https://github.com/yc9559/sdm855-tune/commits/master) & [perfd-opt commits](https://github.com/yc9559/perfd-opt/commits/master)    
 
-## Features
-
-- A module that purely optimizes the scheduler and the CPU/GPU. It's placebo-free and focuses on energy efficiency.
-- Contains Tytydraco's Ktweak-based optimizations for scheduler latency.
-- Integrates the "Rice-to-idle" strategy, a CPU optimization approach that seeks fast response and immediate idle time when the load decreases, pushing the limits of fluidity and energy savings one step further.
-- Integrates the "Opportunistic Energy Conscious" (OEC) strategy, an EAS scheduler optimization approach that seeks to improve rice-to-idle, which in this case seeks to improve decision-making based on SOC limitations, prioritizing efficiency as demand warrants. 
-- Optimize the GPU and Display for greater efficiency, after all, both are the biggest energy consumers, so there's nothing better than making them more efficient with a more accurate dynamic refresh rate, etc.
-- Respect the way each SOC architecture works. dynamlQ and big.LITTLE architectures differ in their task handling, which in turn: different optimizations are applied to each, with the two seeking different ways of handling tasks.
-  - big.LITTLE has a separate cache between cores, which makes it quite limited in context switching situations. Therefore, its optimizations are more focused on improving task dispatch across cores and keeping tasks on optimal cores.
-  - DynamLQ has a shared L3 cache, so it doesn't require additional optimizations that favor cache locality or task dispatch, allowing the DynamLQ scheduler to deliver on demand more efficiently.
-- Additional optimizations and improvements to the rest of the Android subsystems that also interact with the scheduler, such as improvements to the encoder to reduce energy consumption in videos, audio and music to improve user UX.
-- Improved touch response, allowing for above-average UX responsiveness for users who prefer smooth touch. It's not a huge UX improvement, but it's a worthwhile one.
-
 ## Profiles
 
 - powersave: based on balance mode, but with lower idle frequency
@@ -32,39 +19,36 @@ was reset, that is, I removed the SOCs that were compatible with
 Matt Yang's profile. I hope you understand my decision, I had to 
 align my work and make everything easier.
 
-idle = frequency that the SOC clusters will be at after the interaction ends
-min = floor frequency that occurs during the interaction, which prevents the CPU from dropping to idle frequencies during the interaction
-
 SOC compatibility and technical specifications:
 sdm765/sdm765g (Schedutil)
-- powersave:    min 0.9+1.0+0.8, idle 0.3+0.6+0.8
-- balance:      min 0.9+1.0+0.8, idle 0.6+0.6+0.6
-- performance:  min 0.9+1.2+0.8, idle 0.6+0.6+0.8
-- fast:         min 0.9+1.4+1.7, idle 0.6+1.1+1.4
+- powersave:    min 0.6+1.0+0.8, idle 0.3+0.6+0.8
+- balance:      min 0.6+1.0+0.8, idle 0.3+0.6+0.6
+- performance:  min 0.6+1.2+0.8, idle 0.3+0.6+0.8
+- fast:         min 0.6+1.4+1.7, idle 0.3+1.1+1.4
 
 sdm730/sdm730g (Schedutil)
-- powersave:    min 0.9+1.0, idle 0.3+0.6
-- balance:      min 0.9+1.0, idle 0.5+0.6 
-- performance:  min 0.9+1.2, idle 0.5+0.6  
-- fast:         min 0.9+1.4, idle 0.5+1.2 
+- powersave:    min 0.5+1.0, idle 0.3+0.6
+- balance:      min 0.5+1.0, idle 0.3+0.6 
+- performance:  min 0.5+1.2, idle 0.3+0.6  
+- fast:         min 0.5+1.4, idle 0.3+1.2 
 
 sdm710/sdm712 (Schedutil)
-- powersave:    min 0.9+1.1, idle 0.3+0.6
-- balance:      min 0.9+1.1, idle 0.5+0.6
-- performance:  min 0.9+1.1, idle 0.5+0.6
-- fast:         min 0.9+1.6, idle 0.5+1.5
+- powersave:    min 0.5+1.1, idle 0.3+0.6
+- balance:      min 0.5+1.1, idle 0.3+0.6
+- performance:  min 0.5+1.1, idle 0.3+0.6
+- fast:         min 0.5+1.5, idle 0.3+1.5
 
 sdm680/sdm685 (Schedutil)
-- powersave:    min 0.9+1.0, idle 0.3+0.8
-- balance:      min 0.9+1.0, idle 0.6+0.8 
-- performance:  min 0.9+1.0, idle 0.6+0.8 
-- fast:         min 0.9+1.7, idle 0.6+1.3 
+- powersave:    min 0.6+1.0, idle 0.3+0.8
+- balance:      min 0.6+1.0, idle 0.3+0.8 
+- performance:  min 0.6+1.0, idle 0.3+0.8 
+- fast:         min 0.6+1.7, idle 0.3+1.3 
 
 sdm675 (Schedutil)
-- powersave:    min 0.9+1.0, idle 0.3+0.6
-- balance:      min 0.9+1.0, idle 0.5+0.6 
-- performance:  min 0.9+1.2, idle 0.5+0.6  
-- fast:         min 0.9+1.4, idle 0.5+1.2  
+- powersave:    min 0.5+1.0, idle 0.3+0.6
+- balance:      min 0.5+1.0, idle 0.3+0.6 
+- performance:  min 0.5+1.2, idle 0.3+0.6  
+- fast:         min 0.5+1.4, idle 0.3+1.2  
 ```
 
 ### Does your SOC not have support? And want to help with development? Read below
