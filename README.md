@@ -6,9 +6,14 @@ The previous [Project WIPE](https://github.com/yc9559/cpufreq-interactive-opt), 
 
 See details of the original project created by Matt Yang [the lead project](https://github.com/yc9559/sdm855-tune/commits/master) & [perfd-opt commits](https://github.com/yc9559/perfd-opt/commits/master)    
 
+## Features
+- CPU/GPU and scheduler optimization only. Focused on delivering maximum energy efficiency on demand.
+- Align the EAS scheduler's behavior with the Schedutil Governor, allowing the scheduler to make better decisions with minimal latency. Stably reduce and increase the frequency, always finding the ideal point.
+- Optimize the device's Boost Framework for cleanup purposes by removing useless boosts and making the Boost Framework more efficient and aligned with the EAS scheduler. This allows for better use of the Boost Framework.
+
 ## Profiles
 
-- powersave: based on balance mode, but with lower idle frequency
+- powersave: based on balance mode, but with more aggressive entry to idle
 - balance: smoother than the stock config with lower power consumption
 - performance: without limitations, seeks maximum performance to the detriment of an efficient "to-idle"
 - fast: providing stable performance capacity considering the TDP limitation of device chassis
@@ -44,7 +49,7 @@ sdm680/sdm685 (Schedutil)
 - performance:  min 0.6+1.0, idle 0.3+0.8 
 - fast:         min 0.6+1.7, idle 0.3+1.3 
 
-sdm675 (Schedutil)
+sdm675/sdm678 (Schedutil)
 - powersave:    min 0.5+1.0, idle 0.3+0.6
 - balance:      min 0.5+1.0, idle 0.3+0.6 
 - performance:  min 0.5+1.2, idle 0.3+0.6  
