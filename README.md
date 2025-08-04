@@ -74,7 +74,7 @@ getprop ro.board.platform
 Q. What is your SoC's frequency table?  
 A. Enter the frequency table/available frequencies for your SoC here. It is only recommended to submit this if your kernel is not an ultra-optimized one that forced changes to the frequency table.
 
-Q. What GPU do you have? And could you show me all tsysfs parameters for your GPU? If possible,   
+Q. What GPU do you have? And could you show me all the sysfs parameters for your GPU? If possible,   
 A. Name your GPU, and if possible, show me the parameters and their values.
 
 Q. If possible, show me any parameters you think are special about your SOC.   
@@ -96,7 +96,9 @@ A. Just send me the path to your DDR. This will help me lock it to a more effici
 
 1. Download zip in [Release Page](https://github.com/yc9559/perfd-opt/releases)
 2. Flash in Magisk or KSU manager
-3. Reboot and Check whether `/sdcard/Android/panel_powercfg.txt` exists
+3. Reboot and Check whether `/sdcard/Android/panel_powercfg.txt` exists. Remember Each SOC will have a different profile, so don't expect the same optimizations as an old or new SOC.   
+4. Schedhorizon compatible, which will be preferred if the user has it in their kernel. It will also be optimized for "efficient" scaling.  
+5. Schedutil is preferred for SOCs that were released without Interactive and without Project WIPE compatibility!
 
 ## Switch modes
 
