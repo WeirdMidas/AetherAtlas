@@ -17,12 +17,15 @@ See details of the original project created by Matt Yang [the lead project](http
 - fast: providing stable performance capacity considering the TDP limitation of device chassis
 
 ```plain
-For the sake of work efficiency, the compatibility between the SOCs 
-was reset, that is, I removed the SOCs that were compatible with
-Matt Yang's profile. I hope you understand my decision, I had to 
-align my work and make everything easier.
+sdm865 (Schedutil)
+- Still assembling the profiles
 
-SOC compatibility and technical specifications:
+sdm855/855+ (Schedutil)
+- Still assembling the profiles
+
+sdm845 (Schedutil)
+- Still assembling the profiles
+
 sdm765/sdm765g (Schedutil)
 - powersave:    min 0.6+1.0+0.8, idle 0.3+0.6+0.8
 - balance:      min 0.6+1.0+0.8, idle 0.3+0.6+0.6
@@ -52,7 +55,12 @@ sdm675/sdm678 (Schedutil)
 - balance:      min 0.5+1.0, idle 0.3+0.6 
 - performance:  min 0.5+1.2, idle 0.3+0.6  
 - fast:         min 0.5+1.4, idle 0.3+1.2  
+
+sdm660/636 (Interactive + Project WIPE!)
+- Still assembling the profiles
 ```
+
+- Battery Saver Mode: A mode that enables additional power-saving optimizations. It can be used with any profile; after all, it will only perform additional optimizations.
 
 ### Does your SOC not have support? And want to help with development? Read below
 Perfd opt itself will optimize not only Snapdragon devices; other SoCs will also be able to integrate with the module, having their own specific profiles. If you didn't find your SoC in the compatibility list but want to contribute to the project and help me further cover it, please submit an issue answering the questions below:
@@ -66,7 +74,7 @@ getprop ro.board.platform
 Q. What is your SoC's frequency table?  
 A. Enter the frequency table/available frequencies for your SoC here. It is only recommended to submit this if your kernel is not an ultra-optimized one that forced changes to the frequency table.
 
-Q. What GPU do you have? And could you show me all the sysfs parameters for your GPU? If possible,   
+Q. What GPU do you have? And could you show me all tsysfs parameters for your GPU? If possible,   
 A. Name your GPU, and if possible, show me the parameters and their values.
 
 Q. If possible, show me any parameters you think are special about your SOC.   
@@ -105,6 +113,9 @@ Exec `sh /data/powercfg.sh balance`, where `balance` is the mode you want to swi
 
 Option 2:  
 Install [vtools](https://www.coolapk.com/apk/com.omarea.vtools) and bind APPs to power mode.  
+
+### How to activate battery saving mode
+Still in creation, we only have the base for now
 
 ## Credit
 
