@@ -1,15 +1,13 @@
-# Perfd-opt
+# Aether Atlas
+![1000002543](https://github.com/user-attachments/assets/9516ac1e-648b-4896-8523-cdc2bc67e519)
+
+# Review
 
 The previous [Project WIPE](https://github.com/yc9559/cpufreq-interactive-opt), automatically adjust the `interactive` parameters via simulation and heuristic optimization algorithms, and working on all mainstream devices which use `interactive` as default governor. The recent [WIPE v2](https://github.com/yc9559/wipe-v2), improved simulation supports more features of the kernel and focuses on rendering performance requirements, automatically adjusting the `interactive`+`HMP`+`input boost` parameters. However, when the HMP scheduler was removed from mainline and in sequence the interactive was also removed. The new scheduler was integrated into recent Android devices (from 2020 onwards) and replaced the mainstream: EAS (Energy-Aware Scheduling), a scheduler that focuses on energy efficiency rather than raw performance, abandoning very old solutions like CFS (Completely Fair Scheduler) and even HMP (Heterogeneous Multi-Processing). But that's not all; trackers like WALT (Window-Assisted Load Tracking) and PELT (Per-Entity Load Tracking) were also integrated, allowing load tracking to be as stable or as fast as possible, depending on the device used. The way to manage the task of each scheduler and tracker became complicated, causing many users to have to specialize in each scheduler to know when and where to optimize to reduce energy consumption, without penalty of performance losses or latency. Causing information to be lost and everything to be obfuscated, making it difficult for users who would like to do this to optimize. This caused even schedutil to be affected, reducing the accuracy of tests because schedutil often works differently in each scheduler.
 
 [WIPE v2](https://github.com/yc9559/wipe-v2) focuses on meeting performance requirements when interacting with APP, while reducing non-interactive lag weights, pushing the trade-off between fluency and power saving even further. Based on this old project, Perfd opt tries to find a way to, in turn: make the EAS and the device's Tracker more "united", this means that the WALT, or even the PELT, can synchronize better with the EAS, allowing them to track loads, help the EAS to perform better, both energetically and in high performance, allowing the Scheduler and the device's Tracker to work together, improving the consistency of the WALT and the response of the PELT. Where the Scheduler and Tracker will follow the "**Opportunistic** Rice-to-idle" strategy, this means that the way the Scheduler and Tracker work is completely opportunistic with the bias in saving energy by having an immediate "to-idle" entry if the demand ends, of course, based on the performance demand, a more aggressive ramping (or better, "rice") is preferred, always looking for efficient frequencies that can feed the need for immediate performance of the situation. However, as the power profile currently being used becomes closer to high performance, more preference is given to powerful cores, and then, upon completion of the interaction, the device runs directly to idle, using much lower frequencies compared to the standard ones. 
 
 See details of the original project created by Matt Yang [the lead project](https://github.com/yc9559/sdm855-tune/commits/master) & [perfd-opt commits](https://github.com/yc9559/perfd-opt/commits/master)    
-
-## Features
-- CPU/GPU and scheduler optimization only. Focused on delivering maximum energy efficiency on demand.
-- Align the EAS scheduler's behavior with the Schedutil Governor, allowing the scheduler to make better decisions with minimal latency. Stably reduce and increase the frequency, always finding the ideal point.
-- Optimize the device's Boost Framework for cleanup purposes by removing useless boosts and making the Boost Framework more efficient and aligned with the EAS scheduler. This allows for better use of the Boost Framework.
 
 ## Profiles
 
@@ -75,7 +73,7 @@ Q. If possible, show me any parameters you think are special about your SOC.
 A. The more information you give me about your SOC, the better the optimizations will be. And you don't need to try too hard; I can get some others from GitHub.
 
 Q. If possible, please tell me the path to your DDR.
-A. Just send me the path to your DDR. This will help me lock it to a more efficient governor and prevent unnecessary userspace changes.
+A. Just send me the path to your DDR. This will help me lock it to a more efficient governor and prevent unnecessary userspace changes. And also if you can, show me the available frequencies of your DDR.
 
 ## Requirements
 
@@ -134,4 +132,6 @@ the creator of perfd ​​opt, original credits to him for being the king of mo
 
 @AxionOS Devs
 imported some optimizations to integrate the user experience improvement that perfd ​​offers
+
+Credits to the artist of the image I used as the cover
 ```
