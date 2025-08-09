@@ -11,9 +11,9 @@ See details of the original project created by Matt Yang [the lead project](http
 
 ## Features
 
-- A CPU and scheduler optimization focused on integrating refined optimization strategies that can be integrated into the dynamic Android workload.
+- A module that optimizes CPU/GPU, Devfreq and Scheduler parameters. It prioritizes energy savings over performance, but never compromises it, optimizing EAS behavior to the highest levels.
 - Integrates the Tracker optimization called Rice-to-idle (Race to idle whenever possible). This is a way to optimize WALT/PELT that allows the CPU to scale frequencies according to immediate performance needs, always preferring to resolve the task quickly even if this requires a higher frequency. Based on this, a touch of "opportunism" was also introduced, where the CPU scales as needed but always one step back, avoiding unnecessarily high frequencies.
-- Integrates the EAS scheduler optimization called "ECO" (Energy-Aware Opportunism). This is a way to optimize the EAS scheduler and the schedutil/interactive governor so that they prefer more energy-efficient placement, frequencies, and scheduling even in high-performance profiles. Always preferring to save energy by already knowing the immediate performance needs.
+- Integrates the EAS scheduler optimization called "EAO" (Energy-Aware Opportunism). This is a way to optimize the EAS scheduler and the schedutil/interactive governor so that they prefer more energy-efficient placement, frequencies, and scheduling even in high-performance profiles. Always preferring to save energy by already knowing the immediate performance needs.
 - Optimize and improve the behavior of: audio, encoder/video, and camera, allowing the subsystems that most impact the user experience to improve both efficiency and stability. This improves the user experience.
 - Reduces logspam from certain subsystems that many consider "useless." This allows for cleaner logcat and more centralized information, in addition to reducing idle CPU usage, resulting in better battery life.
 
@@ -153,5 +153,3 @@ imported some optimizations to integrate the user experience improvement that pe
 
 Credits to the artist of the image I used as the cover
 ```
-
-
