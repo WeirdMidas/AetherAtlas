@@ -11,7 +11,7 @@ See details of the original project created by Matt Yang [the lead project](http
 
 ## Features
 
-- A module that optimizes CPU/GPU, Devfreq and Scheduler parameters. It prioritizes energy savings over performance, but never compromises it, optimizing EAS behavior to the highest levels.
+- A CPU/GPU, DevFreq and Scheduler optimization module. It's placebo-free and focuses entirely on improving the Android's dynamic behavior.
 - Integrates the Tracker optimization called Rice-to-idle (Race to idle whenever possible). This is a way to optimize WALT/PELT that allows the CPU to scale frequencies according to immediate performance needs, always preferring to resolve the task quickly even if this requires a higher frequency. Based on this, a touch of "opportunism" was also introduced, where the CPU scales as needed but always one step back, avoiding unnecessarily high frequencies.
 - Integrates the EAS scheduler optimization called "EAO" (Energy-Aware Opportunism). This is a way to optimize the EAS scheduler and the schedutil/interactive governor so that they prefer more energy-efficient placement, frequencies, and scheduling even in high-performance profiles. Always preferring to save energy by already knowing the immediate performance needs.
 - Optimize and improve the behavior of: audio, encoder/video, and camera, allowing the subsystems that most impact the user experience to improve both efficiency and stability. This improves the user experience.
@@ -19,47 +19,56 @@ See details of the original project created by Matt Yang [the lead project](http
 
 ## Profiles
 
-- powersave: based on balance mode, but with more aggressive entry to idle
+- powersave: based on balance mode, but with more aggressive entry to idle and bias more preferential to small cores
 - balance: smoother than the stock config with lower power consumption
 - performance: without limitations, seeks maximum performance to the detriment of an efficient "to-idle"
 - fast: providing stable performance capacity considering the TDP limitation of device chassis
 
 ```plain
 sdm865/870 (Schedutil)
-- Still assembling the profiles
+- powersave:    min 1.3+0.7+1.1, idle 0.3+0.7+1.1
+- balance:      min 1.1+1.0+1.1, idle 0.6+0.7+1.1
+- performance:  min 1.1+1.2+1.1, idle 0.6+0.7+1.1
+- fast:         min 1.1+1.5+1.7, idle 0.6+1.2+1.2
 
 sdm855/855+/860 (Schedutil)
-- Still assembling the profiles
+- powersave:    min 1.3+0.7+0.8, idle 0.3+0.7+0.8
+- balance:      min 1.1+1.0+0.8, idle 0.5+0.7+1.1
+- performance:  min 1.1+1.2+0.8, idle 0.5+0.7+1.1
+- fast:         min 1.1+1.6+1.6, idle 0.5+1.2+1.2
 
 sdm845 (Schedutil)
-- Still assembling the profiles
+- powersave:    min 1.3+0.3, idle 0.3+0.3
+- balance:      min 1.1+1.2, idle 0.5+0.8 
+- performance:  min 1.1+1.2, idle 0.5+0.8 
+- fast:         min 1.1+1.8, idle 0.5+1.6
 
 sdm765/sdm765g (Schedutil)
-- powersave:    min 0.6+1.0+0.8, idle 0.3+0.6+0.8
+- powersave:    min 1.3+0.6+0.8, idle 0.3+0.6+0.8
 - balance:      min 0.6+1.0+0.8, idle 0.3+0.6+0.6
 - performance:  min 0.6+1.2+0.8, idle 0.3+0.6+0.8
 - fast:         min 0.6+1.4+1.7, idle 0.3+1.1+1.4
 
 sdm730/sdm730g (Schedutil)
-- powersave:    min 0.5+1.0, idle 0.3+0.6
+- powersave:    min 1.3+0.6, idle 0.3+0.6
 - balance:      min 0.5+1.0, idle 0.3+0.6 
 - performance:  min 0.5+1.2, idle 0.3+0.6  
 - fast:         min 0.5+1.4, idle 0.3+1.2 
 
 sdm710/sdm712 (Schedutil)
-- powersave:    min 0.5+1.1, idle 0.3+0.6
+- powersave:    min 1.3+0.6, idle 0.3+0.6
 - balance:      min 0.5+1.1, idle 0.3+0.6
 - performance:  min 0.5+1.1, idle 0.3+0.6
 - fast:         min 0.5+1.5, idle 0.3+1.5
 
 sdm680/sdm685 (Schedutil)
-- powersave:    min 0.6+1.0, idle 0.3+0.8
-- balance:      min 0.6+1.0, idle 0.3+0.8 
-- performance:  min 0.6+1.0, idle 0.3+0.8 
-- fast:         min 0.6+1.7, idle 0.3+1.3 
+- powersave:    min 1.3+0.8, idle 0.3+0.8
+- balance:      min 0.9+1.0, idle 0.3+0.8 
+- performance:  min 0.9+1.0, idle 0.3+0.8 
+- fast:         min 0.9+1.7, idle 0.3+1.3 
 
 sdm675/sdm678 (Schedutil)
-- powersave:    min 0.5+1.0, idle 0.3+0.6
+- powersave:    min 1.3+0.6, idle 0.3+0.6
 - balance:      min 0.5+1.0, idle 0.3+0.6 
 - performance:  min 0.5+1.2, idle 0.3+0.6  
 - fast:         min 0.5+1.4, idle 0.3+1.2  
