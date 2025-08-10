@@ -14,8 +14,7 @@ See details of the original project created by Matt Yang [the lead project](http
 - A CPU/GPU, DevFreq and Scheduler optimization module. It's placebo-free and focuses entirely on improving the Android's dynamic behavior.
 - Integrates the Tracker optimization called Rice-to-idle (Race to idle whenever possible). This is a way to optimize WALT/PELT that allows the CPU to scale frequencies according to immediate performance needs, always preferring to resolve the task quickly even if this requires a higher frequency. Based on this, a touch of "opportunism" was also introduced, where the CPU scales as needed but always one step back, avoiding unnecessarily high frequencies.
 - Integrates the EAS scheduler optimization called "EAO" (Energy-Aware Opportunism). This is a way to optimize the EAS scheduler and the schedutil/interactive governor so that they prefer more energy-efficient placement, frequencies, and scheduling even in high-performance profiles. Always preferring to save energy by already knowing the immediate performance needs.
-- Optimize and improve the behavior of: audio, encoder/video, and camera, allowing the subsystems that most impact the user experience to improve both efficiency and stability. This improves the user experience.
-- Reduces logspam from certain subsystems that many consider "useless." This allows for cleaner logcat and more centralized information, in addition to reducing idle CPU usage, resulting in better battery life.
+- Improve and optimize the behavior of subsystems that directly impact the user experience, such as audio, encoder, and others. This allows you to significantly reduce the power consumption of these subsystems, improving the user experience.
 
 ## Profiles
 
@@ -30,51 +29,60 @@ sdm865/870 (Schedutil)
 - balance:      min 1.1+1.0+1.1, idle 0.6+0.7+1.1
 - performance:  min 1.1+1.2+1.1, idle 0.6+0.7+1.1
 - fast:         min 1.1+1.5+1.7, idle 0.6+1.2+1.2
+- Groups Tasks that use up to 30% of the little cluster into a single small core
 
 sdm855/855+/860 (Schedutil)
 - powersave:    min 1.3+0.7+0.8, idle 0.3+0.7+0.8
 - balance:      min 1.1+1.0+0.8, idle 0.5+0.7+1.1
 - performance:  min 1.1+1.2+0.8, idle 0.5+0.7+1.1
 - fast:         min 1.1+1.6+1.6, idle 0.5+1.2+1.2
+- Groups Tasks that use up to 30% of the little cluster into a single small core
 
 sdm845 (Schedutil)
 - powersave:    min 1.3+0.3, idle 0.3+0.3
 - balance:      min 1.1+1.2, idle 0.5+0.8 
 - performance:  min 1.1+1.2, idle 0.5+0.8 
 - fast:         min 1.1+1.8, idle 0.5+1.6
+- Groups Tasks that use up to 30% of the little cluster into a single small core
 
 sdm765/sdm765g (Schedutil)
 - powersave:    min 1.3+0.6+0.8, idle 0.3+0.6+0.8
 - balance:      min 0.6+1.0+0.8, idle 0.3+0.6+0.6
 - performance:  min 0.6+1.2+0.8, idle 0.3+0.6+0.8
 - fast:         min 0.6+1.4+1.7, idle 0.3+1.1+1.4
+- Groups Tasks that use up to 25% of the little cluster into a single small core
 
 sdm730/sdm730g (Schedutil)
 - powersave:    min 1.3+0.6, idle 0.3+0.6
 - balance:      min 0.5+1.0, idle 0.3+0.6 
 - performance:  min 0.5+1.2, idle 0.3+0.6  
 - fast:         min 0.5+1.4, idle 0.3+1.2 
+- Groups Tasks that use up to 25% of the little cluster into a single small core
 
 sdm710/sdm712 (Schedutil)
 - powersave:    min 1.3+0.6, idle 0.3+0.6
 - balance:      min 0.5+1.1, idle 0.3+0.6
 - performance:  min 0.5+1.1, idle 0.3+0.6
 - fast:         min 0.5+1.5, idle 0.3+1.5
+- Groups Tasks that use up to 25% of the little cluster into a single small core
 
 sdm680/sdm685 (Schedutil)
 - powersave:    min 1.3+0.8, idle 0.3+0.8
 - balance:      min 0.9+1.0, idle 0.3+0.8 
 - performance:  min 0.9+1.0, idle 0.3+0.8 
 - fast:         min 0.9+1.7, idle 0.3+1.3 
+- Groups Tasks that use up to 20% of the little cluster into a single small core
 
 sdm675/sdm678 (Schedutil)
 - powersave:    min 1.3+0.6, idle 0.3+0.6
 - balance:      min 0.5+1.0, idle 0.3+0.6 
 - performance:  min 0.5+1.2, idle 0.3+0.6  
 - fast:         min 0.5+1.4, idle 0.3+1.2  
+- Groups Tasks that use up to 20% of the little cluster into a single small core
 
 sdm660/636 (Interactive + Project WIPE!)
 - Still assembling the profiles
+- Groups Tasks that use up to 15% of the little cluster into a single small core
 ```
 
 - Battery Saver Mode: A mode that enables additional power-saving optimizations. It can be used with any profile; after all, it will only perform additional optimizations.
