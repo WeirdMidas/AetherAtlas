@@ -1,5 +1,5 @@
 # Aether Atlas
-![1000002543](https://github.com/user-attachments/assets/9516ac1e-648b-4896-8523-cdc2bc67e519)
+![1000003638](https://github.com/user-attachments/assets/1fdf8b8b-8886-4402-91a7-f32ba3c441a9)
 
 # Review
 
@@ -170,3 +170,4 @@ imported some optimizations to integrate the user experience improvement that pe
 
 Credits to the artist of the image I used as the cover
 ```
+
