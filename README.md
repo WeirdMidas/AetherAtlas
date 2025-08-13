@@ -14,6 +14,8 @@ See details of the original project created by Matt Yang [the lead project](http
 - A CPU/GPU, DevFreq and Scheduler optimization module. It's placebo-free and focuses entirely on improving the Android's dynamic behavior.
 - Integrates the Tracker optimization called Rice-to-idle (Race to idle whenever possible). This is a way to optimize WALT/PELT that allows the CPU to scale frequencies according to immediate performance needs, always preferring to resolve the task quickly even if this requires a higher frequency. Based on this, a touch of "opportunism" was also introduced, where the CPU scales as needed but always one step back, avoiding unnecessarily high frequencies.
 - Integrates the EAS scheduler optimization called "EAO" (Energy-Aware Opportunism). This is a way to optimize the EAS scheduler and the schedutil/interactive governor so that they prefer more energy-efficient placement, frequencies, and scheduling even in high-performance profiles. Always preferring to save energy by already knowing the immediate performance needs.
+- Optimize the scheduler to make it fairer and more efficient with load balancing. This reduces latency and, in turn, improves task resolution speed for more efficient to-idle.
+- It also includes two additional features: "Power Saving Mode," a way to add additional battery-saving optimizations to the current profile. This can be used on any profile, even high-performance ones. And a "GameSpace" daemon, which allows you to change the CPU affinity of games you've listed so they use only the most powerful cores on your system, maximizing performance.
 - Improve and optimize the behavior of subsystems that directly impact the user experience, such as audio, encoder, and others. This allows you to significantly reduce the power consumption of these subsystems, improving the user experience.
 
 ## Profiles
@@ -95,6 +97,7 @@ sdm660/636 (Interactive + Project WIPE!)
 ```
 
 - Battery Saver Mode: A mode that enables additional power-saving optimizations. It can be used with any profile; after all, it will only perform additional optimizations.
+- GameSpace: A daemon that changes the affinity of games that the user has put on the list to pin them to the most powerful cores.
 
 ### Does your SOC not have support? And want to help with development? Read below
 Perfd opt itself will optimize not only Snapdragon devices; other SoCs will also be able to integrate with the module, having their own specific profiles. If you didn't find your SoC in the compatibility list but want to contribute to the project and help me further cover it, please submit an issue answering the questions below:
@@ -148,7 +151,20 @@ Option 2:
 Install [vtools](https://www.coolapk.com/apk/com.omarea.vtools) and bind APPs to power mode.  
 
 ### How to activate battery saving mode
+
 Still in creation, we only have the base for now
+
+### How to enable GameSpace
+
+You can enable it to activate every reboot by going to the Aether dashboard and changing the "always_on" option from false to true. If you want to enable it without making it persistent between reboots, use the command:
+
+sh gamespace on
+
+To disable it:
+
+sh gamespace off
+
+To add games to the list called "GameList.txt" in the /android folder, it will identify the game. It runs every 120 seconds. When the game is on the screen, it goes to sleep for 30 minutes, after which it will go to sleep again if the game is still running.
 
 ## Credit
 
