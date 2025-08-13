@@ -47,7 +47,7 @@ sdm845 (Schedutil)
 - performance:  min 1.1+1.6, idle 0.5+0.8 
 - fast:         min 1.1+1.6, idle 0.5+1.6
 - Groups Tasks that use up to 30% of the little cluster into a single small core
-- 1ms migration cost. Focus on cache locality
+- Migration cost equal to wake-up granularity. Focus on cache locality
 
 sdm765/sdm765g (Schedutil)
 - powersave:    min 1.0+1.0+0.8, idle 0.3+0.6+0.8
@@ -63,7 +63,7 @@ sdm730/sdm730g (Schedutil)
 - performance:  min 1.0+1.2, idle 0.3+0.6  
 - fast:         min 1.0+1.4, idle 0.3+1.2 
 - Groups Tasks that use up to 25% of the little cluster into a single small core
-- 2ms migration cost. Focus on cache locality
+- Migration cost equal to wake-up granularity. Focus on cache locality
 
 sdm710/sdm712 (Schedutil)
 - powersave:    min 0.9+1.1, idle 0.3+0.6
@@ -71,7 +71,7 @@ sdm710/sdm712 (Schedutil)
 - performance:  min 0.9+1.1, idle 0.3+0.6
 - fast:         min 0.9+1.5, idle 0.3+1.5
 - Groups Tasks that use up to 25% of the little cluster into a single small core
-- 2ms migration cost. Focus on cache locality
+- Migration cost equal to wake-up granularity. Focus on cache locality
 
 sdm680/sdm685 (Schedutil)
 - powersave:    min 0.9+1.0, idle 0.3+0.8
@@ -79,7 +79,7 @@ sdm680/sdm685 (Schedutil)
 - performance:  min 0.9+1.0, idle 0.3+0.8 
 - fast:         min 0.9+1.7, idle 0.3+1.3 
 - Groups Tasks that use up to 20% of the little cluster into a single small core
-- 1ms migration cost. Focus on cache locality
+- Migration cost equal to wake-up granularity. Focus on cache locality
 
 sdm675/sdm678 (Schedutil)
 - powersave:    min 1.0+1.0, idle 0.3+0.6
@@ -87,12 +87,12 @@ sdm675/sdm678 (Schedutil)
 - performance:  min 1.0+1.2, idle 0.3+0.6  
 - fast:         min 1.0+1.4, idle 0.3+1.2  
 - Groups Tasks that use up to 20% of the little cluster into a single small core
-- 2ms migration cost. Focus on cache locality
+- Migration cost equal to wake-up granularity. Focus on cache locality
 
 sdm660/636 (Interactive + Project WIPE!)
 - Still assembling the profiles
 - Groups Tasks that use up to 15% of the little cluster into a single small core
-- 1ms migration cost. Focus on cache locality
+- Migration cost equal to wake-up granularity. Focus on cache locality
 ```
 
 - Battery Saver Mode: A mode that enables additional power-saving optimizations. It can be used with any profile; after all, it will only perform additional optimizations.
@@ -194,5 +194,4 @@ imported some optimizations to integrate the user experience improvement that pe
 
 Credits to the artist of the image I used as the cover
 ```
-
 
