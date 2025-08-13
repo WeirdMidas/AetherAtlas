@@ -13,7 +13,7 @@ See details of the original project created by Matt Yang [the lead project](http
 
 - A CPU/GPU, DevFreq and Scheduler optimization module. It's placebo-free and focuses entirely on improving the Android's dynamic behavior.
 - Integrates the Tracker optimization called Rice-to-idle (Race to idle whenever possible). This is a way to optimize WALT/PELT that allows the CPU to scale frequencies according to immediate performance needs, always preferring to resolve the task quickly even if this requires a higher frequency. Based on this, a touch of "opportunism" was also introduced, where the CPU scales as needed but always one step back, avoiding unnecessarily high frequencies.
-- Integrates the EAS scheduler optimization called "EAO" (Energy-Aware Opportunism). This is a way to optimize the EAS scheduler and the schedutil/interactive governor so that they prefer more energy-efficient placement, frequencies, and scheduling even in high-performance profiles always preferring a scheduling that is fairer and more efficient among all, prioritizing justice for all. Always preferring to save energy by already knowing the immediate performance needs.
+- Integrate an EAS optimization strategy called "EAO" (Energy-Aware Opportunism). This is a way to optimize the EAS scheduler that focuses on integrating fairer behavior into the EAS, prioritizing efficient fairness between processes to enable better overall performance and below-average energy consumption.
 - It also includes two additional features: "Power Saving Mode," a way to add additional battery-saving optimizations to the current profile. This can be used on any profile, even high-performance ones. And a "GameSpace" daemon, which allows you to change the CPU affinity of games you've listed so they use only the most powerful cores on your system, maximizing performance.
 - Improve and optimize the behavior of subsystems that directly impact the user experience, such as audio, encoder, and others. This allows you to significantly reduce the power consumption of these subsystems, improving the user experience.
 
@@ -194,4 +194,5 @@ imported some optimizations to integrate the user experience improvement that pe
 
 Credits to the artist of the image I used as the cover
 ```
+
 
