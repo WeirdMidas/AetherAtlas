@@ -24,6 +24,7 @@ See details of the original project created by Matt Yang [the lead project](http
 - performance: without limitations, seeks maximum performance to the detriment of an efficient "to-idle"
 - fast: providing stable performance capacity considering the TDP limitation of device chassis
 
+
 ```plain
 sdm865/870 (Schedutil)
 - powersave:    min 1.1+1.0+1.1, idle 0.3+0.7+1.1
@@ -50,18 +51,18 @@ sdm845 (Schedutil)
 - 1ms migration cost. Focus on cache locality
 
 sdm765/sdm765g (Schedutil)
-- powersave:    min 1.0+1.0+0.8, idle 0.3+0.6+0.8
-- balance:      min 1.0+1.0+0.8, idle 0.3+0.6+0.6
-- performance:  min 1.0+1.2+0.8, idle 0.3+0.6+0.8
-- fast:         min 1.0+1.4+1.7, idle 0.3+1.1+1.4
+- powersave:    min 0.9+1.0+0.8, idle 0.3+0.6+0.8
+- balance:      min 0.9+1.0+0.8, idle 0.3+0.6+0.6
+- performance:  min 0.9+1.2+0.8, idle 0.3+0.6+0.8
+- fast:         min 0.9+1.4+1.7, idle 0.3+1.1+1.4
 - Groups Tasks that use up to 25% of the little cluster into a single small core
 - No migration cost, take full advantage of the dynamLQ architecture
 
 sdm730/sdm730g (Schedutil)
-- powersave:    min 1.0+1.0, idle 0.3+0.6
-- balance:      min 1.0+1.0, idle 0.3+0.6 
-- performance:  min 1.0+1.2, idle 0.3+0.6  
-- fast:         min 1.0+1.4, idle 0.3+1.2 
+- powersave:    min 0.9+1.0, idle 0.3+0.6
+- balance:      min 0.9+1.0, idle 0.3+0.6 
+- performance:  min 0.9+1.2, idle 0.3+0.6  
+- fast:         min 0.9+1.4, idle 0.3+1.2 
 - Groups Tasks that use up to 25% of the little cluster into a single small core
 - 2ms migration cost. Focus on cache locality
 
@@ -74,18 +75,18 @@ sdm710/sdm712 (Schedutil)
 - 2ms migration cost. Focus on cache locality
 
 sdm680/sdm685 (Schedutil)
-- powersave:    min 0.9+1.0, idle 0.3+0.8
-- balance:      min 0.9+1.0, idle 0.3+0.8 
-- performance:  min 0.9+1.0, idle 0.3+0.8 
-- fast:         min 0.9+1.7, idle 0.3+1.3 
+- powersave:    min 1.1+1.0, idle 0.3+0.8
+- balance:      min 1.1+1.0, idle 0.3+0.8 
+- performance:  min 1.1+1.0, idle 0.3+0.8 
+- fast:         min 1.1+1.7, idle 0.3+1.3 
 - Groups Tasks that use up to 20% of the little cluster into a single small core
 - 1ms migration cost. Focus on cache locality
 
 sdm675/sdm678 (Schedutil)
-- powersave:    min 1.0+1.0, idle 0.3+0.6
-- balance:      min 1.0+1.0, idle 0.3+0.6 
-- performance:  min 1.0+1.2, idle 0.3+0.6  
-- fast:         min 1.0+1.4, idle 0.3+1.2  
+- powersave:    min 0.9+1.0, idle 0.3+0.6
+- balance:      min 0.9+1.0, idle 0.3+0.6 
+- performance:  min 0.9+1.2, idle 0.3+0.6  
+- fast:         min 0.9+1.4, idle 0.3+1.2  
 - Groups Tasks that use up to 20% of the little cluster into a single small core
 - 2ms migration cost. Focus on cache locality
 
@@ -194,5 +195,6 @@ imported some optimizations to integrate the user experience improvement that pe
 
 Credits to the artist of the image I used as the cover
 ```
+
 
 
