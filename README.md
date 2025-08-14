@@ -52,41 +52,41 @@ sdm845 (Schedutil)
 
 sdm765/sdm765g (Schedutil)
 - powersave:    min 0.9+1.0+0.8, idle 0.3+0.6+0.8
-- balance:      min 0.9+1.0+0.8, idle 0.3+0.6+0.6
-- performance:  min 0.9+1.2+0.8, idle 0.3+0.6+0.8
-- fast:         min 0.9+1.4+1.7, idle 0.3+1.1+1.4
+- balance:      min 0.9+1.0+0.8, idle 0.6+0.6+0.6
+- performance:  min 0.9+1.2+0.8, idle 0.6+0.6+0.8
+- fast:         min 0.9+1.4+1.7, idle 0.6+1.1+1.4
 - Groups Tasks that use up to 25% of the little cluster into a single small core
 - No migration cost, take full advantage of the dynamLQ architecture
 
 sdm730/sdm730g (Schedutil)
 - powersave:    min 0.9+1.0, idle 0.3+0.6
-- balance:      min 0.9+1.0, idle 0.3+0.6 
-- performance:  min 0.9+1.2, idle 0.3+0.6  
-- fast:         min 0.9+1.4, idle 0.3+1.2 
+- balance:      min 0.9+1.0, idle 0.5+0.6 
+- performance:  min 0.9+1.2, idle 0.5+0.6  
+- fast:         min 0.9+1.4, idle 0.5+1.2 
 - Groups Tasks that use up to 25% of the little cluster into a single small core
 - 2ms migration cost. Focus on cache locality
 
 sdm710/sdm712 (Schedutil)
 - powersave:    min 0.9+1.1, idle 0.3+0.6
-- balance:      min 0.9+1.1, idle 0.3+0.6
-- performance:  min 0.9+1.1, idle 0.3+0.6
-- fast:         min 0.9+1.5, idle 0.3+1.5
+- balance:      min 0.9+1.1, idle 0.5+0.6
+- performance:  min 0.9+1.1, idle 0.5+0.6
+- fast:         min 0.9+1.5, idle 0.5+1.5
 - Groups Tasks that use up to 25% of the little cluster into a single small core
 - 2ms migration cost. Focus on cache locality
 
 sdm680/sdm685 (Schedutil)
 - powersave:    min 1.1+1.0, idle 0.3+0.8
-- balance:      min 1.1+1.0, idle 0.3+0.8 
-- performance:  min 1.1+1.0, idle 0.3+0.8 
-- fast:         min 1.1+1.7, idle 0.3+1.3 
+- balance:      min 1.1+1.0, idle 0.6+0.8 
+- performance:  min 1.1+1.0, idle 0.6+0.8 
+- fast:         min 1.1+1.7, idle 0.6+1.3 
 - Groups Tasks that use up to 20% of the little cluster into a single small core
 - 1ms migration cost. Focus on cache locality
 
 sdm675/sdm678 (Schedutil)
 - powersave:    min 0.9+1.0, idle 0.3+0.6
-- balance:      min 0.9+1.0, idle 0.3+0.6 
-- performance:  min 0.9+1.2, idle 0.3+0.6  
-- fast:         min 0.9+1.4, idle 0.3+1.2  
+- balance:      min 0.9+1.0, idle 0.5+0.6 
+- performance:  min 0.9+1.2, idle 0.5+0.6  
+- fast:         min 0.9+1.4, idle 0.5+1.2
 - Groups Tasks that use up to 20% of the little cluster into a single small core
 - 2ms migration cost. Focus on cache locality
 
@@ -195,6 +195,7 @@ imported some optimizations to integrate the user experience improvement that pe
 
 Credits to the artist of the image I used as the cover
 ```
+
 
 
 
