@@ -100,7 +100,7 @@ sdm660/636 (Interactive + Project WIPE!)
 - GameSpace: A daemon that changes the affinity of games that the user has put on the list to pin them to the most powerful cores.
 
 ### Does your SOC not have support? And want to help with development? Read below
-Perfd opt itself will optimize not only Snapdragon devices; other SoCs will also be able to integrate with the module, having their own specific profiles. If you didn't find your SoC in the compatibility list but want to contribute to the project and help me further cover it, please submit an issue answering the questions below:
+Aether Atlas itself will optimize not only Snapdragon devices; other SoCs will also be able to integrate with the module, having their own specific profiles. If you didn't find your SoC in the compatibility list but want to contribute to the project and help me further cover it, please submit an issue answering the questions below:
 
 Q. Is your SoC a MediaTek, Snapdragon, or?  
 A. Please provide the name of your processor/CPU. Also, its codename. To obtain this, you can use this command: 
@@ -127,12 +127,11 @@ A. Just send me the path to your DDR. This will help me lock it to a more effici
 
 ## Installation
 
-1. Download zip in [Release Page](https://github.com/yc9559/perfd-opt/releases)
+1. Download zip in [Release Page](https://github.com/WeirdMidas/AetherAtlas/releases)
 2. Flash in Magisk or KSU manager
 3. Reboot and Check whether `/sdcard/Android/panel_powercfg.txt` exists. Remember Each SOC will have a different profile, so don't expect the same optimizations as an old or new SOC.   
-4. Schedhorizon compatible, which will be preferred if the user has it in their kernel. It will also be optimized for "efficient" scaling.  
-5. Schedutil is preferred for SOCs that were released without Interactive and without Project WIPE compatibility!
-6. It is recommended that the user kernel not be heavily modified, such as kernels that change the frequency table.
+4. Schedutil is preferred for SOCs that were released without Interactive and without Project WIPE compatibility!
+5. It is recommended that the user kernel not be heavily modified, such as kernels that change the frequency table.
 
 ## Switch modes
 
@@ -195,6 +194,7 @@ imported some optimizations to integrate the user experience improvement that pe
 
 Credits to the artist of the image I used as the cover
 ```
+
 
 
 
