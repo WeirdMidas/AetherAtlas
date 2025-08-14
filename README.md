@@ -131,7 +131,7 @@ A. Just send me the path to your DDR. This will help me lock it to a more effici
 2. Flash in Magisk or KSU manager
 3. Reboot and Check whether `/sdcard/Android/panel_powercfg.txt` exists. Remember Each SOC will have a different profile, so don't expect the same optimizations as an old or new SOC.   
 4. Schedutil is preferred for SOCs that were released without Interactive and without Project WIPE compatibility!
-5. It is recommended that the user kernel not be heavily modified, such as kernels that change the frequency table.
+5. It is recommended that the user does not use extremely optimized kernels, such as those that change the frequency table.
 
 ## Switch modes
 
@@ -194,6 +194,7 @@ imported some optimizations to integrate the user experience improvement that pe
 
 Credits to the artist of the image I used as the cover
 ```
+
 
 
 
