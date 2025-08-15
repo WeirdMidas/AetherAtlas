@@ -11,7 +11,7 @@ See details of the original project created by Matt Yang [the lead project](http
 
 ## Features
 
-- A CPU/GPU, DevFreq and Scheduler optimization module. It's placebo-free and focuses entirely on improving the Android's dynamic behavior.
+- A CPU/GPU, DevFreq and Scheduler optimization module. It's placebo-free and focuses entirely on improving the Android's dynamic behavior. Ignore benchmarks; they're for one-off testing only. The module prioritizes fairness and efficiency in the scheduler over simple scoring.
 - Integrates the Tracker optimization called Rice-to-idle (Race to idle whenever possible). This is a way to optimize WALT/PELT that allows the CPU to scale frequencies according to immediate performance needs, always preferring to resolve the task quickly even if this requires a higher frequency. Based on this, a touch of "opportunism" was also introduced, where the CPU scales as needed but always one step back, avoiding unnecessarily high frequencies.
 - Integrate an EAS optimization strategy called "EAO" (Energy-Aware Opportunism). This is a way to optimize the EAS scheduler that focuses on integrating fairer behavior into the EAS, prioritizing efficient fairness between processes to enable better overall performance and below-average energy consumption.
 - It also includes two additional features: "Power Saving Mode," a way to add additional battery-saving optimizations to the current profile. This can be used on any profile, even high-performance ones. And a "GameSpace" daemon, which allows you to change the CPU affinity of games you've listed so they use only the most powerful cores on your system, maximizing performance.
@@ -48,6 +48,14 @@ sdm845 (Schedutil)
 - performance:  min 1.1+1.6, idle 0.5+0.8 
 - fast:         min 1.1+1.6, idle 0.5+1.6
 - Groups Tasks that use up to 30% of the little cluster into a single small core
+- 1ms migration cost. Focus on cache locality
+
+sdm835 (Interactive + Project WIPE!)
+- powersave:    min 1.0+1.0
+- balance:      min 1.0+1.0
+- performance:  min 1.0+1.0
+- fast:         min 1.0+1.3
+- Groups Tasks that use up to 25% of the little cluster into a single small core
 - 1ms migration cost. Focus on cache locality
 
 sdm765/sdm765g (Schedutil)
@@ -91,7 +99,10 @@ sdm675/sdm678 (Schedutil)
 - 2ms migration cost. Focus on cache locality
 
 sdm660/636 (Interactive + Project WIPE!)
-- Still assembling the profiles
+- powersave:    min 1.0+1.0
+- balance:      min 1.0+1.0
+- performance:  min 1.0+1.0
+- fast:         min 1.0+1.3
 - Groups Tasks that use up to 15% of the little cluster into a single small core
 - 1ms migration cost. Focus on cache locality
 ```
