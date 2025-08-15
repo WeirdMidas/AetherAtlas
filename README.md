@@ -12,8 +12,8 @@ See details of the original project created by Matt Yang [the lead project](http
 ## Features
 
 - A CPU/GPU, DevFreq and Scheduler optimization module. It's placebo-free and focuses entirely on improving the Android's dynamic behavior. Ignore benchmarks; they're for one-off testing only. The module prioritizes fairness and efficiency in the scheduler over simple scoring.
-- Integrates the Tracker optimization called Rice-to-idle (Race to idle whenever possible). This is a way to optimize WALT/PELT that allows the CPU to scale frequencies according to immediate performance needs, always preferring to resolve the task quickly even if this requires a higher frequency. Based on this, a touch of "opportunism" was also introduced, where the CPU scales as needed but always one step back, avoiding unnecessarily high frequencies.
-- Integrate an EAS optimization strategy called "EAO" (Energy-Aware Opportunism). This is a way to optimize the EAS scheduler that focuses on integrating fairer behavior into the EAS, prioritizing efficient fairness between processes to enable better overall performance and below-average energy consumption.
+- Integrate the "Rice-to-idle" strategy into the WALT/PELT Tracker. This is a way to use frequencies that benefit the task from being completed as quickly as possible, allowing it to rest immediately. This strategy was previously considered inefficient, and no one knew how to apply it correctly. The module currently attempts to implement this strategy better. Now that it understands the limitations of each SOC, the "Rice-to-idle" strategy becomes more efficient and strategic by incorporating "opportunism" into the equation.
+- Integrate optimizations and improvements into the EAS and HMP schedulers, following a strategy called "Energy-Aware Task Placement." Based on this optimization method that fully integrates with the "Rice-to-idle" tracker strategy, the way EAS and HMP are optimized is for efficiency and fairness between processes, always prioritizing the user experience first, even if this causes benchmarks to have inferior results.
 - It also includes two additional features: "Power Saving Mode," a way to add additional battery-saving optimizations to the current profile. This can be used on any profile, even high-performance ones. And a "GameSpace" daemon, which allows you to change the CPU affinity of games you've listed so they use only the most powerful cores on your system, maximizing performance.
 - Improve and optimize the behavior of subsystems that directly impact the user experience, such as audio, encoder, and others. This allows you to significantly reduce the power consumption of these subsystems, improving the user experience.
 
@@ -23,7 +23,6 @@ See details of the original project created by Matt Yang [the lead project](http
 - balance: smoother than the stock config with lower power consumption
 - performance: without limitations, seeks maximum performance to the detriment of an efficient "to-idle"
 - fast: providing stable performance capacity considering the TDP limitation of device chassis
-
 
 ```plain
 sdm865/870 (Schedutil)
