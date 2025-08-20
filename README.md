@@ -1,19 +1,20 @@
-# Aether Atlas
+# Perfd opt
 ![1000003638](https://github.com/user-attachments/assets/1fdf8b8b-8886-4402-91a7-f32ba3c441a9)
 
 # Review
 
 The previous [Project WIPE](https://github.com/yc9559/cpufreq-interactive-opt), automatically adjust the `interactive` parameters via simulation and heuristic optimization algorithms, and working on all mainstream devices which use `interactive` as default governor. The recent [WIPE v2](https://github.com/yc9559/wipe-v2), improved simulation supports more features of the kernel and focuses on rendering performance requirements, automatically adjusting the `interactive`+`HMP`+`input boost` parameters. However, when the HMP scheduler was removed from mainline and in sequence the interactive was also removed. The new scheduler was integrated into recent Android devices (from 2020 onwards) and replaced the mainstream: EAS (Energy-Aware Scheduling), a scheduler that focuses on energy efficiency rather than raw performance, abandoning very old solutions like CFS (Completely Fair Scheduler) and even HMP (Heterogeneous Multi-Processing). But that's not all; trackers like WALT (Window-Assisted Load Tracking) and PELT (Per-Entity Load Tracking) were also integrated, allowing load tracking to be as stable or as fast as possible, depending on the device used. The way to manage the task of each scheduler and tracker became complicated, causing many users to have to specialize in each scheduler to know when and where to optimize to reduce energy consumption, without penalty of performance losses or latency. Causing information to be lost and everything to be obfuscated, making it difficult for users who would like to do this to optimize. This caused even schedutil to be affected, reducing the accuracy of tests because schedutil often works differently in each scheduler.
 
-[WIPE v2](https://github.com/yc9559/wipe-v2) focuses on meeting performance requirements when interacting with APP, while reducing non-interactive lag weights, pushing the trade-off between fluency and power saving even further. Based on this old project, Perfd opt tries to find a way to, in turn: make the EAS and the device's Tracker more "united", this means that the WALT, or even the PELT, can synchronize better with the EAS, allowing them to track loads, help the EAS to perform better, both energetically and in high performance, allowing the Scheduler and the device's Tracker to work together, improving the consistency of the WALT and the response of the PELT. Where the Scheduler and Tracker will follow the "**Opportunistic** Rice-to-idle" strategy, this means that the way the Scheduler and Tracker work is completely opportunistic with the bias in saving energy by having an immediate "to-idle" entry if the demand ends, of course, based on the performance demand, a more aggressive ramping (or better, "rice") is preferred, always looking for efficient frequencies that can feed the need for immediate performance of the situation. However, as the power profile currently being used becomes closer to high performance, more preference is given to powerful cores, and then, upon completion of the interaction, the device runs directly to idle, using much lower frequencies compared to the standard ones. 
+[WIPE v2](https://github.com/yc9559/wipe-v2) focuses on meeting performance requirements when interacting with APP, while reducing non-interactive lag weights, pushing the trade-off between fluency and power saving even further. Based on this old project, Perfd-opt tries to find a way to, in turn: make the EAS and the device's Tracker more "united", this means that the WALT, or even the PELT, can synchronize better with the EAS, allowing them to track loads, help the EAS to perform better, both energetically and in high performance, improving the consistency of the WALT and the response of the PELT. Where the Scheduler and Tracker will follow the "**Opportunistic** Rice-to-idle" strategy, this means that the way the Scheduler and Tracker work is completely opportunistic with the bias in saving energy by having an immediate "to-idle" entry if the demand ends, of course, based on the performance demand, a more aggressive ramping (or better, "rice") is preferred, always looking for efficient frequencies that can feed the need for immediate performance of the situation. However, as the power profile currently being used becomes closer to high performance, more preference is given to powerful cores, and then, upon completion of the interaction, the device runs directly to idle, using much lower frequencies compared to the standard ones. 
 
 See details of the original project created by Matt Yang [the lead project](https://github.com/yc9559/sdm855-tune/commits/master) & [perfd-opt commits](https://github.com/yc9559/perfd-opt/commits/master)    
-
+ 
 ## Features
 
 - A CPU/GPU, DevFreq and Scheduler optimization module. It's placebo-free and focuses entirely on improving the Android's dynamic behavior. Ignore benchmarks; they're for one-off testing only. The module prioritizes fairness and efficiency in the scheduler over simple scoring.
 - Integrate the "Rice-to-idle" strategy into the WALT/PELT Tracker. This is a way to use frequencies that benefit the task from being completed as quickly as possible, allowing it to rest immediately. This strategy was previously considered inefficient, and no one knew how to apply it correctly. The module currently attempts to implement this strategy better. Now that it understands the limitations of each SOC, the "Rice-to-idle" strategy becomes more efficient and strategic by incorporating "opportunism" into the equation.
-- Integrate optimizations and improvements into the EAS and HMP schedulers, following a strategy called "Energy-Aware Task Placement." Based on this optimization method that fully integrates with the "Rice-to-idle" tracker strategy, the way EAS and HMP are optimized is for efficiency and fairness between processes, always prioritizing the user experience first, even if this causes benchmarks to have inferior results.
+- The EAS and HMP schedulers will have their respective optimizations, focusing on a strategy called "Efficient and Fast Placement." This approach to placing tasks between cores aims to have fewer useless heuristics and the best heuristics for the scheduler at the time, allowing for more accurate and faster reaction to the tracker, enabling better task performance and decision-making.
+- Integrated optimizations into the SOC's Boost Framework. This means that the Boost Framework of compatible SOCs is also optimized, but this is only for compatible SOCs and is an extra/additional optimization. Each listed SOC will be stated whether it has these optimizations or not.
 - It also includes two additional features: "Power Saving Mode," a way to add additional battery-saving optimizations to the current profile. This can be used on any profile, even high-performance ones. And a "GameSpace" daemon, which allows you to change the CPU affinity of games you've listed so they use only the most powerful cores on your system, maximizing performance.
 - Improve and optimize the behavior of subsystems that directly impact the user experience, such as audio, encoder, and others. This allows you to significantly reduce the power consumption of these subsystems, improving the user experience.
 
@@ -32,6 +33,7 @@ sdm865/870 (Schedutil)
 - fast:         min 1.1+1.5+1.7, idle 0.6+1.2+1.2
 - Groups Tasks that use up to 30% of the little cluster into a single small core
 - No migration cost, take full advantage of the dynamLQ architecture
+- Compatibility with Boost Framework improvements: No
 
 sdm855/855+/860 (Schedutil)
 - powersave:    min 1.1+1.0+0.8, idle 0.3+0.7+0.8
@@ -40,6 +42,7 @@ sdm855/855+/860 (Schedutil)
 - fast:         min 1.1+1.6+1.6, idle 0.5+1.2+1.2
 - Groups Tasks that use up to 30% of the little cluster into a single small core
 - No migration cost, take full advantage of the dynamLQ architecture
+- Compatibility with Boost Framework improvements: No
 
 sdm845 (Schedutil)
 - powersave:    min 1.1+1.2, idle 0.3+0.3
@@ -48,6 +51,7 @@ sdm845 (Schedutil)
 - fast:         min 1.1+1.6, idle 0.5+1.6
 - Groups Tasks that use up to 30% of the little cluster into a single small core
 - 1ms migration cost. Focus on cache locality
+- Compatibility with Boost Framework improvements: No
 
 sdm835 (Interactive + Project WIPE!)
 - powersave:    min 1.0+1.0
@@ -56,6 +60,7 @@ sdm835 (Interactive + Project WIPE!)
 - fast:         min 1.0+1.3
 - Groups Tasks that use up to 25% of the little cluster into a single small core
 - 1ms migration cost. Focus on cache locality
+- Compatibility with Boost Framework improvements: No
 
 sdm765/sdm765g (Schedutil)
 - powersave:    min 0.9+1.0+0.8, idle 0.3+0.6+0.8
@@ -64,6 +69,7 @@ sdm765/sdm765g (Schedutil)
 - fast:         min 0.9+1.4+1.7, idle 0.6+1.1+1.4
 - Groups Tasks that use up to 25% of the little cluster into a single small core
 - No migration cost, take full advantage of the dynamLQ architecture
+- Compatibility with Boost Framework improvements: No
 
 sdm730/sdm730g (Schedutil)
 - powersave:    min 0.9+1.0, idle 0.3+0.6
@@ -72,6 +78,7 @@ sdm730/sdm730g (Schedutil)
 - fast:         min 0.9+1.4, idle 0.5+1.2 
 - Groups Tasks that use up to 25% of the little cluster into a single small core
 - 2ms migration cost. Focus on cache locality
+- Compatibility with Boost Framework improvements: Yes
 
 sdm710/sdm712 (Schedutil)
 - powersave:    min 0.9+1.1, idle 0.3+0.6
@@ -80,6 +87,7 @@ sdm710/sdm712 (Schedutil)
 - fast:         min 0.9+1.5, idle 0.5+1.5
 - Groups Tasks that use up to 25% of the little cluster into a single small core
 - 2ms migration cost. Focus on cache locality
+- Compatibility with Boost Framework improvements: No
 
 sdm680/sdm685 (Schedutil)
 - powersave:    min 1.1+1.0, idle 0.3+0.8
@@ -88,6 +96,7 @@ sdm680/sdm685 (Schedutil)
 - fast:         min 1.1+1.7, idle 0.6+1.3 
 - Groups Tasks that use up to 20% of the little cluster into a single small core
 - 1ms migration cost. Focus on cache locality
+- Compatibility with Boost Framework improvements: Yes
 
 sdm675/sdm678 (Schedutil)
 - powersave:    min 0.9+1.0, idle 0.3+0.6
@@ -96,6 +105,7 @@ sdm675/sdm678 (Schedutil)
 - fast:         min 0.9+1.4, idle 0.5+1.2
 - Groups Tasks that use up to 20% of the little cluster into a single small core
 - 2ms migration cost. Focus on cache locality
+- Compatibility with Boost Framework improvements: Yes
 
 sdm660/636 (Interactive + Project WIPE!)
 - powersave:    min 1.0+1.0
@@ -104,6 +114,8 @@ sdm660/636 (Interactive + Project WIPE!)
 - fast:         min 1.0+1.3
 - Groups Tasks that use up to 15% of the little cluster into a single small core
 - 1ms migration cost. Focus on cache locality
+- Compatibility with Boost Framework improvements: No
+
 ```
 
 - Battery Saver Mode: A mode that enables additional power-saving optimizations. It can be used with any profile; after all, it will only perform additional optimizations.
