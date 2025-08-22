@@ -23,7 +23,7 @@ See details of the original project created by Matt Yang [the lead project](http
 
 ```plain
 sdm865/870 (Schedutil)
-- powersave:    min 1.1+1.0+1.1, idle 0.3+0.7+1.1
+- powersave:    min 1.1+0.7+1.1, idle 0.3+0.7+1.1
 - balance:      min 1.1+1.0+1.1, idle 0.6+0.7+1.1
 - performance:  min 1.1+1.2+1.1, idle 0.6+0.7+1.1
 - fast:         min 1.1+1.5+1.7, idle 0.6+1.2+1.2
@@ -31,7 +31,7 @@ sdm865/870 (Schedutil)
 - No migration cost, take full advantage of the dynamLQ architecture
 
 sdm855/855+/860 (Schedutil)
-- powersave:    min 1.1+1.0+0.8, idle 0.3+0.7+0.8
+- powersave:    min 1.1+0.7+0.8, idle 0.3+0.7+0.8
 - balance:      min 1.1+1.0+0.8, idle 0.5+0.7+1.1
 - performance:  min 1.1+1.2+0.8, idle 0.5+0.7+1.1
 - fast:         min 1.1+1.6+1.6, idle 0.5+1.2+1.2
@@ -39,7 +39,7 @@ sdm855/855+/860 (Schedutil)
 - No migration cost, take full advantage of the dynamLQ architecture
 
 sdm845 (Schedutil)
-- powersave:    min 1.1+1.2, idle 0.3+0.3
+- powersave:    min 1.1+0.8, idle 0.3+0.8
 - balance:      min 1.1+1.2, idle 0.5+0.8 
 - performance:  min 1.1+1.6, idle 0.5+0.8 
 - fast:         min 1.1+1.6, idle 0.5+1.6
@@ -47,7 +47,7 @@ sdm845 (Schedutil)
 - 1ms migration cost. Focus on cache locality
 
 sdm835 (Interactive + Project WIPE!)
-- powersave:    min 1.0+1.0
+- powersave:    min 1.0
 - balance:      min 1.0+1.0
 - performance:  min 1.0+1.0
 - fast:         min 1.0+1.3
@@ -55,7 +55,7 @@ sdm835 (Interactive + Project WIPE!)
 - 1ms migration cost. Focus on cache locality
 
 sdm765/sdm765g (Schedutil)
-- powersave:    min 0.9+1.0+0.8, idle 0.3+0.6+0.8
+- powersave:    min 0.9+0.6+0.8, idle 0.3+0.6+0.8
 - balance:      min 0.9+1.0+0.8, idle 0.6+0.6+0.6
 - performance:  min 0.9+1.2+0.8, idle 0.6+0.6+0.8
 - fast:         min 0.9+1.4+1.7, idle 0.6+1.1+1.4
@@ -63,7 +63,7 @@ sdm765/sdm765g (Schedutil)
 - No migration cost, take full advantage of the dynamLQ architecture
 
 sdm730/sdm730g (Schedutil)
-- powersave:    min 0.9+1.0, idle 0.3+0.6
+- powersave:    min 0.9+0.6, idle 0.3+0.6
 - balance:      min 0.9+1.0, idle 0.5+0.6 
 - performance:  min 0.9+1.2, idle 0.5+0.6  
 - fast:         min 0.9+1.4, idle 0.5+1.2 
@@ -71,7 +71,7 @@ sdm730/sdm730g (Schedutil)
 - 2ms migration cost. Focus on cache locality
 
 sdm710/sdm712 (Schedutil)
-- powersave:    min 0.9+1.1, idle 0.3+0.6
+- powersave:    min 0.9+0.6, idle 0.3+0.6
 - balance:      min 0.9+1.1, idle 0.5+0.6
 - performance:  min 0.9+1.1, idle 0.5+0.6
 - fast:         min 0.9+1.5, idle 0.5+1.5
@@ -79,7 +79,7 @@ sdm710/sdm712 (Schedutil)
 - 2ms migration cost. Focus on cache locality
 
 sdm680/sdm685 (Schedutil)
-- powersave:    min 1.1+1.0, idle 0.3+0.8
+- powersave:    min 1.1+0.8, idle 0.3+0.8
 - balance:      min 1.1+1.0, idle 0.6+0.8 
 - performance:  min 1.1+1.0, idle 0.6+0.8 
 - fast:         min 1.1+1.7, idle 0.6+1.3 
@@ -87,7 +87,7 @@ sdm680/sdm685 (Schedutil)
 - 1ms migration cost. Focus on cache locality
 
 sdm675/sdm678 (Schedutil)
-- powersave:    min 0.9+1.0, idle 0.3+0.6
+- powersave:    min 0.9+0.6, idle 0.3+0.6
 - balance:      min 0.9+1.0, idle 0.5+0.6 
 - performance:  min 0.9+1.2, idle 0.5+0.6  
 - fast:         min 0.9+1.4, idle 0.5+1.2
