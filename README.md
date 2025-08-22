@@ -95,7 +95,7 @@ sdm675/sdm678 (Schedutil)
 - 2ms migration cost. Focus on cache locality
 
 sdm660/636 (Interactive + Project WIPE!)
-- powersave:    min 1.0+1.0
+- powersave:    min 1.0
 - balance:      min 1.0+1.0
 - performance:  min 1.0+1.0
 - fast:         min 1.0+1.3
@@ -202,6 +202,7 @@ imported some optimizations to integrate the user experience improvement that pe
 
 Credits to the artist of the image I used as the cover
 ```
+
 
 
 
