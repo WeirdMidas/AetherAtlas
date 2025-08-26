@@ -8,11 +8,11 @@ See details of the original project created by Matt Yang [the lead project](http
  
 ## Features
 
-- A module that optimizes the CPU/GPU and scheduler. No pretense, and with a total focus on efficiency.
-- Integrate the "Rice-to-idle" strategy into the WALT/PELT Tracker. This is a way to use frequencies that benefit the task from being completed as quickly as possible, allowing it to rest immediately. This strategy was previously considered inefficient, and no one knew how to apply it correctly. The module currently attempts to implement this strategy better. Now that it understands the limitations of each SOC, the "Rice-to-idle" strategy becomes more efficient and strategic by incorporating "opportunism" into the equation.
-- The EAS and HMP schedulers will have their respective optimizations, focusing on a strategy called "Efficient and Fast Placement." This approach to placing tasks between cores aims to have fewer useless heuristics and the best heuristics for the scheduler at the time, allowing for more accurate and faster reaction to the tracker, enabling better task performance and decision-making.
+- A module that optimizes the CPU/GPU, DevFreq and Scheduler with specific profiles for each compatible SOC in addition to general optimizations for the purpose of pushing the limits and horizons between energy savings and performance, prioritizing the user experience first as the module's logo, respecting the limits and characteristics of each SOC individually to extract the maximum from each one.
+- Integrate the "Rice-to-idle" strategy as the module's main strategy. Allow the Android scheduler and tracker to resolve tasks immediately and rest almost instantly. The focus of this strategy is to prioritize the user experience when interactions occur and save as much energy as possible when interactions stop.
+- Optimize the EAS and HMP schedulers based on each SOC's capabilities. Big.LITTLE SOCs have different optimizations than dynamlQ SOCs, and vice versa. Maximize the efficiency and balance of each SOC, allowing EAS and even HMP to maximize efficiency in both power consumption and performance by leveraging their capabilities, such as task scheduler optimization on 8-core SOCs, and so on.
 - It also includes two additional features: "Power Saving Mode," a way to add additional battery-saving optimizations to the current profile. This can be used on any profile, even high-performance ones. And a "GameSpace" daemon, which allows you to change the CPU affinity of games you've listed so they use only the most powerful cores on your system, maximizing performance.
-- Improve and optimize the behavior of subsystems that directly impact the user experience, such as audio, encoder, and others. This allows you to significantly reduce the power consumption of these subsystems, improving the user experience.
+- Improve and optimize the behavior of subsystems that directly impact the user experience, such as radio, wi-fi, audio, encoder, and others. This allows you to significantly reduce the power consumption of these subsystems, improving the user experience.
 
 ## Profiles
 
