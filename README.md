@@ -43,10 +43,10 @@ sdm845 (Schedutil)
 - fast:         min 1.1+1.6, idle 0.5+1.6
 
 sdm835 (Interactive + Project WIPE!)
-- powersave:    min 1.0
-- balance:      min 1.0+1.0
-- performance:  min 1.0+1.2
-- fast:         min 1.0+1.3
+- powersave:    min 0.3+0.2, idle 0.2+0.2
+- balance:      min 0.3+0.3, idle 0.2+0.2
+- performance:  min 0.3+0.3, idle 0.2+0.2
+- fast:         min 1.5+1.4, idle 1.4+1.3
 
 sdm765/sdm765g (Schedutil)
 - powersave:    min 0.9+0.6+0.8, idle 0.3+0.6+0.8
@@ -80,10 +80,10 @@ sdm675/sdm678 (Schedutil)
 - fast:         min 0.9+1.4, idle 0.5+1.2
 
 sdm660/636 (Interactive + Project WIPE!)
-- powersave:    min 1.0
-- balance:      min 1.0+1.0
-- performance:  min 1.0+1.3
-- fast:         min 1.0+1.4
+- powersave:    min 1.0+1.0, idle 0.3+1.0
+- balance:      min 1.0+1.1, idle 0.5+1.0
+- performance:  min 1.0+1.3, idle 0.5+1.0
+- fast:         min 1.0+1.4, idle 0.5+1.3
 ```
 
 - Battery Saver Mode: A mode that enables additional power-saving optimizations. It can be used with any profile; after all, it will only perform additional optimizations.
