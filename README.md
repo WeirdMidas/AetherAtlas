@@ -6,13 +6,20 @@ The previous [Project WIPE](https://github.com/yc9559/cpufreq-interactive-opt), 
 
 See details of the original project created by Matt Yang [the lead project](https://github.com/yc9559/sdm855-tune/commits/master) & [perfd-opt commits](https://github.com/yc9559/perfd-opt/commits/master)    
  
+---
+
+> [RECOMMENDATION!]
+> It is recommended to use the [SkyScene Addon](https://github.com/WeirdMidas/SkySceneAddon) module with perfd ​​opt to improve energy efficiency, fluidity, and performance by improving memory and I/O management.
+
+---
+ 
 ## Features
 
 - A module that optimizes the CPU/GPU, DevFreq and Scheduler with specific profiles for each compatible SOC in addition to general optimizations for the purpose of pushing the limits and horizons between energy savings and performance, prioritizing the user experience first as the module's logo, respecting the limits and characteristics of each SOC individually to extract the maximum from each one.
-- Integrate the "Rice-to-idle" strategy as the module's main strategy. Allow the Android scheduler and tracker to resolve tasks immediately and rest almost instantly. The focus of this strategy is to prioritize the user experience when interactions occur and save as much energy as possible when interactions stop.
+- Introduce the "Rice-to-idle" strategy as the module's main strategy. Allow the Android scheduler and tracker to resolve tasks immediately and rest almost instantly. The focus of this strategy is to prioritize the user experience when interactions occur and save as much energy as possible when interactions stop.
 - Optimize the EAS and HMP schedulers based on each SOC's capabilities. Big.LITTLE SOCs have different optimizations than dynamlQ SOCs, and vice versa. Maximize the efficiency and balance of each SOC, allowing EAS and even HMP to maximize efficiency in both power consumption and performance by leveraging their capabilities, such as task scheduler optimization on 8-core SOCs, and so on.
-- It also includes two additional features: "Power Saving Mode," a way to add additional battery-saving optimizations to the current profile. This can be used on any profile, even high-performance ones. And a "GameSpace" daemon, which allows you to change the CPU affinity of games you've listed so they use only the most powerful cores on your system, maximizing performance.
-- Improve and optimize the behavior of subsystems that directly impact the user experience, such as radio, wi-fi, audio, encoder, and others. This allows you to significantly reduce the power consumption of these subsystems, improving the user experience.
+- Include an additional "Battery Saver Mode" feature, which allows the module to activate as if it were a power saving mode that replaces Android's default mode, allowing it to save battery power above other profiles. This feature can be used alongside high-performance profiles like Fast.
+- Improve the behavior of certain subsystems, such as audio. Reduce crashes and unnecessary logspam, and allow these subsystems to perform better than ever. These are minor optimizations, rather than occasional fixes.
 
 ## Profiles
 
@@ -43,7 +50,7 @@ sdm845 (Schedutil)
 - fast:         min 1.1+1.6, idle 0.5+1.6
 
 sdm835 (Interactive + Project WIPE!)
-- powersave:    min 0.3+0.2, idle 0.2+0.2
+- powersave:    min 0.3+0.3, idle 0.2+0.2
 - balance:      min 0.3+0.3, idle 0.2+0.2
 - performance:  min 0.3+0.3, idle 0.2+0.2
 - fast:         min 1.5+1.4, idle 1.4+1.3
@@ -87,7 +94,6 @@ sdm660/636 (Interactive + Project WIPE!)
 ```
 
 - Battery Saver Mode: A mode that enables additional power-saving optimizations. It can be used with any profile; after all, it will only perform additional optimizations.
-- GameSpace: A daemon that changes the affinity of games that the user has put on the list to pin them to the most powerful cores.
 
 ### Does your SOC not have support? And want to help with development? Read below
 Aether Atlas itself will optimize not only Snapdragon devices; other SoCs will also be able to integrate with the module, having their own specific profiles. If you didn't find your SoC in the compatibility list but want to contribute to the project and help me further cover it, please submit an issue answering the questions below:
@@ -142,18 +148,6 @@ Install [vtools](https://www.coolapk.com/apk/com.omarea.vtools) and bind APPs to
 ### How to activate battery saving mode
 
 Still in creation, we only have the base for now
-
-### How to enable GameSpace
-
-You can enable it to activate every reboot by going to the Aether dashboard and changing the "always_on" option from false to true. If you want to enable it without making it persistent between reboots, use the command:
-
-sh gamespace on
-
-To disable it:
-
-sh gamespace off
-
-To add games to the list called "GameList.txt" in the /android folder, it will identify the game. It runs every 120 seconds. When the game is on the screen, it goes to sleep for 30 minutes, after which it will go to sleep again if the game is still running.
 
 ## Credit
 
